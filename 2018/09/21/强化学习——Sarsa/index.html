@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          [Hexo] Theme BeanTech - null
+          强化学习——Sarsa - null
         
     </title>
 
-    <link rel="canonical" href="http://yoursite-url/2017/03/18/hexo-theme-beantech/">
+    <link rel="canonical" href="http://yoursite-url/2018/09/21/强化学习——Sarsa/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -69,7 +69,7 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('Demo.png')
+            background-image: url('null')
             /*post*/
         
     }
@@ -90,16 +90,12 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#Hexo" title="Hexo">Hexo</a>
-                            
-                              <a class="tag" href="/tags/#Blog" title="Blog">Blog</a>
-                            
                         </div>
-                        <h1>[Hexo] Theme BeanTech</h1>
-                        <h2 class="subheading">This is hexo theme Demo.</h2>
+                        <h1>强化学习——Sarsa</h1>
+                        <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by He Zongjiang on
-                            2017-03-18
+                            2018-09-21
                         </span>
                     </div>
                 
@@ -216,60 +212,26 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <blockquote>
-<p>Ported Theme of <a href="https://github.com/Huxpro/huxpro.github.io" target="_blank" rel="noopener">Hux Blog</a>, Thank <a href="https://github.com/Huxpro" target="_blank" rel="noopener">Huxpro</a> for designing such a flawless theme.</p>
-<p>This BeanTech theme created by <a href="http://beantech.org" target="_blank" rel="noopener">YuHsuan</a> modified from the original Porter <a href="http://kaijun.rocks/hexo-theme-huxblog/" target="_blank" rel="noopener">Kaijun</a></p>
-</blockquote>
-<h1><span id="live-demo"></span></h1>
-<hr>
-<p><img src="http://beantech.org/img/beantech-desktop.png" alt="BeanTech Desktop"></p>
-<h1><span id="usage">Usage</span></h1>
-<hr>
-<p>I publish the whole project for your convenience, so you can just follow the instruction down below, then you can easily customiz your own blog!</p>
-<p>Let’s begin!!!</p>
-<h2><span id="init">Init</span></h2>
-<hr>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/YenYuHsuan/hexo-theme-beantech.git ./hexo-beantech</span><br><span class="line"><span class="built_in">cd</span> hexo-beantech</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
-<h2><span id="modify">Modify</span></h2>
-<hr>
-<p>Modify <code>_config.yml</code> file with your own info.<br>
-Especially the section:</p>
-<h3><span id="deployment">Deployment</span></h3>
-<p>Replace to your own repo!</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="attr">  type:</span> <span class="string">git</span></span><br><span class="line"><span class="attr">  repo:</span> <span class="attr">https://github.com/&lt;yourAccount&gt;/&lt;repo&gt;</span></span><br><span class="line"><span class="attr">  branch:</span> <span class="string">&lt;your-branch&gt;</span></span><br></pre></td></tr></table></figure>
-<h3><span id="sidebar-settings">Sidebar settings</span></h3>
-<p>Copy your avatar image to <code>&lt;root&gt;/img/</code> and modify the <code>_config.yml</code>:</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">sidebar:</span> <span class="literal">true</span>    <span class="comment"># whether or not using Sidebar.</span></span><br><span class="line"><span class="attr">sidebar-about-description:</span> <span class="string">"&lt;your description&gt;"</span></span><br><span class="line"><span class="attr">sidebar-avatar:</span> <span class="string">img/&lt;your</span> <span class="string">avatar</span> <span class="string">path&gt;</span></span><br></pre></td></tr></table></figure>
-<p>and activate your personal widget you like</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">widgets:</span>         <span class="comment"># here are widget you can use, you can comment out</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">featured-tags</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">short-about</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">recent-posts</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">friends-blog</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">archive</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">category</span></span><br></pre></td></tr></table></figure>
-<p>if you want to add sidebar widget, please add at <code>layout/_widget</code>.</p>
-<h3><span id="signature-setup">Signature Setup</span></h3>
-<p>Copy your signature image to <code>&lt;root&gt;/img/signature</code> and modify the <code>_config.yml</code>:</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">signature:</span> <span class="literal">true</span>   <span class="comment"># show signature</span></span><br><span class="line"><span class="attr">signature-img:</span> <span class="string">img/signature/&lt;your-signature-ID&gt;</span></span><br></pre></td></tr></table></figure>
-<h3><span id="go-to-top-icon-setup">Go to top icon Setup</span></h3>
-<p>My icon is using iron man, you can change to your own icon at <code>css/image</code>.</p>
-<h3><span id="post-tag">Post tag</span></h3>
-<p>You can decide to show post tags or not.</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">home_posts_tag:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-<p><img src="home_posts_tag-true.png" alt="home_posts_tag-true"></p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">home_posts_tag:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
-<p><img src="home_posts_tag-false.png" alt="home_posts_tag-false"></p>
-<h3><span id="markdown-render">Markdown render</span></h3>
-<p>My markdown render engine plugin is <a href="https://github.com/celsomiranda/hexo-renderer-markdown-it" target="_blank" rel="noopener">hexo-renderer-markdown-it</a>.</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Markdown-it config</span></span><br><span class="line"><span class="comment">## Docs: https://github.com/celsomiranda/hexo-renderer-markdown-it/wiki</span></span><br><span class="line"><span class="attr">markdown:</span></span><br><span class="line"><span class="attr">  render:</span></span><br><span class="line"><span class="attr">    html:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    xhtmlOut:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">    breaks:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    linkify:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    typographer:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    quotes:</span> <span class="string">'“”‘’'</span></span><br></pre></td></tr></table></figure>
-<p>and if you want to change the header anchor ‘ℬ’, you can go to <code>layout/post.ejs</code> to change it.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span>(<span class="string">"https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        anchors.options = &#123;</span><br><span class="line">          visible: <span class="string">'hover'</span>,</span><br><span class="line">          placement: <span class="string">'left'</span>,</span><br><span class="line">          icon: ℬ <span class="comment">// this is the header anchor "unicode" icon</span></span><br><span class="line">        &#125;;</span><br></pre></td></tr></table></figure>
-<h2><span id="hexo-basics">Hexo Basics</span></h2>
-<hr>
-<p>Some hexo command:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hexo new post <span class="string">"&lt;post name&gt;"</span> <span class="comment"># you can change post to another layout if you want</span></span><br><span class="line">hexo clean &amp;&amp; hexo generate <span class="comment"># generate the static file</span></span><br><span class="line">hexo server <span class="comment"># run hexo in local environment</span></span><br><span class="line">hexo deploy <span class="comment"># hexo will push the static files automatically into the specific branch(gh-pages) of your repo!</span></span><br></pre></td></tr></table></figure>
-<h1><span id="have-fun-_">Have fun ^_^</span></h1>
-<hr>
-<!-- Place this tag in your head or just before your close body tag. -->
-<script async defer src="https://buttons.github.io/buttons.js"></script>
-<!-- Place this tag where you want the button to render. -->
-<p>Please <a class="github-button" href="https://github.com/YenYuHsuan/hexo-theme-beantech" data-icon="octicon-star" aria-label="Star YenYuHsuan/hexo-theme-beantech on GitHub" target="_blank" rel="noopener">Star</a> this Project if you like it! <a class="github-button" href="https://github.com/YenYuHsuan" aria-label="Follow @YenYuHsuan on GitHub" target="_blank" rel="noopener">Follow</a> would also be appreciated!<br>
-Peace!</p>
+                <h2><span id="一-什么是sarsa">一、什么是Sarsa</span></h2>
+<p>在强化学习中 Sarsa 和 Q learning及其类似，<strong>这节内容会基于之前所讲的 <a href="https://www.jianshu.com/p/44ce8a55d820" target="_blank" rel="noopener">Q learning</a></strong>。如果还不熟悉 Q learning 可以去看看。我们会对比 Q learning，来看看 Sarsa 是特殊在哪些方面。</p>
+<p>Sarsa 的决策部分和 Q learning 一模一样，因为我们使用的是 Q 表的形式决策，所以我们会在 Q 表中挑选值较大的动作值施加在环境中来换取奖惩，但是不同的地方在于 Sarsa 的更新方式是不一样的。</p>
+<p>##二、Sarsa更新方式</p>
+<p>与 Q-learning 一样, 我们会经历状态 s1, 然后再挑选一个带来最大潜在奖励的动作 a2, 这样我们就到达了状态 s2, 而在这一步, 如果你用的是 Q learning, 你会观看一下在 s2 上选取哪一个动作会带来最大的奖励, 但是在真正要做决定时, 却不一定会选取到那个带来最大奖励的动作, Q-learning 在这一步只是估计了一下接下来的动作值. 而 Sarsa 到做到, 在 s2 这一步估算的动作也是接下来要做的动作. 所以 Q(s1, a2) 现实的计算值, 我们也会稍稍改动, 去掉maxQ, 取而代之的是在 s2 上我们实实在在选取的 a2 的 Q 值. 最后像 Q learning 一样, 求出现实和估计的差距 并更新 Q 表里的 Q(s1, a2)。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-1d16b1f39a67b5ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Sarsa 更新方式"></p>
+<h2><span id="三-sarsa-与-q-learning-对比">三、Sarsa 与 Q-learning 对比</span></h2>
+<p><strong>Sarsa算法（on-policy）：</strong></p>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Initialize Q arbitrarily <span class="comment">// 随机初始化Q表</span></span><br><span class="line"><span class="keyword">Repeat</span> (<span class="keyword">for</span> <span class="keyword">each</span> episode): <span class="comment">// 每一次从开始到结束是一个episode</span></span><br><span class="line">    Initialize S <span class="comment">// S为初始位置的状态</span></span><br><span class="line">    Choose a <span class="keyword">from</span> s <span class="keyword">using</span> policy derived <span class="keyword">from</span> Q(ε-greedy) </span><br><span class="line">    <span class="keyword">Repeat</span> (<span class="keyword">for</span> <span class="keyword">each</span> <span class="keyword">step</span> <span class="keyword">of</span> episode):</span><br><span class="line">        <span class="keyword">Take</span> action a, observe r, s<span class="string">'</span></span><br><span class="line"><span class="string">        Choose a'</span> <span class="keyword">from</span> s<span class="string">' using policy derived from Q(ε-greedy) </span></span><br><span class="line"><span class="string">        Q(S,A) ← Q(S,A) + α*[R + γ*Q(S'</span>,a<span class="string">')-Q(s,a)] //在Q中更新S</span></span><br><span class="line"><span class="string">        S ← S'</span>; a← a<span class="string">'</span></span><br><span class="line"><span class="string">    until S is terminal //即到游戏结束为止</span></span><br></pre></td></tr></table></figure>
+<p>处于状态 s 时，根据当前 Q 网络以及一定的策略来选取动作 a，进而观测到下一步状态 s’，并再次根据当前 Q 网络及相同的策略选择动作 a’，这样就有了一个【 s，a，r，s’，a’ 】序列。</p>
+<p>处于状态 s’ 时，就知道了要采取哪个 a’，并真的采取了这个动作。动作 a 的选取遵循 ε-greedy 策略，目标 Q 值的计算也是根据策略得到的动作 a’ 计算得来。</p>
+<p><strong>Q-learning算法（off-policy）：</strong></p>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Initialize Q arbitrarily <span class="comment">// 随机初始化Q表</span></span><br><span class="line"><span class="keyword">Repeat</span> (<span class="keyword">for</span> <span class="keyword">each</span> episode): <span class="comment">// 每一次游戏，从开始到结束是一个episode</span></span><br><span class="line">    Initialize S <span class="comment">// S为初始位置的状态</span></span><br><span class="line">    <span class="keyword">Repeat</span> (<span class="keyword">for</span> <span class="keyword">each</span> <span class="keyword">step</span> <span class="keyword">of</span> episode):</span><br><span class="line">        Choose a <span class="keyword">from</span> s <span class="keyword">using</span> policy derived <span class="keyword">from</span> Q(ε-greedy) <span class="comment">//根据当前Q和位置S，使用一种策略，得到动作A，这个策略可以是ε-greedy等</span></span><br><span class="line">        <span class="keyword">Take</span> action a, observe r <span class="comment">// 做了动作A，到达新的位置S'，并获得奖励R，奖励可以是1，50或者-1000</span></span><br><span class="line">        Q(S,A) ← Q(S,A) + α*[R + γ*maxQ(S<span class="string">',a))-Q(s,a)] //在Q中更新S</span></span><br><span class="line"><span class="string">        S ← S'</span></span><br><span class="line">    <span class="keyword">until</span> S <span class="keyword">is</span> terminal <span class="comment">//即到游戏结束为止</span></span><br></pre></td></tr></table></figure>
+<p>处于状态 s 时，根据当前 Q 网络以及一定的策略来选取动作 a，进而观测到下一步状态 s’ ，并再次根据当前 Q 网络计算出下一步采取哪个动作会得到 max Q 值，用这个 Q 值作为当前状态动作对 Q 值的目标。这样就有了一个【s，a，r，s’ 】序列。</p>
+<p>处于状态 s’ 时，仅计算了 在 s’ 时要采取哪个 a’ 可以得到更大的 Q 值，并没有真的采取这个动作 a’；动作 a 的选取是根据当前 Q 网络以及策略（e-greedy），目标 Q 值的计算是根据 Q 值最大的动作 a’ 计算得来。</p>
+<p>从算法来看，这就是他们两最大的不同之处了。因为 Sarsa 是说到做到型，所以我们也叫他 <strong>On-policy</strong>（在线学习），学着自己在做的事情。而 Q learning 是说到但并不一定做到，所以它也叫作 <strong>Off-policy</strong>（离线学习）。如果你还不清楚 在线学习 和 离线学习，可以参看<a href="https://www.jianshu.com/p/f8b71a5e6b4d" target="_blank" rel="noopener">强化学习</a>。</p>
+<h2><span id="四-什么是-sarsalambda">四、什么是 Sarsa(lambda)</span></h2>
+<p>之前所说的 Sarsa 是一种单步更新法，在环境中每走一步，更新一次自己的行为准则，我们可以在这样的 Sarsa 后面打一个括号，说他是 Sarsa(0)，因为他等走完这一步以后直接更新行为准则。如果延续这种想法，走完这步，再走一步，然后再更新，我们可以叫他 Sarsa(1)。同理，如果等待回合完毕我们一次性再更新呢？比如这回合我们走了 n 步，那我们就叫 Sarsa(n)。为了统一这样的流程，我们就有了一个 lambda 值来代替我们想要选择的步数，这也就是 Sarsa(lambda) 的由来。</p>
+<p>简单的说，Sarsa(0) 就是单步更新，Sarsa(n) 就是回合更新，如果你还不清楚什么是单步更新、回合更新，可参看<a href="https://www.jianshu.com/p/f8b71a5e6b4d" target="_blank" rel="noopener">强化学习</a>。</p>
+<p>其实 lambda 就是一个衰变值，他可以让你知道离奖励越远的步，可能并不是让你最快拿到奖励的步，所以我们想象我们站在宝藏的位置，回头看看我们走过的寻宝之路，离宝藏越近的脚印越看得清，远处的脚印太渺小，我们都很难看清，那我们就索性记下离宝藏越近的脚印越重要，越需要被好好的更新。和之前我们提到过的奖励衰减值 gamma 一样，lambda 是脚步衰减值，都是一个在 0 和 1 之间的数.</p>
 
                 
 
@@ -278,9 +240,13 @@ Peace!</p>
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2018/09/19/SpringBoot-之-JPA-详解/" data-toggle="tooltip" data-placement="top" title="SpringBoot 之 JPA 详解">&larr; Previous Post</a>
+                            <a href="/2018/09/21/强化学习——Q-learning/" data-toggle="tooltip" data-placement="top" title="强化学习——Q_learning">&larr; Previous Post</a>
                         </li>
                     
+                    
+                        <li class="next">
+                            <a href="/2018/09/21/强化学习——Deep-Q-Network/" data-toggle="tooltip" data-placement="top" title="强化学习——Deep Q Network">Next Post &rarr;</a>
+                        </li>
                     
                 </ul>
 
@@ -309,7 +275,7 @@ Peace!</p>
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"></span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">Usage</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">Init</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text">Modify</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.2.1.</span> <span class="toc-nav-text">Deployment</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.2.2.</span> <span class="toc-nav-text">Sidebar settings</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.2.3.</span> <span class="toc-nav-text">Signature Setup</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.2.4.</span> <span class="toc-nav-text">Go to top icon Setup</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.2.5.</span> <span class="toc-nav-text">Post tag</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.2.6.</span> <span class="toc-nav-text">Markdown render</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.3.</span> <span class="toc-nav-text">Hexo Basics</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">Have fun ^_^</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">一、什么是Sarsa</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">三、Sarsa 与 Q-learning 对比</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">四、什么是 Sarsa(lambda)</span></a></li></ol>
         
         </div>
       </aside>
@@ -329,10 +295,6 @@ Peace!</p>
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#Hexo" title="Hexo">Hexo</a>
-                        
-                          <a class="tag" href="/tags/#Blog" title="Blog">Blog</a>
-                        
                     </div>
                 </section>
                 
@@ -366,8 +328,8 @@ Peace!</p>
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "your-disqus-ID";
-    var disqus_identifier = "http://yoursite-url/2017/03/18/hexo-theme-beantech/";
-    var disqus_url = "http://yoursite-url/2017/03/18/hexo-theme-beantech/";
+    var disqus_identifier = "http://yoursite-url/2018/09/21/强化学习——Sarsa/";
+    var disqus_url = "http://yoursite-url/2018/09/21/强化学习——Sarsa/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

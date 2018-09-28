@@ -69,7 +69,7 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('nn.png')
+            background-image: url('nn.jpg')
             /*post*/
         
     }
@@ -216,7 +216,7 @@
 
                 <h2><span id="一-与其他强化学习方法不同">一、与其他强化学习方法不同</span></h2>
 <p>强化学习是一个通过奖惩来学习正确行为的机制。</p>
-<p>家族中有很多种不一样的成员，有学习奖惩值，根据自己认为的高价值选行为，比如 <a href="https://www.jianshu.com/p/44ce8a55d820" target="_blank" rel="noopener">Q learning</a>，<a href="https://www.jianshu.com/p/a95d7f130086" target="_blank" rel="noopener">Deep Q Network</a>，也有不通过分析奖励值，直接输出行为的方法，这就是 Policy Gradients 了。</p>
+<p>家族中有很多种不一样的成员，有学习奖惩值，根据自己认为的高价值选行为，比如 <a href="/2018/04/15/强化学习——Q-learning/" title="Q-learning">Q-learning</a>，<a href="/2018/04/16/强化学习——Deep-Q-Network/" title="Deep-Q-Network">Deep-Q-Network</a>，也有不通过分析奖励值，直接输出行为的方法，这就是 Policy Gradients 了。</p>
 <p>甚至我们可以为 Policy Gradients 加上一个神经网络来输出预测的动作。对比起以值为基础的方法，Policy Gradients 直接输出动作的最大好处就是，它能在一个连续区间内挑选动作。</p>
 <p>而基于值的，比如 Q-learning，它如果在无穷多的动作中计算价值，从而选择行为，这可吃不消。</p>
 <h2><span id="二-误差传递与更新">二、误差传递与更新</span></h2>

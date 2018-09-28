@@ -69,7 +69,7 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('nn.png')
+            background-image: url('nn.jpg')
             /*post*/
         
     }
@@ -216,7 +216,7 @@
 
                 <h2><span id="一-什么是deep-q-network">一、什么是Deep Q Network</span></h2>
 <p>这次我们来说说强化学习中的 Deep Q Network 简称为 DQN。Google Deep mind 团队就是靠着这 DQN 使计算机玩电动玩得比我们还厉害。</p>
-<p>DQN 是一种融合了 神经网络 和 Q_learning 的方法，如果你还不了解 Q_learning，可以看看<a href="https://www.jianshu.com/p/44ce8a55d820" target="_blank" rel="noopener">《强化学习——Q_learning》</a>这篇文章。</p>
+<p>DQN 是一种融合了 神经网络 和 Q_learning 的方法，如果你还不了解 Q_learning，可以看看这篇文章。</p>
 <p>传统的 Q 表格形式的强化学习有一个瓶颈。当今问题是在太复杂，使用表格来存储每一个状态 state 和 action 所拥有的 Q 值，计算机有再大的内存都不够，而且每次在这么大的表格中搜索对应的状态也是一件很耗时的事。</p>
 <p>所以，我们可以将 状态 和 动作 当成神经网络的输入，然后经过神经网络分析后得到动作的 Q 值，这样我们就没必要在表格中记录 Q 值，而是直接使用神经网络生成 Q 值。</p>
 <p>还有一种形式的是我们只输入状态值，输出所有的动作值，然后按照 Q learning 的原则，直接选择拥有最大值的动作当做下一步要做的动作。接下来，我们就按照这种方式来说明。</p>

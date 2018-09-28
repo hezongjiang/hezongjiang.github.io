@@ -69,7 +69,7 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('null')
+            background-image: url('Reinforcement.jpg')
             /*post*/
         
     }
@@ -214,8 +214,8 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h2><span id="一-什么是q_learning">一、什么是Q_learning</span></h2>
-<p>Q_learning是强化学习中的一个决策算法，如果你还不知道什么是强化学习，可以参看<a href="https://www.jianshu.com/p/f8b71a5e6b4d" target="_blank" rel="noopener">强化学习</a>这篇文章。</p>
+                <h2><span id="一-什么是q-learning">一、什么是Q-learning</span></h2>
+<p>Q_learning是强化学习中的一个决策算法，如果你还不知道什么是强化学习，可以参看<a href="/2018/03/22/强化学习/" title="强化学习">强化学习</a>这篇文章。</p>
 <h2><span id="二-q-learning-决策">二、Q-Learning 决策</span></h2>
 <p>假设我们的行为准则已经学习好了，现在我们处于状态 s(tate) 1，有两个行为 a(ction) 1、a(ction) 2，在这种 s1 状态下，a2 带来的潜在奖励要比 a1 高（如下表所示），这里的潜在奖励我们可以用一个有关于 s 和 a 的 Q 表格代替，在Q表格中，Q(s1, a1) = -2，要小于 Q(s1, a2) = 1，所以我们判断要选择 a2 作为下一个行为。（注意，此时Q表里的数据是随机设置的，称为估计值，而Q_learning的<strong>目的</strong>就是更新Q表，使之变成一个准确的Q表。）</p>
 <table>
@@ -292,7 +292,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">一、什么是Q_learning</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">二、Q-Learning 决策</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">三、Q-Learning 更新</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">四、Q-Learning 整体算法</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">一、什么是Q-learning</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">二、Q-Learning 决策</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">三、Q-Learning 更新</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">四、Q-Learning 整体算法</span></a></li></ol>
         
         </div>
       </aside>

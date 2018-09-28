@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          有些话曾被我们误读  - null
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite-url/2012/08/12/有些话曾被我们误读/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('timg.jpeg')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                        </div>
+                        <h1>有些话曾被我们误读 </h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by He Zongjiang on
+                            2012-08-12
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">小道消息&#39;s notes</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h2><span id="1-天才就是1的灵感加上99的汗水">1、天才就是1%的灵感加上99%的汗水</span></h2>
+<p>原话：The talent is 1% inspiration adds on 99% sweat, certainly, does nothave that 1% inspiration, in the world all sweat to put or bringtogether also only is the sweat!</p>
+<p>翻译：天才是百分之一的灵感加上百分之九十九的汗水,当然,没有那百分之一的灵感,世界上所有的汗水加在一起也只不过是汗水而已!</p>
+<p>详解： 我们都以为是“天才那就是1%的灵感加上99%的汗水”。当然，这句话本身并没有被偷梁换柱，但教材偏偏每次都漏掉后面那关键的一句话：“但那1%的灵感是最重要的，甚至比那99%的汗水都要重要”。大家可以看到，没有后面的这句话，全句的意义就完全改变了。爱迪生当然是个天才，他也是相信天才的（他曾经多次把福特叫做“天才”）；他对天才持一种“有条件的承认”的态度，即天才是最重要的，但天才也需要努力。爱迪生承认努力，但他归根结底更重视灵感。而中国的教材上从来只有这第一句，这等于全面否定灵感的意义。 这句话和政治没有任何联系，不会犯中国人的忌讳，为什么会一直遭到篡改，搞的残缺不全呢？我想可能与中国的教育制度精神有关。中国的教育一向是“学海无涯苦做舟”、“题海战术”、“一切行动听指挥”，这种教育本身的目的就是制造“整齐划一”的“听话的人才”，它不需要天才，也不承认灵感。政治课本甚至从根本上否定人的天赋的重要性，片面强调后天努力；当然，我不是说努力不重要，努力是必不可少的，但无论如何也不能抹杀天赋。教材给人灌输一种极端的观念，轻视中国有天赋的人才，实在是对中国青少年的一种摧残</p>
+<h2><span id="2-以德报怨">2、以德报怨</span></h2>
+<p>原句：“或曰：‘以德报怨，何如？’子曰：“何以报德？以直报怨，以德报德” ————《论语 宪问》</p>
+<p>以德报怨:是说别人欺负你了，你要忍，被打碎牙齿也要往肚子里吞，别人来欺负你，你反而应该对他更好，要用你的爱心去感化他，用你的胸怀去感动他。这就让人感觉很有点肃然了。想想看，如果我一巴掌呼过去那个被打的人还笑笑说打得好啊，你越打我我就要对你越好……遇到这种情况我也会感动到傻眼，这多好一孩子，多伟大的情操啊……</p>
+<p>而《论语》中孔子教育我们要“以直报怨，以德报德”，别人以德来待你的时候，你才需要以德来回报别人。可是现在别人打了你，你就应该“以直抱怨”，拿起板砖飞他！看！就因为被人故意省略了一句话，刚烈如火的孔老夫子一下就被扭曲成了现在这个温婉的受气包形象。</p>
+<h2><span id="3-民可使由之不可使知之">3、民可使由之，不可使知之。</span></h2>
+<p>原句：。“子曰：兴于诗，立于礼，成于乐。子曰：民可使由之，不可使知之。”——————《论语?秦伯》</p>
+<p>民可使由之，不可使知之。</p>
+<p>是说，国家统治人民，指使驱赶他们去做事就行了，不要让他们明白他们在做什么。</p>
+<p>孔子的整句话就是说，诗、礼、乐这三样东西是教育民众的基础，一定要抓好，如果人民掌握了诗礼乐，好，让他们自由发挥，如果人民还玩不来这些东东，我们就要去教化他们，让他们知道和明白这些东西。”你看，这才是“有教无类”的大教育家孔老先生的本意嘛。</p>
+<p>从前文来看，我们孔老先生前边一直在讨论诗礼乐这三种东东的教育问题，可怎么后边一下子就变成去教帝王权术的训诫了呢？</p>
+<h2><span id="4-无毒不丈夫">4、无毒不丈夫</span></h2>
+<p>原句：量小非君子，无度不丈夫。——————民间谚语联对</p>
+<p>“量小非君子，无度不丈夫”，这本来是个很好的句子，里边充分运用了对仗。显示出了一份阳刚有力的气魄，一个胸怀坦荡的男人形象就跃然于纸上。“度”是“大度”的度。</p>
+<p>问题出在毒与度，“度”为仄声字，犯了孤平，念着别扭，很容易读为平声字“毒”。</p>
+<h2><span id="5-唯女子与小人难养也">5、唯女子与小人难养也。</span></h2>
+<p>原句：唯女子与小人难养也，近之则不孙，远之则怨。——————《论语?阳货》</p>
+<p>唯女子与小人难养也。 明白这句话的意思，首先要知道孔子是在什么情况下，对谁说的。</p>
+<p>《史记.孔子世家》里，提到了孔子之前的卫国之行，孔子“居卫月余，灵公与夫人同车，宦者雍渠参乘出，使孔子为次乘，招摇市过之。曰：‘吾未见好德如好色者也。’于是丑之，去卫。”</p>
+<p>孔子骂的人是那种“被养”的女人和小人。话也是对卫灵公说的。</p>
+<h2><span id="6-吾生也有涯而知也无涯">6、吾生也有涯，而知也无涯。</span></h2>
+<p>原句：吾生也有涯，而知也无涯，以有涯随无涯，殆已 ——————《庄子?养生主》</p>
+<p>吾生也有涯，而知也无涯。 作为一个励志的句子我们经常看到。</p>
+<p>意思是说，我的生命可以有尽头，但知识没有。所以我们要在有限的时间里多学一点知识。</p>
+<p>但这句话是谁说的？庄子。</p>
+<p>庄子是一个追崇顺其自然，清净无为的洒脱人物，他认为人吃个饭，饱了就行，没什么必要追求奢华，穿个衣，别冻着就行，实在不需与什么人攀比。当然读书也一样。</p>
+<p>全话的意思是：生命是有限的，但我面对的知识是无限的，要我以本来有限的生命，去追求那种永远看不到边的尽头，你当我有神经病不成吗？</p>
+<h2><span id="7天地不仁以万物为刍狗">7：天地不仁，以万物为刍狗</span></h2>
+<p>原句：天地不仁，以万物为刍狗，圣人不仁，以百姓为刍狗——————《道德经》</p>
+<p>一般人的理解：“天地残暴不仁，把万物都当成低贱的猪狗来看待，而那些高高在上的所谓圣人们也没两样，还不是把我们老百姓也当成猪狗不如的东西！”</p>
+<p>其实这句话的真正意思是说，天地不情感用事，对万物一视同仁，圣人不情感用事，对百姓一视同仁。</p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2012/08/13/辩论赛中经典辩驳/" data-toggle="tooltip" data-placement="top" title="辩论赛中经典辩驳">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">1、天才就是1%的灵感加上99%的汗水</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">2、以德报怨</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">3、民可使由之，不可使知之。</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">4、无毒不丈夫</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">5、唯女子与小人难养也。</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">6、吾生也有涯，而知也无涯。</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">7.</span> <span class="toc-nav-text">7：天地不仁，以万物为刍狗</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "your-disqus-ID";
+    var disqus_identifier = "http://yoursite-url/2012/08/12/有些话曾被我们误读/";
+    var disqus_url = "http://yoursite-url/2012/08/12/有些话曾被我们误读/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/hezongjiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; He Zongjiang 2018 
+                    <br>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite-url/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="http://yoursite-url/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

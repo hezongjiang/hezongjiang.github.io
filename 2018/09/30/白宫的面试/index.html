@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          iOS 抖动动画 - null
+          白宫的面试 - null
         
     </title>
 
-    <link rel="canonical" href="http://yoursite-url/2018/09/28/iOS-抖动动画/">
+    <link rel="canonical" href="http://yoursite-url/2018/09/30/白宫的面试/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -90,14 +90,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#iOS开发" title="iOS开发">iOS开发</a>
+                              <a class="tag" href="/tags/#天方夜谭" title="天方夜谭">天方夜谭</a>
                             
                         </div>
-                        <h1>iOS 抖动动画</h1>
+                        <h1>白宫的面试</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by He Zongjiang on
-                            2018-09-28
+                            2018-09-30
                         </span>
                     </div>
                 
@@ -214,7 +214,30 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// 抖动方向枚举</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">enum</span> <span class="title">ShakeDirection</span> &#123;</span></span><br><span class="line">    <span class="comment">/// 水平抖动</span></span><br><span class="line">    <span class="keyword">case</span> horizontal</span><br><span class="line">    <span class="comment">/// 垂直抖动</span></span><br><span class="line">    <span class="keyword">case</span> vertical</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">extension UIView &#123;</span><br><span class="line">    <span class="comment">/// 扩展UIView增加抖动方法</span></span><br><span class="line">    <span class="comment">///</span></span><br><span class="line">    <span class="comment">/// - Parameters:</span></span><br><span class="line">    <span class="comment">///   - direction: 抖动方向（默认是水平方向）</span></span><br><span class="line">    <span class="comment">///   - times: 抖动次数（默认6次）</span></span><br><span class="line">    <span class="comment">///   - interval: 每次抖动时间（默认0.1秒）</span></span><br><span class="line">    <span class="comment">///   - delta: 抖动偏移量（默认4）</span></span><br><span class="line">    <span class="comment">///   - completion: 抖动动画结束后的回调</span></span><br><span class="line">    <span class="keyword">public</span> func shake(<span class="string">direction:</span> ShakeDirection = .horizontal, <span class="string">times:</span> Int = <span class="number">6</span>, <span class="string">interval:</span> TimeInterval = <span class="number">0.1</span>, <span class="string">delta:</span> CGFloat = <span class="number">4</span>, <span class="string">completion:</span> ((Bool) -&gt; ())? = nil) &#123;</span><br><span class="line">        </span><br><span class="line">        UIView.animate(withDuration: interval, <span class="string">animations:</span> &#123;</span><br><span class="line">            <span class="keyword">switch</span> direction &#123;</span><br><span class="line">            <span class="keyword">case</span> .<span class="string">horizontal:</span></span><br><span class="line">                self.layer.setAffineTransform( CGAffineTransform(<span class="string">translationX:</span> delta, <span class="string">y:</span> <span class="number">0</span>))</span><br><span class="line">            <span class="keyword">case</span> .<span class="string">vertical:</span></span><br><span class="line">                self.layer.setAffineTransform( CGAffineTransform(<span class="string">translationX:</span> <span class="number">0</span>, <span class="string">y:</span> delta))</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;) &#123; (_) <span class="keyword">in</span></span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> (times == <span class="number">0</span>) &#123; <span class="comment">// 最后一次抖动，将位置还原，并调用完成回调函数</span></span><br><span class="line">                UIView.animate(<span class="string">withDuration:</span> interval, <span class="string">animations:</span> &#123;</span><br><span class="line">                    self.layer.setAffineTransform(CGAffineTransform.identity)</span><br><span class="line">                &#125;, <span class="string">completion:</span> completion)</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123; <span class="comment">// 不是最后一次抖动，继续播放动画（总次数减1，偏移位置反向）</span></span><br><span class="line">                self.shake(<span class="string">direction:</span> direction, <span class="string">times:</span> times - <span class="number">1</span>,  <span class="string">interval:</span> interval, <span class="string">delta:</span> delta * <span class="number">-1</span>, <span class="string">completion:</span>completion)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+                <p>一位要进入白宫工作的护士，坐在椅子上焦虑不安地等着回答问题。她坐在一张深色木制办公桌旁，地点位于白宫街对面老行政办公楼顶层的医学部行政办公室。围坐在她周围的是医学部的护士、军医、医生助理和医生，他们正连珠炮样向这位护士提问。每回答一个问题 ，她都显得有些紧张，不过如果回答成功，她便会露出骄傲的神色。她在征服口试评委。</p>
+<p>医学部的每个工作人员都必须通过口试，包括面对评委迅速思考，根据给定的题目回答问题。她是一名获得过奖章的重症监护病房的护士，拥有不少优秀的资格证书，并且到目前为止成功地回答了评委提出的所有问题。下面是最后一个问题。<br>
+，一位高级护士负责宣读考试题目， 其他评委则将目光集中到这位新护士身上。</p>
+<p>“一天，总统、第一夫人、第一家庭的成员正站在一个舞台上，突然人群中响起了枪声。总统的右肩被子弹击中了。他能够呼吸，意识清醒，但是感到非常疼痛。你应该如何实施救治?”</p>
+<p>“马上冲到总统身边。”新护士不假思索地脱口而出。一位高级军医用手比作枪，指了指新护士的头“砰！你死了。”他一脸坏笑道：“你要当心，现场有枪手，那里还不安全。” 新护士刚准备准备说话，但是评委打断了她：“如果你死了，你就再也无法救治总统了。你应该等环境安全之后再施救。”</p>
+<p>“好的。”新护士点点头。</p>
+<p>评委脸上挂着安静的微笑继续讲话，她知道这位新护士将踏入另外一个陷阱。“现在，现场安全了枪手被制服。总统被值勤特工从舞台上转移开，白官医生在车上对他进行急救，同时车紧急驶向医院。”</p>
+<p>那位新护士点点头，将前额上的汗水擦掉,盼望考试尽快结束。</p>
+<p>“但是，在这次事件中有多人受伤。第一夫人的前额出现撕裂，第一家庭的一些成员也出现了不同程度的伤害。总统年迈的叔叔胸部中弹，已经处于昏迷状态。当你走到第一夫人的身边对她实施救治时，她摆摆手让你首先照顾总统的叔叔。在这种情况下，你应该怎么办?”</p>
+<p>“去救治总统叔叔？”新护士以疑问形式答道。</p>
+<p>“但是，第一夫人也受了伤，她的前额一直在流血。”评委重点强调了“流血”二字。</p>
+<p>“那么，我应该去救治第一夫人……”新护士环顾着各位评委，希望从他们脸上找到一丝肯定的暗示。</p>
+<p>“但是，请注意，总统的叔叔胸部受伤,已经处于休克状态。”高级医生助理提醒她。</p>
+<p>“那么，我应该首先对他实施救治。”新护士再次答道，同时她的挫败感和困惑感也变得愈发强烈</p>
+<p>“为什么？”评委问道。</p>
+<p>“哦，因为……他伤得很重……他的呼吸很可能因肪部或心胜损伤受到了严重威胁。”面对毫无表情的评委，新护上辨解道，表情也变得更加局促不安。</p>
+<p>“你决定首先对这位病人实施救治，还有没有其他方面的原因？”评委问道。</p>
+<p>“没有了……”新护士答道。她看到评委们开始摇头，就问道“我忽略了什么？”</p>
+<p>“要记住，你是到白宫工作的。”评委以略带讥讽的口吻说道。</p>
+<p>新护士努力思考着问题的答案。</p>
+<p>另一位评委打破尴尬，为她提供了帮助：“好的，还有另外一种回答方式，从政治角度来说是准确无误的回答。”</p>
+<p>高级医生助理插话说：“答案就是，你之所以去救助伤员，是因为……”</p>
+<p>整个评委组齐声说道：“因为第一夫人要求你这样做。”</p>
+
                 
 
                 <hr>
@@ -222,12 +245,12 @@
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2018/09/30/外星浩劫猜想/" data-toggle="tooltip" data-placement="top" title="外星浩劫猜想">&larr; Previous Post</a>
+                            <a href="/2018/09/30/不一样的鸦片战争/" data-toggle="tooltip" data-placement="top" title="不一样的鸦片战争">&larr; Previous Post</a>
                         </li>
                     
                     
                         <li class="next">
-                            <a href="/2018/09/19/SpringBoot-之-JPA-详解/" data-toggle="tooltip" data-placement="top" title="SpringBoot 之 JPA 详解">Next Post &rarr;</a>
+                            <a href="/2018/09/30/外星浩劫猜想/" data-toggle="tooltip" data-placement="top" title="外星浩劫猜想">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -277,7 +300,7 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#iOS开发" title="iOS开发">iOS开发</a>
+                          <a class="tag" href="/tags/#天方夜谭" title="天方夜谭">天方夜谭</a>
                         
                     </div>
                 </section>
@@ -297,8 +320,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "your-disqus-ID";
-    var disqus_identifier = "http://yoursite-url/2018/09/28/iOS-抖动动画/";
-    var disqus_url = "http://yoursite-url/2018/09/28/iOS-抖动动画/";
+    var disqus_identifier = "http://yoursite-url/2018/09/30/白宫的面试/";
+    var disqus_url = "http://yoursite-url/2018/09/30/白宫的面试/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

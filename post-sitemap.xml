@@ -7,6 +7,30 @@
     </url>
 
     <url>
+        <loc>http://yoursite-url/2018/09/30/%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84%E9%B8%A6%E7%89%87%E6%88%98%E4%BA%89/</loc>
+        <lastmod>2018-09-30T12:48:19.075Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://yoursite-url/2018/09/30/%E7%99%BD%E5%AE%AB%E7%9A%84%E9%9D%A2%E8%AF%95/</loc>
+        <lastmod>2018-09-30T12:40:14.254Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://yoursite-url/2018/09/30/%E5%A4%96%E6%98%9F%E6%B5%A9%E5%8A%AB%E7%8C%9C%E6%83%B3/</loc>
+        <lastmod>2018-09-30T11:54:46.628Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://yoursite-url/2018/03/08/%E8%BF%87%E6%8B%9F%E5%90%88-Overfitting-%E4%B8%8E-Dropout/</loc>
         <lastmod>2018-09-30T11:13:50.462Z</lastmod>
         <changefreq>weekly</changefreq>

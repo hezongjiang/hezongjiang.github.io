@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          iOS 抖动动画 - null
+          不一样的鸦片战争 - null
         
     </title>
 
-    <link rel="canonical" href="http://yoursite-url/2018/09/28/iOS-抖动动画/">
+    <link rel="canonical" href="http://yoursite-url/2018/09/30/不一样的鸦片战争/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -90,14 +90,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#iOS开发" title="iOS开发">iOS开发</a>
+                              <a class="tag" href="/tags/#天方夜谭" title="天方夜谭">天方夜谭</a>
                             
                         </div>
-                        <h1>iOS 抖动动画</h1>
+                        <h1>不一样的鸦片战争</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by He Zongjiang on
-                            2018-09-28
+                            2018-09-30
                         </span>
                     </div>
                 
@@ -214,20 +214,26 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// 抖动方向枚举</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">enum</span> <span class="title">ShakeDirection</span> &#123;</span></span><br><span class="line">    <span class="comment">/// 水平抖动</span></span><br><span class="line">    <span class="keyword">case</span> horizontal</span><br><span class="line">    <span class="comment">/// 垂直抖动</span></span><br><span class="line">    <span class="keyword">case</span> vertical</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">extension UIView &#123;</span><br><span class="line">    <span class="comment">/// 扩展UIView增加抖动方法</span></span><br><span class="line">    <span class="comment">///</span></span><br><span class="line">    <span class="comment">/// - Parameters:</span></span><br><span class="line">    <span class="comment">///   - direction: 抖动方向（默认是水平方向）</span></span><br><span class="line">    <span class="comment">///   - times: 抖动次数（默认6次）</span></span><br><span class="line">    <span class="comment">///   - interval: 每次抖动时间（默认0.1秒）</span></span><br><span class="line">    <span class="comment">///   - delta: 抖动偏移量（默认4）</span></span><br><span class="line">    <span class="comment">///   - completion: 抖动动画结束后的回调</span></span><br><span class="line">    <span class="keyword">public</span> func shake(<span class="string">direction:</span> ShakeDirection = .horizontal, <span class="string">times:</span> Int = <span class="number">6</span>, <span class="string">interval:</span> TimeInterval = <span class="number">0.1</span>, <span class="string">delta:</span> CGFloat = <span class="number">4</span>, <span class="string">completion:</span> ((Bool) -&gt; ())? = nil) &#123;</span><br><span class="line">        </span><br><span class="line">        UIView.animate(withDuration: interval, <span class="string">animations:</span> &#123;</span><br><span class="line">            <span class="keyword">switch</span> direction &#123;</span><br><span class="line">            <span class="keyword">case</span> .<span class="string">horizontal:</span></span><br><span class="line">                self.layer.setAffineTransform( CGAffineTransform(<span class="string">translationX:</span> delta, <span class="string">y:</span> <span class="number">0</span>))</span><br><span class="line">            <span class="keyword">case</span> .<span class="string">vertical:</span></span><br><span class="line">                self.layer.setAffineTransform( CGAffineTransform(<span class="string">translationX:</span> <span class="number">0</span>, <span class="string">y:</span> delta))</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;) &#123; (_) <span class="keyword">in</span></span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> (times == <span class="number">0</span>) &#123; <span class="comment">// 最后一次抖动，将位置还原，并调用完成回调函数</span></span><br><span class="line">                UIView.animate(<span class="string">withDuration:</span> interval, <span class="string">animations:</span> &#123;</span><br><span class="line">                    self.layer.setAffineTransform(CGAffineTransform.identity)</span><br><span class="line">                &#125;, <span class="string">completion:</span> completion)</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123; <span class="comment">// 不是最后一次抖动，继续播放动画（总次数减1，偏移位置反向）</span></span><br><span class="line">                self.shake(<span class="string">direction:</span> direction, <span class="string">times:</span> times - <span class="number">1</span>,  <span class="string">interval:</span> interval, <span class="string">delta:</span> delta * <span class="number">-1</span>, <span class="string">completion:</span>completion)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+                <p>乾隆的曾孙 爱新觉罗·奕经 早在鸦片战争前便“名满京城”。</p>
+<p>奕经曾在大西北当兵站岗，但三天打鱼两天晒网。他唯一的强项是玩收藏，家里的珍奇藏品堆积如山。</p>
+<p>第一次鸦片战争一团糟时，焦头烂额的道光想起了这位有当兵经历的宗室，遂任命奕经为扬威将军，率领重兵奔赴浙江前线抗击英军。这任命当时就惹得朝野哗然。部队走到苏州，奕经就吓得不敢往前走了，磨磨蹭蹭到了前线，一开战就被揍得满脸开花，于是躲在关帝庙烧香。</p>
+<p>就在满朝文武准备接受他战败的消息时，一个惊天的捷报传遍了北京城：奕经浙江大捷，斩首、俘虏大批英军。而且送来了货真价实的物证：满头黄毛、深鼻凹目的英军士兵人头，外加好些满嘴叽里咕噜洋话的英军俘虏。</p>
+<p>然而事实是：人头是真的，俘虏也是真的，至于大捷，是奕经花钱买来的。</p>
+<p>他先抓了个叫徐保的小偷，让他去暗杀英军，只要能弄来英军人头，立刻重赏。徐保转眼就杀了个英军回来交差，把奕经乐得热泪盈眶，当场赏了重金。接着奕经明码标价：英军黑人士兵脑袋赏银20两，白人士兵脑袋赏银40两，活捉英军士兵翻倍。</p>
+<p>消息一传开，整个宁波都沸腾了，江湖人士纷纷出动刺杀英军。有时英军晚上巡逻，走着走着就被捅了刀子，吓得英军加强巡逻，没想到好些宁波小偷身穿英军服装混进去，接着又是一顿杀。后来，这事居然形成了产业链，一些江湖大哥接了奕经的“订单”，再层层转包下去，自有人接单进宁波城去杀人，然后把人头层层倒腾出来，赚中间的差价。这个发财团队还有个让英军闻风丧胆的名字一黑水党。如此火爆的产业，让人数有限的英军彻底抓狂，折腾了没多久就乖乖退出宁波，奕经兵不血刃地收复了城池。</p>
+<p>这不仅是整个鸦片战争里，清军第一次从英国人手中抢回沦陷城池，而且前后被奕经“买”来的英国人头，即使以英军的保守估计，也有近50人。要知道在鸦片战争期间的其他战役里，清军各路官兵浴血奋战，给英军造成的最大阵亡人数，也不过是镇江战役里的39人。</p>
+<p>当然，以奕经的为人，“买”人头这一节，是绝不会给道光提的，反而命人绘声绘色地编了一段自己身先士卒血战英军的光辉事迹。奕经在给自己贴金的同时，也没忘了帮自己赚第一桶金的徐保，特意给他申请来一个五品官职。</p>
+<p>不过，这般经营对付英军散兵游勇还可以，真要面对面血拼就惨了。奕经“收复”宁波不到十天，英军就反过来打了个乍浦反击战，奕经伤亡惨重，兵败回京，被道光一怒撤职。可鸦片战争后一盘点，两年的惨烈鏖战，还就数这草包的陆战战功最大，可真是讽刺。</p>
+
                 
 
                 <hr>
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2018/09/30/外星浩劫猜想/" data-toggle="tooltip" data-placement="top" title="外星浩劫猜想">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2018/09/19/SpringBoot-之-JPA-详解/" data-toggle="tooltip" data-placement="top" title="SpringBoot 之 JPA 详解">Next Post &rarr;</a>
+                            <a href="/2018/09/30/白宫的面试/" data-toggle="tooltip" data-placement="top" title="白宫的面试">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -277,7 +283,7 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#iOS开发" title="iOS开发">iOS开发</a>
+                          <a class="tag" href="/tags/#天方夜谭" title="天方夜谭">天方夜谭</a>
                         
                     </div>
                 </section>
@@ -297,8 +303,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "your-disqus-ID";
-    var disqus_identifier = "http://yoursite-url/2018/09/28/iOS-抖动动画/";
-    var disqus_url = "http://yoursite-url/2018/09/28/iOS-抖动动画/";
+    var disqus_identifier = "http://yoursite-url/2018/09/30/不一样的鸦片战争/";
+    var disqus_url = "http://yoursite-url/2018/09/30/不一样的鸦片战争/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          macOS 终端(Terminal) 命令行 教程 - null
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite-url/2017/09/22/macOS-终端-Terminal-命令行-教程/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('null')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#iOS开发" title="iOS开发">iOS开发</a>
+                            
+                        </div>
+                        <h1>macOS 终端(Terminal) 命令行 教程</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by He Zongjiang on
+                            2017-09-22
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">小道消息&#39;s notes</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h2><span id="一-为什么要使用命令行">一、为什么要使用命令行？</span></h2>
+<ul>
+<li>许多功能在图形界面不提供，只有通过命令行来实现。</li>
+<li>Finder 会隐藏许多你不太会需要的文件，而 Command line 则可以访问所有文件。</li>
+<li>Command line 可以通过 SSH 远程访问你的 Mac 或者 Linux。</li>
+<li>普通用户可以通过 <code>sudo</code> 命令获得 root 用户权限。</li>
+<li>如果你开启手动输入用户名登陆模式，登陆时在用户名处输入 <code>&gt;console</code> 可以直接进入命令行界面。随后你仍然需要登录到一个账户。</li>
+</ul>
+<h2><span id="二-初识command-line">二、初识Command Line</span></h2>
+<ul>
+<li>许多命令会花费一些时间来执行，然而这中间不会给出任何提示或者进度条。一般结束后会出现一个<code>用户名$</code>的标记。如果没有出现，那么说明最后一条命令正在执行。</li>
+<li>一条命令包括 Command Name、Options、Arguments、Extras 四个部分，后三个部分是可选的。<br>
+Options 部分用 <code>-</code> 作为前导符。许多命令的 Options 部分只包含单个字母，这时可以合并。例如，<code>ls -lA</code> 和 <code>ls -l -A</code> 是等效的。<br>
+Arguments 部分用来细化这个命令或指定这个命令具体的实施对象，<br>
+Extras 部分则用来进一步实现其他功能。</li>
+<li>例如：下列命令包含前三个部分，用于强行删除 Junk.app 这个程序。<br>
+<code>$ rm -R /Applications/Junk.app</code></li>
+<li>如果你输入了错误的命令，系统会返回一些错误信息。但是系统却不会阻止你做任何事（例如删除整个用户文件夹）。</li>
+</ul>
+<h2><span id="三-关于-man-命令">三、 关于 man 命令</span></h2>
+<p>虽然有上千条命令，每条命令还有许多可选参数和具体的使用方式，但是你却不需要记住这些命令。你只需要记住一个：<code>man</code>。</p>
+<p><code>man</code> 其实就是一个命令使用指南，在命令行中输入 <code>man command-name</code>  即可获取。例如，你想知道 <code>ls</code> 这个命令怎么使用，输入 <code>man ls</code> 即可进入使用指南页面。</p>
+<p>使用指南往往很长，所以你可以使用▲（上箭头）或▼（下箭头）来上下移动，使用<code>空格</code>来翻页，输入 <code>/</code> 和关键字来按照关键字搜索，按 <code>Q</code> 来退出使用指南页面。</p>
+<p>输入 <code>man -k</code> 和关键字来对整个使用指南数据库进行搜索。</p>
+<h2><span id="四-命令行文件和路径">四、 命令行，文件和路径</span></h2>
+<p>如果知道如何使用命令是掌握 Command line 的第一步，那么第二步就是学习如何在 Command line 中使用文件路径。这比使用 Finder 更加快捷。</p>
+<p><strong>注意</strong>：Command line 工具是大小写敏感的，并且对于文件名，必须包括扩展名。例如，你想找 iTunes 这个程序，输入 itunes 是无效的，必须输入 iTunes.app。</p>
+<p><strong>两种路径：绝对路径 和 相对路径</strong></p>
+<ul>
+<li>绝对路径：完整描述一个文件的位置，总是以斜杠 <code>/</code> 开头。例如 <code>/Users/michelle/Public/Drop Box</code>。</li>
+<li>相对路径：是指相对于当前的目录，可以通过 <code>pwd</code> 查看当前目录。当新打开 Terminal 时，Command line 默认是 home folder 目录。这时上面例子文件夹的相对路径写作 Public/Drop Box。显然它从当前目录开始。和 HTML 类似，你也可以使用两个点 <code>..</code> 来代表父目录，这样就可以用相对路径表示上级或同级目录了。例如输入 <code>cd ..</code>，或者 <code>cd ../..</code></li>
+</ul>
+<p><strong>切换到其他路径和目录</strong></p>
+<p>如果你想将当前 command line 会话切换到其他目录，需要用到三个命令：<code>pwd</code>、<code>ls</code> 和 <code>cd</code>。</p>
+<ul>
+<li><code>pwd</code> 的含义是 “print working directory”，会显示当前目录的绝对路径。</li>
+<li><code>ls</code> 的含义是 “list directory contents”，它会列出当前目录的内容。</li>
+<li><code>cd</code> 的含义是 “change directory”，它会改变当前目录到指定的目录。如果不指定，则会返回 home folder。</li>
+</ul>
+<p><strong>处理特殊字符</strong><br>
+如果目录中有特殊字符（空格，括号，引号，<code>[]</code>，<code>!</code>，<code>$</code>，<code>&amp;</code>，<code>*</code>，<code>;</code>，<code>|</code>，<code>\</code>），那么直接输入空格会造成系统识别困难，必须使用特殊的语法来表示这些字符。例如上例中，空格前添加反斜杠 <code>\</code> 即可：<code>cd Punlic/Drop\ Box/</code>。除了反斜杠，也可以用引号的方法：<code>cd &quot;Public/Drop Box&quot;</code>。</p>
+<p>也可以把文件从 Finder 拖到 Terminal 窗口来创建绝对路径，这会方便一些，因为上面提到的所有特殊字符在拖动后都会自动变成系统可识别的表示方法。</p>
+<p>Tab Complete 是 Command line 中最能给你节省时间的特性之一，利用它的自动完成文件、目录名称功能还可以防止输入错误。使用 <code>cd</code> 进入你的 home folder，使用 <code>cd P</code> 命令，然后按下tab按键。可能会听到错误音，因为你的 home folder 内有多个 P 开头的文件夹。再按一次 tab，Terminal 将会为你列出 P 开头的两个文件夹：Public 和 Pictures。按 U，再按 tab，Terminal 则会自动为你补全 Public/。Tab complete 同样会处理那些特殊字符。注意，这会在末尾保留 <code>/</code> 符号，大部分时候这没问题，但如果出错，移除多余的 <code>/</code> 试一试。</p>
+<p>另外，<code>~</code> 在command line 中可以代表当前用户的 home folder。例如 <code>~/Public/Drop\ Box/</code> 是合法的。</p>
+<p><strong>查看隐藏文件</strong><br>
+为了简化工作，Command line 和 Finder 都会隐藏许多文件和文件夹。如果想查看隐藏文件，这在 Command line 中非常简单。首先，许多隐藏文件的隐藏是通过隐藏属性在 Finder 中隐藏的，而 Command line 会忽略这些属性，所以这些文件会在 Command line 中显示。另外，<code>ls</code> 命令会隐藏文件名以 <code>.</code> 开头的文件，但是这些文件却可以被显示出来，方法是利用 <code>-a</code> 选项。例如：<code>$ ls -la</code>，这里添加了 <code>-l</code> 选项，目的是控制输出格式。如果你注意输出内容的话，会发现还包括 <code>.</code> 和 <code>..</code> 两项，它们分别表示当前文件夹和父文件夹（如图）。如果你不想显示这两项，只需要把 <code>-a</code> 改成 <code>-A</code> 即可。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2708793-9c31069f26f76822.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/540" alt="Terminal ls -la命令"></p>
+<p><strong>前往其他卷</strong><br>
+在 Command line 中，系统卷（root volume）是由开始的一个正斜杠表示的。在 Command line 中其他卷看起来就在文件系统中一个叫做 Volumes 的文件夹中。下面的命令清晰地显示出这种逻辑关系：从 home folder 出发，最终前往一个叫 Macintosh HD 的卷</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2708793-9f26561a5e6b1710.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/340" alt="Macintosh HD 卷"></p>
+<h2><span id="五-用command-line管理文件">五、用Command-Line管理文件</span></h2>
+<p><strong>检视文件</strong><br>
+有许多基础命令用来定位、检视文件和文件夹，包括 <code>cat</code>, <code>less</code>, <code>which</code>, <code>file</code> 以及 <code>find</code>。别忘了可以利用 <code>man</code> 命令来查阅每个命令的使用指南。</p>
+<p><strong>cat</strong><br>
+<code>cat</code> 是 “concatenate” 的意思，会按顺序读取文件并输出到 Terminal 窗口，语法为 <code>cat</code> 后接你需要查看的文件的路径。<code>cat</code> 命令也可以用 <code>&gt;&gt;</code> 来增加文本文件的内容，例如命令 <code>cat textOne.txt &gt;&gt; textTwo.txt</code>，会把 textOne.txt 的内容添加到 textTwo.txt 的结尾。这个 <code>&gt;&gt;</code> 就属于之前提到的“Extras”。</p>
+<p><strong>less</strong><br>
+这个命令更适合用来查看长文本文件，因为它可以查找文本。语法为 <code>less</code> 后接文件路径，和 <code>cat</code> 一样。用 <code>less</code> 命令打开的文件其实和你查看命令使用指南的时候使用的是一个查看器，所以操作是相同的，同样可以使用▲（上箭头）或▼（下箭头）来上下移动文本，使用 <code>空格</code> 来翻页，输入 <code>/</code> 和关键字来按照关键字搜索，按 <code>Q</code> 来退出使用指南页面。除此之外，按 <code>V</code> 键来使用 <code>vi</code> 文本编辑器。</p>
+<p><strong>which</strong><br>
+这个命令会定位某个命令的文件路径。它会告诉你你执行某个具体命令的时候，在使用哪个文件。语法为 <code>which</code> 后接某个命令。如图：<br>
+<img src="http://upload-images.jianshu.io/upload_images/2708793-7d74e405e4e83f15.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="终端 which 命令"></p>
+<p><strong>file</strong><br>
+这个命令会尝试根据文件的内容输出文件类型。如果一个文件缺失了扩展名，那么这个命令可能会非常有用。语法为 <code>file</code> 后接文件路径。如图，此例为一个 PNG 文件，还给出了它的尺寸、颜色数等信息。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2708793-78cfa379ad9a28cf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/540" alt="终端 file命令"></p>
+<p><strong>find</strong><br>
+这个命令用来根据搜索关键词定位文件路径。 <code>find</code> 命令不使用 Spotlight 搜索服务，但是它允许你设置非常具体的搜索条件，以及通配符（稍后介绍）。语法为 <code>find</code> 后接搜索的起始路径，后接定义搜索的选项，后接搜索内容（包含在引号里）。例如：<code>find Desktop -name &quot;*.png&quot;</code>，意思是查询桌面上以 png 结尾的文件。</p>
+<p><strong>注意</strong><br>
+如果你要搜索根目录，使用 <code>-x</code> 选项来避免搜索 /Volumes 文件夹。<br>
+如果想使用 Soptlight 搜索服务，使用 <code>mdfind</code> 命令后接搜索关键词即可。</p>
+<p><strong>使用通配符（Wildcard Characters）</strong></p>
+<ul>
+<li>星号（＊，Asterisk）——代表任何长度的任何字符。例如 <code>*.tiff</code> 代表所有格式为tiff的文件。</li>
+<li>问号（?，Question mark）——代表任何单个字符。例如 <code>b?ok</code> 匹配 book 但是不匹配 brook。</li>
+<li>方括号（[]，Square brackets）——定义一定范围的字符，例如 <code>[Dd]ocument</code> 匹配 Document 以及 document；<code>doc[1-9]</code> 匹配doc1, doc2, …, doc9。</li>
+</ul>
+<p><strong>使用递归命令</strong><br>
+简单来说，递归命令可以允许命令不执行于一个特定文件，而是指定的路径下的所有文件。大多数命令包含一个 <code>-r</code> 或者 <code>-R</code> 选项，来设定你想递归地执行这个命令。例如下面的例子，添加 <code>-R</code> 后 <code>ls</code> 命令的执行方式：<code>ls -R Public</code>，这会列出 Public 中的所有文件，若有文件夹，则会继续列出文件夹中的内容。</p>
+<p><strong>编辑文件和文件夹</strong><br>
+有许多基础的命令用来编辑文件和文件夹，包括 <code>mkdir</code>, <code>cp</code>, <code>mv</code>, <code>rm</code>, <code>rmdir</code> 以及 <code>vi</code>。下面我们来简要地介绍一下这些命令。</p>
+<p><strong>mkdir</strong><br>
+“make diretory” 的缩写，用来创建文件夹，语法为 <code>mkdir</code> 后接新文件夹的目录。可以用 <code>-p</code> 选项，来一起创建路径中不存在的文件夹。</p>
+<p><strong>cp</strong><br>
+“copy” 的缩写，用来把文件从一处复制到另一处。语法为 <code>cp</code> 后接原始路径，再接目标路径。如果你想复制整个文件夹和所有内容，需要添加 <code>-R</code> 选项。如果指定的目标路径不含文件名，则 <code>cp</code> 命令会按原名复制。如果指定的目标路径包括文件名，则会复制为你指定的文件名。如果仅指定新文件名，则会在原处以新名称创建文件副本。注意，系统会自动替换同名文件而不出现提示。</p>
+<p><strong>mv</strong><br>
+“move”的缩写，用来移动文件。语法为 <code>mv</code> 后接原路径，再接新路径。<code>mv</code> 的指定路径规则与 <code>cp</code> 是一样的（如果仅指定新文件名，它就成了重命名命令）。</p>
+<p><strong>rm</strong><br>
+“remove” 的缩写，会永久删除文件。注意，Command-line 中没有废纸篓。语法为 <code>rm</code> 后接文件路径。如果希望安全删除文件，可以使用 <code>srm</code> 命令。<code>rmdir</code> 和 <code>rm -R rmdir</code>是 “remove directory” 的缩写，这个命令会永久删除文件夹。语法为 <code>rmdir</code> 后接希望删除目录的路径。然而，<code>rmdir</code> 命令无法删除含有任何其他文件的文件夹，所以大多数情形下 <code>rmdir</code> 命令是不适用的。不过，你可以利用 <code>rm</code> 添加 <code>-R</code> 选项来删除文件夹及包含的所有文件。</p>
+<p><strong>vi</strong><br>
+代表 “visual”（视觉的）。<code>vi</code> 是 Command line 中最常见的文本编辑器。用 <code>vi</code> 打开文本文件，只需要输入 <code>vi</code> 后接文件路径即可。macOS X 还提供了 nano，一个更加现代的文本编辑器。然而 <code>vi</code> 是默认的文本编辑器，所以掌握 <code>vi</code> 是很有用的。和 <code>less</code> 命令类似，<code>vi</code> 命令会占用整个 Terminal 空间来显示文件内容。打开后，会处于 “command模式”，<code>vi</code> 会等你输入一些预定义字符来告诉 <code>vi</code> 你想做什么。可以使用键盘上的箭头键单纯地浏览文件，想编辑时，按 A 或者 I 开始（进入编辑模式）。文字会插入到光标处。如果你想保存，需要先退出编辑模式，进入 command 模式，方法是按下 esc 键。回到 command 模式后，按住 shift 同时按两次 Z 来保存并退出。如果你不想保存，在 command 模式输入 <code>:quit!</code> 并按 return 直接退出。</p>
+<h2><span id="六-用command-line管理系统">六、用Command-Line管理系统</span></h2>
+<p><strong>使用su来切换用户</strong><br>
+<strong>su</strong><br>
+命令代表 “substitute user identity”，允许你在命令行中切换到另一个用户账户。语法为 <code>su</code> 后接用户的短名称。然后会要求你输入密码（但是输入的时候不会显示）。执行完毕后，命令的前缀会改变，表示你拥有其他用户的权利。你可以利用 <code>who -m</code> 命令来验证当前登陆的身份。切换后，你会一直保持该用户身份，直至退出 Terminal 或者输入 <code>exit</code> 命令。</p>
+<p><strong>关于sudo的使用</strong></p>
+<ul>
+<li><strong>sudo概述</strong><br>
+更强大的命令就是 <code>sudo</code>，代表 “substitute user do”，或者，更恰当地，“super user do”。用 <code>sudo</code> 执行一个命令会使用 root 账户权限。当然，使用之前需要 administrator 账户（管理员账户）的授权（输入密码）。<br>
+默认情况下，任何管理员账户都可以使用 <code>sudo</code> 来获取 root 权限，甚至当 root 账户在图形界面被禁用的情况下，<code>sudo</code> 依然有效。这个命令是很多情况下我们不得不使用 Terminal 的原因，同样也是给每个用户管理员身份的危险所在。不过，你可以调整 <code>sudo</code> 的配置文件，来限制它的使用。</li>
+</ul>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ cat secret.txt</span><br><span class="line">cat: secret.txt: Permission denied</span><br><span class="line">$ sudo cat secret.txt</span><br><span class="line">Password:</span><br><span class="line">This is the contents of the secret.txt text file that the<span class="built_in"> user </span>account renfei does <span class="keyword">not</span> normally have access permissions <span class="keyword">to</span> read. However, because he is an administrative user, she can use the sudo command <span class="keyword">to</span> envoke root<span class="built_in"> user </span>access <span class="keyword">and</span> read the contents of this file.</span><br></pre></td></tr></table></figure>
+<p><strong>提示</strong>：如果由于你忘了使用 <code>sudo</code> 而导致命令行返回一个错误，只需输入 <code>sudo !!</code> 就可以用 <code>sudo</code> 来执行上一条指令。不恰当地使用 <code>sudo</code> 可以轻易破坏你的系统设置。命令行只会在第一次执行严重破坏性行为之前提示。</p>
+<ul>
+<li><strong>使用 sudo 切换 Shell</strong><br>
+如果你是一个管理员用户，你需要执行很多条需要 root 权限的命令，你可以临时切换整个命令行 shell 来取得 root 级别的访问权限。方法就是先输入 <code>sudo -s</code>，回车后再键入你的密码。</li>
+</ul>
+<h2><span id="七-其他-command-line-技巧提示">七、其他 Command-Line 技巧提示</span></h2>
+<ul>
+<li>输入命令 <code>open .</code> 可以打开当前的位置。</li>
+<li>在 Terminal 的偏好里面可以设定它的外观和风格。</li>
+<li>中止一个正在执行的命令，可以使用组合键 control + C。</li>
+<li>在执行前编辑命令，只需要使用箭头和键盘上的其他字母。</li>
+<li>没有输入任何命令时，你可以用▲和▼来浏览历史命令。同样可以编辑和再次执行。</li>
+<li>你也可以使用history命令查看历史记录。</li>
+<li>你可以使用组合键 control + L 清屏。</li>
+</ul>
+<p>以上内容参考《Mac OS X Support Essentials》教程， Command Line 一节</p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2017/12/04/iOS-Cell小动画/" data-toggle="tooltip" data-placement="top" title="iOS Cell小动画">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2017/09/07/iOS-9-之-CoreSpotlight/" data-toggle="tooltip" data-placement="top" title="iOS 9 之 CoreSpotlight">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">一、为什么要使用命令行？</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">二、初识Command Line</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">三、 关于 man 命令</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">四、 命令行，文件和路径</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">五、用Command-Line管理文件</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">六、用Command-Line管理系统</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">7.</span> <span class="toc-nav-text">七、其他 Command-Line 技巧提示</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#iOS开发" title="iOS开发">iOS开发</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "your-disqus-ID";
+    var disqus_identifier = "http://yoursite-url/2017/09/22/macOS-终端-Terminal-命令行-教程/";
+    var disqus_url = "http://yoursite-url/2017/09/22/macOS-终端-Terminal-命令行-教程/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/hezongjiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; He Zongjiang 2018 
+                    <br>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite-url/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="http://yoursite-url/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

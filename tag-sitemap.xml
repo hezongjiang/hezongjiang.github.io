@@ -23,13 +23,6 @@
     </url>
 
     <url>
-        <loc>http://yoursite-url/tags/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%94/</loc>
-        <lastmod>2018-09-28T12:30:31.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://yoursite-url/tags/iOS%E5%BC%80%E5%8F%91/</loc>
         <lastmod>2018-09-30T11:11:59.984Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -45,7 +38,14 @@
 
     <url>
         <loc>http://yoursite-url/tags/%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%AD/</loc>
-        <lastmod>2018-09-30T12:48:19.075Z</lastmod>
+        <lastmod>2018-09-30T13:07:32.269Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite-url/tags/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%94/</loc>
+        <lastmod>2018-10-11T07:11:20.794Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

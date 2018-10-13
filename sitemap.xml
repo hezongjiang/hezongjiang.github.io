@@ -2,17 +2,17 @@
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <sitemap>
-        <loc>http://yoursite-url/post-sitemap.xml</loc>
+        <loc>https://hezongjiang.github.io/post-sitemap.xml</loc>
         <lastmod>2018-10-11T07:11:20.794Z</lastmod>
     </sitemap>
 
     <sitemap>
-        <loc>http://yoursite-url/page-sitemap.xml</loc>
+        <loc>https://hezongjiang.github.io/page-sitemap.xml</loc>
         <lastmod>2018-10-11T11:31:38.522Z</lastmod>
     </sitemap>
 
     <sitemap>
-        <loc>http://yoursite-url/tag-sitemap.xml</loc>
+        <loc>https://hezongjiang.github.io/tag-sitemap.xml</loc>
         <lastmod>2018-09-21T03:40:24.000Z</lastmod>
     </sitemap>
 

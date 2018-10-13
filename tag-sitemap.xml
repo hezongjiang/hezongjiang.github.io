@@ -2,49 +2,49 @@
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url>
-        <loc>http://yoursite-url/tags/Hexo/</loc>
+        <loc>https://hezongjiang.github.io/tags/Hexo/</loc>
         <lastmod>2018-09-21T03:40:24.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://yoursite-url/tags/Blog/</loc>
+        <loc>https://hezongjiang.github.io/tags/Blog/</loc>
         <lastmod>2018-09-21T03:40:24.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://yoursite-url/tags/JAVA/</loc>
+        <loc>https://hezongjiang.github.io/tags/JAVA/</loc>
         <lastmod>2018-09-23T06:09:40.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://yoursite-url/tags/iOS%E5%BC%80%E5%8F%91/</loc>
+        <loc>https://hezongjiang.github.io/tags/iOS%E5%BC%80%E5%8F%91/</loc>
         <lastmod>2018-09-30T11:11:59.984Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://yoursite-url/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</loc>
+        <loc>https://hezongjiang.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</loc>
         <lastmod>2018-09-30T11:13:50.462Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://yoursite-url/tags/%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%AD/</loc>
+        <loc>https://hezongjiang.github.io/tags/%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%AD/</loc>
         <lastmod>2018-09-30T13:07:32.269Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://yoursite-url/tags/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%94/</loc>
+        <loc>https://hezongjiang.github.io/tags/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%94/</loc>
         <lastmod>2018-10-11T07:11:20.794Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>

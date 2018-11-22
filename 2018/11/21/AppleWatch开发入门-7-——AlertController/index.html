@@ -69,7 +69,7 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('null')
+            background-image: url('AppleWatch.jpg')
             /*post*/
         
     }
@@ -89,6 +89,8 @@
                 
                     <div class="post-heading">
                         <div class="tags">
+                            
+                              <a class="tag" href="/tags/#AppleWatch" title="AppleWatch">AppleWatch</a>
                             
                         </div>
                         <h1>AppleWatch开发入门(7)——AlertController</h1>
@@ -142,14 +144,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -212,7 +214,41 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                
+                <p>本文章是一个系列，如果有兴趣可以看看以下文章：<br>
+<strong><a href="/2018/11/18/AppleWatch开发入门-1-——界面布局/" title="AppleWatch开发入门(1)——界面布局">AppleWatch开发入门(1)——界面布局</a></strong><br>
+<strong><a href="/2018/11/19/AppleWatch开发入门-2-——控制器生命周期、界面跳转/" title="AppleWatch开发入门(2)——控制器生命周期、界面跳转">AppleWatch开发入门(2)——控制器生命周期、界面跳转</a></strong><br>
+<strong><a href="/2018/11/20/AppleWatch开发入门-3-——Table视图的应用/" title="AppleWatch开发入门(3)——Table视图的应用">AppleWatch开发入门(3)——Table视图的应用</a></strong><br>
+<strong><a href="/2018/11/21/AppleWatch开发入门-4-——Picker视图的应用/" title="AppleWatch开发入门(4)——Picker视图的应用">AppleWatch开发入门(4)——Picker视图的应用</a></strong><br>
+<strong><a href="/2018/11/21/AppleWatch开发入门-5-——Menu的使用/" title="AppleWatch开发入门(5)——Menu的使用">AppleWatch开发入门(5)——Menu的使用</a></strong><br>
+<strong><a href="/2018/11/21/AppleWatch开发入门-6-——watchOS中通知的应用/" title="AppleWatch开发入门(6)——watchOS中通知的应用">AppleWatch开发入门(6)——watchOS中通知的应用</a></strong><br>
+<strong>AlertController AppleWatch开发入门(7)——AlertController</strong><br>
+<strong><a href="/2018/11/21/AppleWatch开发入门-8-——动画/" title="AppleWatch开发入门(8)——动画">AppleWatch开发入门(8)——动画</a></strong></p>
+<h1><span id="一-简介">一、简介</span></h1>
+<p>AlertController是wiatch中的警告框，它有3种Style：</p>
+<ul>
+<li>alert</li>
+<li>actionsheet</li>
+<li>sldeBySldeButtonsAlert</li>
+</ul>
+<p>3中Style分别如下图所示：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2708793-1b6e9e6a815d8eda.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Alert Style"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2708793-f5799399df3a7f10.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Actionsheet Style"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2708793-8024d687626056ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="sldeBySldeButtonsAlert Style"></p>
+<p>这里需要注意的是：</p>
+<ul>
+<li><code>Alert</code>和<code>Actionsheet</code>按钮数量不限，而<code>sldeBySldeButtonsAlert</code>只能有两个按钮，如果设置了多个按钮，则无法弹出。</li>
+<li><code>Alert</code>取消按钮只能有一个，如果设置多个，也只有一个的效果。</li>
+</ul>
+<h1><span id="二-创建3种alertcontroller">二、创建3种AlertController</span></h1>
+<ol>
+<li>界面布局与连线<br>
+如下图：<br>
+<img src="http://upload-images.jianshu.io/upload_images/2708793-7012038820d073eb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></li>
+<li>详细代码</li>
+</ol>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">click1</span><span class="params">()</span></span> &#123;</span><br><span class="line">    alertView(style: .actionSheet)</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">click2</span><span class="params">()</span></span> &#123;</span><br><span class="line">    alertView(style: .alert)</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">click3</span><span class="params">()</span></span> &#123;</span><br><span class="line">    alertView(style: .sideBySideButtonsAlert)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">alertView</span><span class="params">(style: WKAlertControllerStyle)</span></span> &#123;</span><br><span class="line">    <span class="comment">// 创建一个取消按钮</span></span><br><span class="line">    <span class="keyword">let</span> action1 = <span class="type">WKAlertAction</span>(title: <span class="string">"取消按钮"</span>, style: .cancel) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"点击了取消按钮"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 创建一个默认按钮</span></span><br><span class="line">    <span class="keyword">let</span> action2 = <span class="type">WKAlertAction</span>(title: <span class="string">"默认按钮"</span>, style: .<span class="keyword">default</span>) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"点击了默认按钮"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 创建一个警告按钮</span></span><br><span class="line">    <span class="keyword">let</span> action3 = <span class="type">WKAlertAction</span>(title: <span class="string">"警告按钮"</span>, style: .destructive) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"点击了警告按钮"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 弹出alert，设置标题和信息，并把上面创建的按钮加入到alert中</span></span><br><span class="line">    presentAlert(withTitle: <span class="string">"消息标题"</span>, message: <span class="string">"在这里可以输入消息的内容"</span>, preferredStyle: style, actions: [action1, action2, action3])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>至此，已经大功告成，不过要注意，<code>sideBySideButtonsAlert</code>只能有两个按钮，所以在<code>click3</code>中要进行特殊处理。</p>
+
                 
 
                 <hr>
@@ -255,7 +291,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="nav">none</ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">一、简介</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">二、创建3种AlertController</span></a></li></ol>
         
         </div>
       </aside>
@@ -275,6 +311,8 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
+                          <a class="tag" href="/tags/#AppleWatch" title="AppleWatch">AppleWatch</a>
+                        
                     </div>
                 </section>
                 

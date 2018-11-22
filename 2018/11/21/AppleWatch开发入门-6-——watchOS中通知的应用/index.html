@@ -69,7 +69,7 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('null')
+            background-image: url('AppleWatch.jpg')
             /*post*/
         
     }
@@ -89,6 +89,8 @@
                 
                     <div class="post-heading">
                         <div class="tags">
+                            
+                              <a class="tag" href="/tags/#AppleWatch" title="AppleWatch">AppleWatch</a>
                             
                         </div>
                         <h1>AppleWatch开发入门(6)——watchOS中通知的应用</h1>
@@ -142,14 +144,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -212,7 +214,57 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                
+                <p>本文章是一个系列，如果有兴趣可以看看以下文章：<br>
+<strong><a href="/2018/11/18/AppleWatch开发入门-1-——界面布局/" title="AppleWatch开发入门(1)——界面布局">AppleWatch开发入门(1)——界面布局</a></strong><br>
+<strong><a href="/2018/11/19/AppleWatch开发入门-2-——控制器生命周期、界面跳转/" title="AppleWatch开发入门(2)——控制器生命周期、界面跳转">AppleWatch开发入门(2)——控制器生命周期、界面跳转</a></strong><br>
+<strong><a href="/2018/11/20/AppleWatch开发入门-3-——Table视图的应用/" title="AppleWatch开发入门(3)——Table视图的应用">AppleWatch开发入门(3)——Table视图的应用</a></strong><br>
+<strong><a href="/2018/11/21/AppleWatch开发入门-4-——Picker视图的应用/" title="AppleWatch开发入门(4)——Picker视图的应用">AppleWatch开发入门(4)——Picker视图的应用</a></strong><br>
+<strong><a href="/2018/11/21/AppleWatch开发入门-5-——Menu的使用/" title="AppleWatch开发入门(5)——Menu的使用">AppleWatch开发入门(5)——Menu的使用</a></strong><br>
+<strong>AppleWatch开发入门(6)——watchOS中通知的应用</strong><br>
+<strong><a href="/2018/11/21/AppleWatch开发入门-7-——AlertController/" title="AppleWatch开发入门(7)——AlertController">AppleWatch开发入门(7)——AlertController</a></strong><br>
+<strong><a href="/2018/11/21/AppleWatch开发入门-8-——动画/" title="AppleWatch开发入门(8)——动画">AppleWatch开发入门(8)——动画</a></strong></p>
+<h1><span id="一-引言">一、引言</span></h1>
+<p>在 iOS 系统中，支持的通知有两种类型：本地通知和远程通知。本地通知多用于计时类通知，远程的又称推送，多用于一些提示动态的提示信息。这里有相关通知的一些知识总结：</p>
+<p>而 iWatch 中的通知是和 iPhone 同步的，在 iPhone 上的 App 收到通知的同时，会默认也推送到 iWatch 上，基于 iWatch的穿戴性，对用户来说，它上面的通知信息将比 iPhone 更加及时。</p>
+<h1><span id="二-watchos通知概览">二、WatchOS通知概览</span></h1>
+<p>首先，iWatch 上的通知分为两部分：short-look 和 long-lock。</p>
+<p>short-look 可以理解为一个简单的通知预览，它会将通知发起的APP和主要标题等信息展示给你，让你一目了然，当用户抬起手腕，查看这个通知一定时间，这个短通知就会转换为 long-look 通知。short-look 的通知界面不能够自定义，系统已经设计好了模样，如下：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2708793-13d97ded30f15fd9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="short-look"></p>
+<p>long-look 的界面我们是可以进行一定程度上的自定义的，并且可以添加按钮等逻辑操作。</p>
+<p>long-look 也分为两种界面，静态界面和动态界面。这个也好理解，静态界面是我们在写程序时就定义好的界面，在通知发送到watch上时，界面会自动匹配通知内容进行显示。动态的界面则是当收到通知时，会先执行我们相应的配置代码，之后在进行通知界面的展示。一个 long-look界面大致如下：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2708793-4a2b25adec90e9be.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="long-look"></p>
+<p>在 long-lock 中，界面定义为三个部分，头部标题栏，自定义视图栏和按钮交互区。头部的标题栏我们不能自定义，它是一个半透明的上面有App图标和名字的横栏。其下面是我们可以自定义的区域，我们可以在storyBoard中拉入文本和图片。最下面是一些交互按钮，其名称等配置信息在推送的文件中定义。</p>
+<h1><span id="三-在模拟器上测试本地推送">三、在模拟器上测试本地推送</span></h1>
+<p>无论本地推送还是远程推送，需要注意一点，iWatch 上的消息推送是依赖于 iPhone，也就是说只有当 iPhone 收到推送时，iWatch 才能收到通知。所以，应先让 iPhone 能收到本地通知。</p>
+<p>为方便测试，直接在 AppDelegate 中发送本地推送。</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">import UserNotifications</span><br><span class="line"></span><br><span class="line">@UIApplicationMain</span><br><span class="line">class AppDelegate: UIResponder, UIApplicationDelegate &#123;</span><br><span class="line"></span><br><span class="line">    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOption<span class="variable">s:</span> [UIApplication.LaunchOptionsKey: Any]?) -&gt; Bool &#123;</span><br><span class="line">        // 消息中心</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">center</span> = UNUserNotificationCenter.current()</span><br><span class="line">        <span class="keyword">center</span>.requestAuthorization(option<span class="variable">s:</span> [.badge, .alert, .sound]) &#123; (isSuccess, error) in</span><br><span class="line">        <span class="keyword">if</span> !isSuccess &#123; <span class="keyword">print</span>(error) &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        // <span class="number">5</span>秒后触发消息推送</span><br><span class="line">        <span class="keyword">let</span> timeTrigger = UNTimeIntervalNotificationTrigger(timeInterva<span class="variable">l:</span> <span class="number">5</span>, <span class="built_in">repeat</span><span class="variable">s:</span> false)</span><br><span class="line">        <span class="keyword">let</span> requestIdentifier = <span class="string">"requestIdentifier"</span></span><br><span class="line"></span><br><span class="line">        // 消息推送的内容</span><br><span class="line">        <span class="keyword">let</span> content = UNMutableNotificationContent()</span><br><span class="line">        content.title = <span class="string">"通知来了"</span></span><br><span class="line">        content.subtitle = <span class="string">"这里是一个测试用例通知的子标题"</span></span><br><span class="line">        content.body = <span class="string">"这里是用于 Apple Watch 通知 Demo 的内容详情。"</span></span><br><span class="line">        content.badge = <span class="number">1</span></span><br><span class="line">        content.sound = UNNotificationSound.default</span><br><span class="line">        content.categoryIdentifier = requestIdentifier</span><br><span class="line"></span><br><span class="line">        // 添加按钮</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">join</span> = UNNotificationAction(identifier: <span class="string">"join"</span>, title: <span class="string">"接受邀请"</span>, option<span class="variable">s:</span> .authenticationRequired)</span><br><span class="line">        <span class="keyword">let</span> look = UNNotificationAction(identifier: <span class="string">"look"</span>, title: <span class="string">"查看邀请"</span>, option<span class="variable">s:</span> .<span class="built_in">foreground</span>)</span><br><span class="line">        <span class="keyword">let</span> cancel = UNNotificationAction(identifier: <span class="string">"cancel"</span>, title: <span class="string">"取消"</span>, option<span class="variable">s:</span> .destructive)</span><br><span class="line">        <span class="keyword">let</span> <span class="built_in">input</span> = UNTextInputNotificationAction(identifier: <span class="string">"input"</span>, title: <span class="string">"请输入"</span>, option<span class="variable">s:</span> .<span class="built_in">foreground</span>, textInputButtonTitle: <span class="string">"发送"</span>, textInputPlaceholder: <span class="string">"tell me loudly"</span>)</span><br><span class="line">        <span class="keyword">let</span> notificationCategory = UNNotificationCategory(identifier: requestIdentifier, action<span class="variable">s:</span> [<span class="keyword">join</span>, look, cancel], intentIdentifier<span class="variable">s:</span> [], option<span class="variable">s:</span> .customDismissAction)</span><br><span class="line">        var <span class="keyword">set</span> = Set<span class="symbol">&lt;UNNotificationCategory&gt;</span>()</span><br><span class="line">        <span class="keyword">set</span>.<span class="keyword">insert</span>(notificationCategory)</span><br><span class="line">        <span class="keyword">center</span>.setNotificationCategories(<span class="keyword">set</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> request = UNNotificationRequest(identifier: requestIdentifier, conten<span class="variable">t:</span> content, trigger: timeTrigger)</span><br><span class="line">        <span class="keyword">center</span>.<span class="built_in">add</span>(request, withCompletionHandler: nil)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> true</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后运行程序。<strong>注意：只有 iPhone 在锁屏的状态下，并且 iWatch 在 Home 界面时，iWatch 才能收到通知。</strong></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-ddd5ac4debb17b0f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Apple Watch 收到来自 iPhone 的消息推送"></p>
+<h1><span id="三-在真机上模拟远程推送">三、在真机上模拟远程推送</span></h1>
+<p>在 watchOS 模拟器上，Xcode 为我们准备好了一种可以模拟测试推送的方式。如果我们创建项目时，选择了 NotifacationScene，Xcode 会默认为我们创建一个 apns 文件：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-526c5e15591e06b3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="PushNotificationPayload.apns"></p>
+<p>这个文件就是模拟推送的相关配置文件，如果没有，也可以手动创建：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2708793-b50a91f5cfc22902.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>文件中的内容格式如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;    </span><br><span class="line">    <span class="attr">"aps"</span>: &#123;    </span><br><span class="line">        <span class="attr">"alert"</span>: &#123;            </span><br><span class="line">        <span class="attr">"body"</span>: <span class="string">"通知"</span>,           </span><br><span class="line">        <span class="attr">"title"</span>: <span class="string">"通知来了"</span>        </span><br><span class="line">        &#125;,        </span><br><span class="line">        <span class="attr">"category"</span>: <span class="string">"requestIdentifier"</span>    </span><br><span class="line">    &#125;,       </span><br><span class="line">    <span class="attr">"WatchKit Simulator Actions"</span>: [</span><br><span class="line">    &#123;            </span><br><span class="line">        <span class="attr">"title"</span>: <span class="string">"First Button"</span>,            </span><br><span class="line">        <span class="attr">"identifier"</span>: <span class="string">"firstButtonAction"</span>                                           </span><br><span class="line">    &#125;],        </span><br><span class="line">    <span class="attr">"customKey"</span>: <span class="string">"Use this file to define a testing payload for your notifications. The aps dictionary specifies the category, alert text and title. The WatchKit Simulator Actions array can provide info for one or more action buttons in addition to the standard Dismiss button. Any other top level keys are custom payload. If you have multiple such JSON files in your project, you'll be able to select them when choosing to debug the notification interface of your Watch App."</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这是一些 Json 格式的数据，其中 alert 是对推送内容的设置，body 会显示在 long-look 的标题栏，title 会显示在 short-look 的标题栏，Actions 数组中是对按钮就行配置，每一个按钮可以设置一个标题和 id，标题用于在推送界面显示，id 用于处理点击按钮后触发的逻辑。注意：这里的 category 一定要和上文代码中设置的 requestIdentifier 一致。</p>
+<p>创建好这个，我们可以来试着测试一下推送的界面，选择推送工程，运行即可。</p>
+<h1><span id="四-long-look-的静态界面和动态界面">四、long-look 的静态界面和动态界面</span></h1>
+<p>上面提到过，long-look 分为静态界面和动态界面两种，当我们在 storyboard 中拉入 Notification Interface Controller 的时候，可以选择同时创建动态界面，勾选 Has Dynamic Interface：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2708793-fd664a944998e5d5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>这时，在 storyboard 中是如下模样：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2708793-6b7460ad81fa2381.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>我们在创建一个文件，继承于 WKUserNotificationInterfaceController，并将 storyboard 中<code>Dynamic Interface</code>的<code>class</code>设置为我们创建的类：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2708793-570a4859f924ceae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>注意，这里设置的是动态的 Interface，也就是上面右边的 controller。之后运行，你会发现效果并没有什么改变，那是因为系统默认会从静态界面加载推送界面，我们需要在 NotifacationController 代码中做一些操作：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//在NotificationController中重写下面方法</span></span><br><span class="line"><span class="selector-tag">override</span> <span class="selector-tag">func</span> <span class="selector-tag">didReceive</span>(_ <span class="attribute">notification</span>: UNNotification, withCompletion <span class="attribute">completionHandler</span>: <span class="variable">@escaping</span> (WKUserNotificationInterfaceType) -&gt; Void) &#123;</span><br><span class="line">    <span class="selector-tag">completionHandler</span>(.custom) </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1><span id="五-触发推送点击事件">五、触发推送点击事件</span></h1>
+<p>首先，我们多配置几个点击按钮，在apns文件中如下配置：</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"WatchKit Simulator Actions"</span>: [                                   </span><br><span class="line">&#123;                                   </span><br><span class="line">    <span class="string">"title"</span>: <span class="string">"第一"</span>,                                   </span><br><span class="line">    <span class="string">"identifier"</span>: <span class="string">"one"</span>                                                                     </span><br><span class="line">&#125;,                                  </span><br><span class="line">&#123;                                   </span><br><span class="line">    <span class="string">"title"</span>: <span class="string">"第二"</span>,                                   </span><br><span class="line">    <span class="string">"identifier"</span>: <span class="string">"two"</span>                                                                     </span><br><span class="line">&#125;,                                   </span><br><span class="line">&#123;                                   </span><br><span class="line">    <span class="string">"title"</span>: <span class="string">"第三"</span>,                                   </span><br><span class="line">    <span class="string">"identifier"</span>: <span class="string">"three"</span>                                                                      </span><br><span class="line">&#125;                                   </span><br><span class="line">],</span><br></pre></td></tr></table></figure>
+<p>在我们watch App的InterfaceController中实现如下的方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> UserNotifications</span><br><span class="line"><span class="comment">//重写下面方法来响应点击事件</span></span><br><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">handleAction</span><span class="params">(withIdentifier identifier: String?, <span class="keyword">for</span> notification: UNNotification)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在，当你手机收到通知时，看看你的watch。</p>
+
                 
 
                 <hr>
@@ -255,7 +307,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="nav">none</ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">一、引言</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">二、WatchOS通知概览</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">三、在模拟器上测试本地推送</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">三、在真机上模拟远程推送</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">四、long-look 的静态界面和动态界面</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">五、触发推送点击事件</span></a></li></ol>
         
         </div>
       </aside>
@@ -275,6 +327,8 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
+                          <a class="tag" href="/tags/#AppleWatch" title="AppleWatch">AppleWatch</a>
+                        
                     </div>
                 </section>
                 

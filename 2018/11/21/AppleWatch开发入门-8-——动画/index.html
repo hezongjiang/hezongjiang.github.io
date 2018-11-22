@@ -69,7 +69,7 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('null')
+            background-image: url('AppleWatch.jpg')
             /*post*/
         
     }
@@ -89,6 +89,8 @@
                 
                     <div class="post-heading">
                         <div class="tags">
+                            
+                              <a class="tag" href="/tags/#AppleWatch" title="AppleWatch">AppleWatch</a>
                             
                         </div>
                         <h1>AppleWatch开发入门(8)——动画</h1>
@@ -142,14 +144,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -212,7 +214,46 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                
+                <p>本文章是一个系列，如果有兴趣可以看看以下文章：<br>
+<strong><a href="/2018/11/18/AppleWatch开发入门-1-——界面布局/" title="AppleWatch开发入门(1)——界面布局">AppleWatch开发入门(1)——界面布局</a></strong><br>
+<strong><a href="/2018/11/19/AppleWatch开发入门-2-——控制器生命周期、界面跳转/" title="AppleWatch开发入门(2)——控制器生命周期、界面跳转">AppleWatch开发入门(2)——控制器生命周期、界面跳转</a></strong><br>
+<strong><a href="/2018/11/20/AppleWatch开发入门-3-——Table视图的应用/" title="AppleWatch开发入门(3)——Table视图的应用">AppleWatch开发入门(3)——Table视图的应用</a></strong><br>
+<strong><a href="/2018/11/21/AppleWatch开发入门-4-——Picker视图的应用/" title="AppleWatch开发入门(4)——Picker视图的应用">AppleWatch开发入门(4)——Picker视图的应用</a></strong><br>
+<strong><a href="/2018/11/21/AppleWatch开发入门-5-——Menu的使用/" title="AppleWatch开发入门(5)——Menu的使用">AppleWatch开发入门(5)——Menu的使用</a></strong><br>
+<strong><a href="/2018/11/21/AppleWatch开发入门-6-——watchOS中通知的应用/" title="AppleWatch开发入门(6)——watchOS中通知的应用">AppleWatch开发入门(6)——watchOS中通知的应用</a></strong><br>
+<strong><a href="/2018/11/21/AppleWatch开发入门-7-——AlertController/" title="AppleWatch开发入门(7)——AlertController">AppleWatch开发入门(7)——AlertController</a></strong><br>
+<strong>AppleWatch开发入门(8)——动画</strong></p>
+<h1><span id="一-简介">一、简介</span></h1>
+<p>动画一直是 iOS 系统的一大亮点，CoreAnimation 和粒子效果的支持，开发者可以很容易的做出效果炫酷的动画特效。在 watchOS 中，由于性能和屏幕尺寸的限制，对于动画，并没有强大的框架支持，但是这并不是说开发者就没办法在watch上添加动画的特效了。</p>
+<h1><span id="二-移动动画">二、移动动画</span></h1>
+<p>在 watch 中的移动动画不像 iPhone 上那么复杂，目前只支持水平、垂直移动，并且移动的距离是受限的。水平移动的距离是一个枚举：<code>left</code>、<code>center</code>、<code>right</code>，也就是说你只能把控件移动到屏幕的左边、中间、右边，而不能控制具体移动到哪个位置；垂直方向移动的距离也一样是枚举：<code>top</code>、<code>center</code>、<code>bottom</code>，这两个枚举如下：</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@available(watchOS <span class="number">2.0</span>, *)</span><br><span class="line">public <span class="class"><span class="keyword">enum</span> <span class="title">WKInterfaceObjectHorizontalAlignment</span> : <span class="title">Int</span> &#123;</span></span><br><span class="line">    <span class="keyword">case</span> left</span><br><span class="line">    <span class="keyword">case</span> center</span><br><span class="line">    <span class="keyword">case</span> right</span><br><span class="line">&#125;</span><br><span class="line">@available(watchOS <span class="number">2.0</span>, *)</span><br><span class="line">public <span class="class"><span class="keyword">enum</span> <span class="title">WKInterfaceObjectVerticalAlignment</span> : <span class="title">Int</span> &#123;</span></span><br><span class="line">    <span class="keyword">case</span> top</span><br><span class="line">    <span class="keyword">case</span> center</span><br><span class="line">    <span class="keyword">case</span> bottom</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行动画的方法如下：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 第一个参数是动画时间，第二个参数是闭包，里面写如何移动</span></span><br><span class="line"><span class="variable">@available</span>(watchOS <span class="number">2.0</span>, *)</span><br><span class="line">open func animate(withDuration <span class="attribute">duration</span>: TimeInterval, <span class="attribute">animations</span>: <span class="variable">@escaping</span> () -&gt; Void)</span><br></pre></td></tr></table></figure>
+<p>代码实现非常简单：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">startHorizontalAnimate</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// 水平移动到右边</span></span><br><span class="line">    animate(withDuration: <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.image.setHorizontalAlignment(.<span class="keyword">right</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-12bc76dcce1f4da5.gif?imageMogr2/auto-orient/strip" alt="水平移动"></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">startVerticalAnimate</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// 垂直移动到底部</span></span><br><span class="line">    animate(withDuration: <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.image.setVerticalAlignment(.bottom)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-f2f5e6f90cb9f09c.gif?imageMogr2/auto-orient/strip" alt="垂直移动"></p>
+<p>这里比较有趣，我只是把图片往下移动了，结果 button 自动移上去。</p>
+<h1><span id="三-帧动画">三、帧动画</span></h1>
+<p>和 iOS 类似，watchOS 中的帧动画也是通过 UIImage 对象的合集来展示的。只是设置和用法略有不同。<br>
+首先，watchOS 中帧动画的操作被单独封装成了一个协议，当然，WKInterfaceImage 类已经遵守了这个协议的：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">protocol</span> <span class="title">WKImageAnimatable</span> : <span class="title">NSObjectProtocol</span> </span>&#123;    </span><br><span class="line">    <span class="comment">//从默认帧开始播放动画    </span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">startAnimating</span><span class="params">()</span></span>    </span><br><span class="line">    <span class="comment">//播放一个指定范围的帧动画 NSRange是帧的范围，durtion是播放一遍的时间，repeatCount是重复播放次数，0为无限循环    </span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">startAnimatingWithImages</span><span class="params">(<span class="keyword">in</span> imageRange: NSRange, duration: TimeInterval, repeatCount: Int)</span></span></span><br><span class="line">    <span class="comment">//停止播放动画    </span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">stopAnimating</span><span class="params">()</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>创建帧动画的步骤与一些注意：</p>
+<ol>
+<li>关联一个视图中的WKInterfaceImage对象</li>
+<li>所有帧动画的图片帧必须有统一的格式：比如image1.png，image2.png等等</li>
+<li>给WKInterfaceImage对象设置帧前缀：</li>
+</ol>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">image</span>.setImageNamed(<span class="string">"image"</span>)</span><br></pre></td></tr></table></figure>
+<p>**注意：**这里使用的方法和设置图片的方法一样，但是参数有别，图片的设置需要完整的图片名，动画帧前缀的设置只要设置帧图片的前缀，并且素材帧必须放入watchKit App这个Target中，才可以使用。</p>
+<ol start="4">
+<li>开始动画</li>
+</ol>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// <span class="built_in">range</span>的location是图片的起始张，<span class="built_in">length</span>是图片的总数</span><br><span class="line"><span class="built_in">let</span> <span class="built_in">range</span> = NSRange(location: <span class="number">1</span>, <span class="built_in">length</span>: <span class="number">18</span>)</span><br><span class="line"><span class="built_in">image</span>.startAnimatingWithImages(<span class="keyword">in</span>: <span class="built_in">range</span>, duration: <span class="number">2</span>, repeatCount: <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-49cc7df1f7752a85.gif?imageMogr2/auto-orient/strip" alt="帧动画"></p>
+
                 
 
                 <hr>
@@ -251,7 +292,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="nav">none</ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">一、简介</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">二、移动动画</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">三、帧动画</span></a></li></ol>
         
         </div>
       </aside>
@@ -271,6 +312,8 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
+                          <a class="tag" href="/tags/#AppleWatch" title="AppleWatch">AppleWatch</a>
+                        
                     </div>
                 </section>
                 

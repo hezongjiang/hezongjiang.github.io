@@ -69,7 +69,7 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('null')
+            background-image: url('AppleWatch.jpg')
             /*post*/
         
     }
@@ -89,6 +89,8 @@
                 
                     <div class="post-heading">
                         <div class="tags">
+                            
+                              <a class="tag" href="/tags/#AppleWatch" title="AppleWatch">AppleWatch</a>
                             
                         </div>
                         <h1>AppleWatch开发入门(4)——Picker视图的应用</h1>
@@ -142,14 +144,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -212,7 +214,41 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                
+                <p>本文章是一个系列，如果有兴趣可以看看以下文章：<br>
+<strong><a href="/2018/11/18/AppleWatch开发入门-1-——界面布局/" title="AppleWatch开发入门(1)——界面布局">AppleWatch开发入门(1)——界面布局</a></strong><br>
+<strong><a href="/2018/11/19/AppleWatch开发入门-2-——控制器生命周期、界面跳转/" title="AppleWatch开发入门(2)——控制器生命周期、界面跳转">AppleWatch开发入门(2)——控制器生命周期、界面跳转</a></strong><br>
+<strong><a href="/2018/11/20/AppleWatch开发入门-3-——Table视图的应用/" title="AppleWatch开发入门(3)——Table视图的应用">AppleWatch开发入门(3)——Table视图的应用</a></strong><br>
+<strong>AppleWatch开发入门(4)——Picker视图的应用</strong><br>
+<strong><a href="/2018/11/21/AppleWatch开发入门-5-——Menu的使用/" title="AppleWatch开发入门(5)——Menu的使用">AppleWatch开发入门(5)——Menu的使用</a></strong><br>
+<strong><a href="/2018/11/21/AppleWatch开发入门-6-——watchOS中通知的应用/" title="AppleWatch开发入门(6)——watchOS中通知的应用">AppleWatch开发入门(6)——watchOS中通知的应用</a></strong><br>
+<strong><a href="/2018/11/21/AppleWatch开发入门-7-——AlertController/" title="AppleWatch开发入门(7)——AlertController">AppleWatch开发入门(7)——AlertController</a></strong><br>
+<strong><a href="/2018/11/21/AppleWatch开发入门-8-——动画/" title="AppleWatch开发入门(8)——动画">AppleWatch开发入门(8)——动画</a></strong></p>
+<h1><span id="一-简介">一、简介</span></h1>
+<p>Picker到底是个什么东西？如下图所示：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2708793-581a2976deb0a630.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2708793-829dc9d96c0434b0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<p>Picker有3种模式：List、Stack、Sequence：<br>
+1、List：有点像tableview，一行一行展示<br>
+2、Stack：有点像图片浏览器，一页一页展示，翻动时有动画效果<br>
+3、Sequence：与Stack类似，只不过翻动时没有动画效果</p>
+<h1><span id="二-创建picker">二、创建Picker</span></h1>
+<p>在 storyboard 中拖入 Picker：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2708793-926aaaec7ddf3092.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>因为Picker有3种模式（List、Stack、Sequence），我们每种模式弄一个：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2708793-1f54b0b20b6a8fb9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h1><span id="三-代码部分">三、代码部分</span></h1>
+<p>工欲善其事，必先利其器，呃，必先看头文件：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@available</span>(watchOS <span class="number">2.0</span>, *)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WKInterfacePicker</span> : <span class="title">WKInterfaceObject</span> </span>&#123;</span><br><span class="line">      <span class="comment">// 设置聚焦，有点像becomeFirstResponder</span></span><br><span class="line">      <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">focus</span><span class="params">()</span></span></span><br><span class="line">      <span class="comment">// 失去聚焦，有点像resignFirstResponder</span></span><br><span class="line">      <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">resignFocus</span><span class="params">()</span></span></span><br><span class="line">      <span class="comment">// 改变选中的索引</span></span><br><span class="line">      <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">setSelectedItemIndex</span><span class="params">(<span class="number">_</span> itemIndex: Int)</span></span></span><br><span class="line">      <span class="comment">// 设置Picker中的内容</span></span><br><span class="line">      <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">setItems</span><span class="params">(<span class="number">_</span> items: [WKPickerItem]?)</span></span></span><br><span class="line">      <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">setCoordinatedAnimations</span><span class="params">(<span class="number">_</span> coordinatedAnimations: [WKInterfaceObject]?)</span></span></span><br><span class="line">      <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">setEnabled</span><span class="params">(<span class="number">_</span> enabled: Bool)</span></span></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">@available</span>(watchOS <span class="number">2.0</span>, *)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WKPickerItem</span> : <span class="title">NSObject</span>, <span class="title">NSSecureCoding</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 设置文字，仅当Picker是'List'时有效.</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">var</span> title: <span class="type">String</span>?</span><br><span class="line">    <span class="comment">// Caption to show for the item when focus style includes a caption callout.</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">var</span> caption: <span class="type">String</span>?</span><br><span class="line">    <span class="comment">// 设置title前面的小图片，仅当Picker是'List'时有效，图片大小固定是13×13pt。</span></span><br><span class="line">    <span class="meta">@NSCopying</span> <span class="keyword">public</span> <span class="keyword">var</span> accessoryImage: <span class="type">WKImage</span>?</span><br><span class="line">    <span class="comment">// 大图</span></span><br><span class="line">    <span class="meta">@NSCopying</span> <span class="keyword">public</span> <span class="keyword">var</span> contentImage: <span class="type">WKImage</span>?</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>具体实现<br>
+1、 Pick 中的数据源是 WKPickerItem，先懒加载<code>[WKPickerItem]</code></p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">lazy <span class="selector-tag">var</span> items: [WKPickerItem] = &#123;</span><br><span class="line">        <span class="selector-tag">var</span> its = [WKPickerItem]()</span><br><span class="line">        <span class="keyword">for</span> <span class="selector-tag">i</span> <span class="keyword">in</span> <span class="number">0</span>...<span class="number">4</span> &#123;</span><br><span class="line">            let item = WKPickerItem()</span><br><span class="line">            item<span class="selector-class">.title</span> = <span class="string">"Title"</span> + <span class="string">"\(i)"</span></span><br><span class="line">            item<span class="selector-class">.caption</span> = <span class="string">"Caption"</span> + <span class="string">"\(i)"</span></span><br><span class="line">            item<span class="selector-class">.accessoryImage</span> = WKImage(image: UIImage(named: <span class="string">"ad_0"</span> + <span class="string">"\(i)"</span>)!)</span><br><span class="line">            item<span class="selector-class">.contentImage</span> = WKImage(image: UIImage(named: <span class="string">"ad_0"</span> + <span class="string">"\(i)"</span>)!)</span><br><span class="line">            its.append(item)</span><br><span class="line">        &#125;</span><br><span class="line">        return its</span><br><span class="line">    &#125;()</span><br></pre></td></tr></table></figure>
+<p>这里图片资源大家根据实际需求添加，加载图片时要特别注意，否则可能加载不出，详细见：<a href="http://www.jianshu.com/p/7c223446040c" target="_blank" rel="noopener">AppleWatch开发（1）——界面布局</a> 这篇文章的末尾部分。</p>
+<p>2、 连线</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@IBOutlet</span> var <span class="attribute">listPicker</span>: WKInterfacePicker!</span><br><span class="line"><span class="variable">@IBOutlet</span> var <span class="attribute">stackPicker</span>: WKInterfacePicker!</span><br><span class="line"><span class="variable">@IBOutlet</span> var <span class="attribute">sequencePicker</span>: WKInterfacePicker!</span><br></pre></td></tr></table></figure>
+<p>3、 设置数据</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">override</span> <span class="selector-tag">func</span> <span class="selector-tag">awake</span>(withContext <span class="attribute">context</span>: Any?) &#123;</span><br><span class="line">        <span class="selector-tag">super</span><span class="selector-class">.awake</span>(<span class="attribute">withContext</span>: context)</span><br><span class="line">        </span><br><span class="line">        <span class="selector-tag">listPicker</span><span class="selector-class">.setItems</span>(items)</span><br><span class="line">        <span class="selector-tag">stackPicker</span><span class="selector-class">.setItems</span>(items)</span><br><span class="line">        <span class="selector-tag">sequencePicker</span><span class="selector-class">.setItems</span>(items)</span><br><span class="line">        <span class="selector-tag">sequencePicker</span><span class="selector-class">.focus</span>()</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>这里要注意，在有多个Picker时，需要设置<code>focus()</code>，不然系统不知道你要滚动哪一个。</p>
+
                 
 
                 <hr>
@@ -225,7 +261,7 @@
                     
                     
                         <li class="next">
-                            <a href="/2018/11/21/AppleWatch开发入门-3-——Table视图的应用/" data-toggle="tooltip" data-placement="top" title="AppleWatch开发入门(3)——Table视图的应用">Next Post &rarr;</a>
+                            <a href="/2018/11/20/AppleWatch开发入门-3-——Table视图的应用/" data-toggle="tooltip" data-placement="top" title="AppleWatch开发入门(3)——Table视图的应用">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -255,7 +291,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="nav">none</ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">一、简介</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">二、创建Picker</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">三、代码部分</span></a></li></ol>
         
         </div>
       </aside>
@@ -275,6 +311,8 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
+                          <a class="tag" href="/tags/#AppleWatch" title="AppleWatch">AppleWatch</a>
+                        
                     </div>
                 </section>
                 

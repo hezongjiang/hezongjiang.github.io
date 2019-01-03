@@ -2,13 +2,13 @@
 <html lang="en">
 
 <!-- Head tag -->
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="The only thing we fear is fear itself.">
-    <meta name="keyword"  content="">
+    <meta name="keyword" content="">
     <link rel="shortcut icon" href="/img/ironman-draw.png">
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
@@ -80,7 +80,7 @@
     
 </style>
 
-<header class="intro-header" >
+<header class="intro-header">
     <!-- Signature -->
     <div id="signature">
         <div class="container">
@@ -144,14 +144,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -240,17 +240,13 @@
 <p>和 iOS 类似，watchOS 中的帧动画也是通过 UIImage 对象的合集来展示的。只是设置和用法略有不同。<br>
 首先，watchOS 中帧动画的操作被单独封装成了一个协议，当然，WKInterfaceImage 类已经遵守了这个协议的：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">protocol</span> <span class="title">WKImageAnimatable</span> : <span class="title">NSObjectProtocol</span> </span>&#123;    </span><br><span class="line">    <span class="comment">//从默认帧开始播放动画    </span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">startAnimating</span><span class="params">()</span></span>    </span><br><span class="line">    <span class="comment">//播放一个指定范围的帧动画 NSRange是帧的范围，durtion是播放一遍的时间，repeatCount是重复播放次数，0为无限循环    </span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">startAnimatingWithImages</span><span class="params">(<span class="keyword">in</span> imageRange: NSRange, duration: TimeInterval, repeatCount: Int)</span></span></span><br><span class="line">    <span class="comment">//停止播放动画    </span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">stopAnimating</span><span class="params">()</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>创建帧动画的步骤与一些注意：</p>
-<ol>
-<li>关联一个视图中的WKInterfaceImage对象</li>
-<li>所有帧动画的图片帧必须有统一的格式：比如image1.png，image2.png等等</li>
-<li>给WKInterfaceImage对象设置帧前缀：</li>
-</ol>
+<p>创建帧动画的步骤与一些注意：<br>
+1、关联一个视图中的WKInterfaceImage对象<br>
+2、所有帧动画的图片帧必须有统一的格式：比如image1.png，image2.png等等<br>
+3、给WKInterfaceImage对象设置帧前缀：</p>
 <figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">image</span>.setImageNamed(<span class="string">"image"</span>)</span><br></pre></td></tr></table></figure>
-<p>**注意：**这里使用的方法和设置图片的方法一样，但是参数有别，图片的设置需要完整的图片名，动画帧前缀的设置只要设置帧图片的前缀，并且素材帧必须放入watchKit App这个Target中，才可以使用。</p>
-<ol start="4">
-<li>开始动画</li>
-</ol>
+<p><strong>注意</strong>：这里使用的方法和设置图片的方法一样，但是参数有别，图片的设置需要完整的图片名，动画帧前缀的设置只要设置帧图片的前缀，并且素材帧必须放入 WatchKit App 这个 Target 中，才可以使用。<br>
+4、开始动画</p>
 <figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// <span class="built_in">range</span>的location是图片的起始张，<span class="built_in">length</span>是图片的总数</span><br><span class="line"><span class="built_in">let</span> <span class="built_in">range</span> = NSRange(location: <span class="number">1</span>, <span class="built_in">length</span>: <span class="number">18</span>)</span><br><span class="line"><span class="built_in">image</span>.startAnimatingWithImages(<span class="keyword">in</span>: <span class="built_in">range</span>, duration: <span class="number">2</span>, repeatCount: <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
 <p><img src="https://upload-images.jianshu.io/upload_images/2708793-49cc7df1f7752a85.gif?imageMogr2/auto-orient/strip" alt="帧动画"></p>
 
@@ -259,6 +255,10 @@
                 <hr>
                 <!-- Pager -->
                 <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2019/01/03/情书-1/" data-toggle="tooltip" data-placement="top" title="情书(1)">&larr; Previous Post</a>
+                        </li>
                     
                     
                         <li class="next">
@@ -410,7 +410,7 @@
 
                 
                     <li>
-                        <a target="_blank"  href="https://github.com/hezongjiang">
+                        <a target="_blank" href="https://github.com/hezongjiang">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
                                 <i class="fa fa-github fa-stack-1x fa-inverse"></i>
@@ -423,7 +423,7 @@
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; He Zongjiang 2018 
+                    Copyright &copy; He Zongjiang 2019 
                     <br>
                 </p>
             </div>

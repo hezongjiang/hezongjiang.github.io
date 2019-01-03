@@ -5,7 +5,7 @@
  */
 
 // Tooltip Init
-$(function() {
+$(function () {
     $("[data-toggle='tooltip']").tooltip();
 });
 
@@ -21,21 +21,21 @@ $(function() {
 // });
 
 // responsive tables
-$(document).ready(function() {
-	$("table").wrap("<div class='table-responsive'></div>");
-	$("table").addClass("table");
+$(document).ready(function () {
+    $("table").wrap("<div class='table-responsive'></div>");
+    $("table").addClass("table");
 });
 
 // responsive embed videos
-$(document).ready(function () { 
+$(document).ready(function () {
     $('iframe[src*="youtube.com"]').wrap('<div class="embed-responsive embed-responsive-16by9"></div>');
-	$('iframe[src*="youtube.com"]').addClass('embed-responsive-item');
+    $('iframe[src*="youtube.com"]').addClass('embed-responsive-item');
     $('iframe[src*="vimeo.com"]').wrap('<div class="embed-responsive embed-responsive-16by9"></div>');
-	$('iframe[src*="vimeo.com"]').addClass('embed-responsive-item');
+    $('iframe[src*="vimeo.com"]').addClass('embed-responsive-item');
 });
 
 // Navigation Scripts to Show Header on Scroll-Up
-jQuery(document).ready(function($) {
+jQuery(document).ready(function ($) {
     var MQL = 1170;
 
     //primary navigation slide-in effect
@@ -44,7 +44,7 @@ jQuery(document).ready(function($) {
         $(window).on('scroll', {
                 previousTop: 0
             },
-            function() {
+            function () {
                 var currentTop = $(window).scrollTop();
                 //check if user is scrolling up
                 if (currentTop < this.previousTop) {

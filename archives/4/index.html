@@ -136,14 +136,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -210,6 +210,162 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2018/03/22/强化学习/">
+        <h2 class="post-title">
+            强化学习
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            一、什么是强化学习
+强化学习是一类算法，是让计算机实现从一开始完全随机的进行操作，通过不断地尝试，从错误中学习，最后找到规律，学会了达到目的的方法。这就是一个完整的强化学习过程。让计算机在不断的尝试中更新自己的行为，从而一步步学习如何操自己的行为得到高分。
+它主要包含四个元素，Agent、环境状态、行动、奖励，强化学习的目标就是获得最多的累计奖励。
+让......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by He Zongjiang on
+            2018-03-22
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#机器学习" title="机器学习">机器学习</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/03/15/卷积神经网络—CNN/">
+        <h2 class="post-title">
+            卷积神经网络—CNN
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            一、为什么需要CNN
+在全连接神经网络中，每相邻两层之间的每个神经元之间都是有边相连的。当输入层的特征维度变得很高时，这时全连接网络需要训练的参数就会增大很多，计算速度就会变得很慢，例如一张黑白的 28×28 的手写数字图片，输入层的神经元就有784个，如下图所示：
+
+若在中间只使用一层15个神经元的隐藏层，那么参数 w 就有 784 × 15 = 1......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by He Zongjiang on
+            2018-03-15
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#机器学习" title="机器学习">机器学习</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/03/08/L1-L2-正规化-Regularization/">
+        <h2 class="post-title">
+            L1 / L2 正规化 (Regularization)
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            一、过拟合
+
+我们知道，过拟合就是所谓的模型对可见的数据过度自信，非常完美的拟合上了这些数据，如果具备过拟合的能力，那么这个方程就可能是一个比较复杂的非线性方程 ，正是因为这里的 x^2 和 x^3 使得这条虚线能够被弯来弯去，所以整个模型就会特别努力地去学习作用在 x^3 和 x^2 上的 c d 参数。但是我们期望模型要学到的却是这条蓝色的曲线。因......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by He Zongjiang on
+            2018-03-08
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#机器学习" title="机器学习">机器学习</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/03/08/过拟合-Overfitting-与-Dropout/">
+        <h2 class="post-title">
+            过拟合(Overfitting) 与 Dropout
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            一、过拟合(Overfitting)
+Overfitting 也被称为过度学习，过度拟合。 它是机器学习中常见的问题。 举个Classification（分类）的例子。
+
+图中黑色曲线是正常模型，绿色曲线就是overfitting模型。尽管绿色曲线很精确的区分了所有的训练数据，但是并没有描述数据的整体特征，对新测试数据的适应性较差。
+二、解决方法
+方法......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by He Zongjiang on
+            2018-03-08
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#机器学习" title="机器学习">机器学习</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2017/12/29/Swift-高阶函数map、flatMap、filter、reduce/">
+        <h2 class="post-title">
+            Swift - 高阶函数map、flatMap、filter、reduce
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            Swift 提供了如下几个高阶函数：map、flatMap、filter、reduce。使用高阶函数进行函数式编程不仅可以简化我们的代码，而且当数据比较大的时候，高阶函数会比传统实现更快。
+一、map 函数
+map 方法获取一个闭包表达式作为其唯一参数。然后它会遍历整个数组，并对数组中每一个元素执行闭包中的操作，并返回该元素所映射的值。
+简单说就是，数......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by He Zongjiang on
+            2017-12-29
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#iOS开发" title="iOS开发">iOS开发</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -367,176 +523,6 @@ CAEmitterCell ：单个粒子的原型。当散发出一个粒子，UIKit根据�
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2017/08/18/iOS-截屏-长截屏/">
-        <h2 class="post-title">
-            iOS 截屏&长截屏
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            截屏在 iOS 开发中经常用到，本篇文章讲的是监听用户截屏操作，并且获取截屏图片，如果当前是UIScrollView或者UIWebView，则为获取整个scrollView的截图内容，效果图如下：
-
-一、监听用户截屏
-iOS7 开始提供一个新的监听方法：UIApplicationUserDidTakeScreenshotNotification。只要像......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by He Zongjiang on
-            2017-08-18
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#iOS开发" title="iOS开发">iOS开发</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2017/03/18/hexo-theme-beantech/">
-        <h2 class="post-title">
-            [Hexo] Theme BeanTech
-        </h2>
-        <h3 class="post-subtitle">
-            This is hexo theme Demo.
-        </h3>
-        <div class="post-content-preview">
-            
-Ported Theme of Hux Blog, Thank Huxpro for designing such a flawless theme.
-This BeanTech theme created by YuHsuan modified from the original Porter Kaijun
-
-
-
-
-Usage
-
-I publish......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by He Zongjiang on
-            2017-03-18
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Hexo" title="Hexo">Hexo</a>
-            
-              <a href="/tags/#Blog" title="Blog">Blog</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2013/07/28/一些喜欢的诗文/">
-        <h2 class="post-title">
-            一些喜欢的诗文
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            第一 诗经·国风·秦风·蒹葭
-蒹葭苍苍，白露为霜。所谓伊人，在水一方，溯洄从之，道阻且长。溯游从之，宛在水中央。
-蒹葭萋萋，白露未晞。所谓伊人，在水之湄。溯洄从之，道阻且跻。溯游从之，宛在水中坻。
-蒹葭采采，白露未已。所谓伊人，在水之涘。溯洄从之，道阻且右。溯游从之，宛在水中沚。
-第二 诗经·国风·召南·关雎
-关关雎鸠，在河之洲。窈窕淑女，君子好求。
-......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by He Zongjiang on
-            2013-07-28
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#生活随笔" title="生活随笔">生活随笔</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2013/06/24/父亲的教导/">
-        <h2 class="post-title">
-            父亲的教导
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            给你说几句话吧，宗江：
-凡是不可强出头，此非君子所为，为不智。为父总结了自己身上的缺点：
-　　一、智商不高，脑袋欠灵活，不能领导他人；
-　　二、无一纸文凭，所学知识太少，无一技之长让人赏识；
-　　三、做事不坚决果断，犹豫寡断；
-　　四、目光短浅，不能高瞻远瞩，事物不露端倪看不到事情的本质和发展趁势；
-　　五、扶着绳索过河，缺少冒险精神和胆量。
-加上为父......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by He Zongjiang on
-            2013-06-24
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#生活随笔" title="生活随笔">生活随笔</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2012/08/13/辩论赛中经典辩驳/">
-        <h2 class="post-title">
-            辩论赛中经典辩驳
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            1、并行/包含理论
-“同时存在就叫做并行吗？那么今天您在论证您方观点，我在论证我方观点，那我们双方的观点也可以并行吗？那么请对方同学待会并行地论证一下我方观点吧！”
-“对方同学，如果您方观点已经包含了我方观点，那么我们今天的辩论还有什么意义？如果我方观点是您方观点的一部分，那就请您在论证您方观点的时候也论证一下我方观点吧。”
-“并行/包含理论”其实与“......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by He Zongjiang on
-            2012-08-13
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#生活随笔" title="生活随笔">生活随笔</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -577,15 +563,15 @@ I publish......
     <div class="tags">
         
             
-            <a href="/tags/#AppleWatch" title="AppleWatch" rel="8">AppleWatch</a>
-            
-        
-            
             <a href="/tags/#机器学习" title="机器学习" rel="10">机器学习</a>
             
         
             
             <a href="/tags/#天方夜谭" title="天方夜谭" rel="6">天方夜谭</a>
+            
+        
+            
+            <a href="/tags/#AppleWatch" title="AppleWatch" rel="8">AppleWatch</a>
             
         
             
@@ -603,7 +589,7 @@ I publish......
             
         
             
-            <a href="/tags/#爱" title="爱" rel="2">爱</a>
+            <a href="/tags/#爱" title="爱" rel="7">爱</a>
             
         
     </div>
@@ -658,23 +644,23 @@ I publish......
     <ul>
       
         <li>
-          <a href="/2019/01/10/Swift-OR-Objective-C/">Objective-C? OR Swift?</a>
+          <a href="/2019/01/10/情书-7/">情书(7)</a>
         </li>
       
         <li>
-          <a href="/2019/01/04/情书-2/">情书(2)</a>
+          <a href="/2019/01/10/情书-6/">情书(6)</a>
         </li>
       
         <li>
-          <a href="/2019/01/03/情书-1/">情书(1)</a>
+          <a href="/2019/01/10/情书-5/">情书(5)</a>
         </li>
       
         <li>
-          <a href="/2018/11/21/AppleWatch开发入门-8-——动画/">AppleWatch开发入门(8)——动画</a>
+          <a href="/2019/01/10/情书-4/">情书(4)</a>
         </li>
       
         <li>
-          <a href="/2018/11/21/AppleWatch开发入门-7-——AlertController/">AppleWatch开发入门(7)——AlertController</a>
+          <a href="/2019/01/10/情书-3/">情书(3)</a>
         </li>
       
     </ul>

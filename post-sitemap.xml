@@ -7,8 +7,32 @@
     </url>
 
     <url>
+        <loc>https://hezongjiang.github.io/2019/01/10/Swift-OR-Objective-C/</loc>
+        <lastmod>2019-01-10T14:08:52.296Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://hezongjiang.github.io/2019/01/04/%E6%83%85%E4%B9%A6-2/</loc>
+        <lastmod>2019-01-04T15:37:44.042Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://hezongjiang.github.io/2018/09/30/%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84%E9%B8%A6%E7%89%87%E6%88%98%E4%BA%89/</loc>
+        <lastmod>2019-01-04T15:22:53.707Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://hezongjiang.github.io/2019/01/03/%E6%83%85%E4%B9%A6-1/</loc>
-        <lastmod>2019-01-03T01:52:19.746Z</lastmod>
+        <lastmod>2019-01-03T01:59:05.898Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -41,14 +65,6 @@
     <url>
         <loc>https://hezongjiang.github.io/2018/11/21/AppleWatch%E5%BC%80%E5%8F%91%E5%85%A5%E9%97%A8-6-%E2%80%94%E2%80%94watchOS%E4%B8%AD%E9%80%9A%E7%9F%A5%E7%9A%84%E5%BA%94%E7%94%A8/</loc>
         <lastmod>2018-11-22T09:39:54.679Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://hezongjiang.github.io/2018/09/30/%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84%E9%B8%A6%E7%89%87%E6%88%98%E4%BA%89/</loc>
-        <lastmod>2018-11-21T12:21:37.686Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 

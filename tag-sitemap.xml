@@ -16,20 +16,6 @@
     </url>
 
     <url>
-        <loc>https://hezongjiang.github.io/tags/JAVA/</loc>
-        <lastmod>2018-09-23T06:09:40.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://hezongjiang.github.io/tags/iOS%E5%BC%80%E5%8F%91/</loc>
-        <lastmod>2018-09-30T11:11:59.984Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://hezongjiang.github.io/tags/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%94/</loc>
         <lastmod>2018-11-21T11:26:52.268Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -58,8 +44,22 @@
     </url>
 
     <url>
+        <loc>https://hezongjiang.github.io/tags/JAVA/</loc>
+        <lastmod>2019-01-22T08:34:08.473Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://hezongjiang.github.io/tags/iOS%E5%BC%80%E5%8F%91/</loc>
+        <lastmod>2019-01-22T08:40:58.572Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://hezongjiang.github.io/tags/%E7%88%B1/</loc>
-        <lastmod>2019-01-10T15:20:51.243Z</lastmod>
+        <lastmod>2019-01-22T09:01:28.748Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

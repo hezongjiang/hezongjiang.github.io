@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          AlphaGo 的“前世今生” - 小道消息&#39;s notes
+          BIO、NIO、AIO - 小道消息&#39;s notes
         
     </title>
 
-    <link rel="canonical" href="https://hezongjiang.github.io/2018/05/21/AlphaGo-的“前世今生”/">
+    <link rel="canonical" href="https://hezongjiang.github.io/2019/03/18/BIO、NIO、AIO/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -69,7 +69,7 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('alpha_go.jpg')
+            background-image: url('null')
             /*post*/
         
     }
@@ -90,16 +90,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#机器学习" title="机器学习">机器学习</a>
-                            
-                              <a class="tag" href="/tags/#天方夜谭" title="天方夜谭">天方夜谭</a>
+                              <a class="tag" href="/tags/#-JAVA" title="-JAVA">-JAVA</a>
                             
                         </div>
-                        <h1>AlphaGo 的“前世今生”</h1>
-                        <h2 class="subheading">浅谈AlphaGo</h2>
+                        <h1>BIO、NIO、AIO</h1>
+                        <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by He Zongjiang on
-                            2018-05-21
+                            2019-03-18
                         </span>
                     </div>
                 
@@ -216,61 +214,48 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h2><span id="一-alphago-的前世深蓝蛮算的硬汉">一、AlphaGo 的“前世”——深蓝——蛮算的“硬汉”</span></h2>
-<p>1996 年 2 月，在美国费城举行了一项别开生面的国际象棋比赛，报名参加比赛者包括了 “深蓝”计算机 和 当时世界棋王 卡斯帕罗夫。</p>
-<p>比赛最后一天，世界棋王卡斯帕罗夫对垒“深蓝”计算机。在这场人机对弈的6局比赛中，棋王卡斯帕罗夫以 4：2 战胜计算机“深蓝”，获得 40 万美元高额奖金。人胜计算机，首次国际象棋人机大战落下帷幕。比赛在 2 月 17 日结束。其後研究小组把深蓝加以改良。</p>
-<p>次年，也就是1997 年 5 月 11 日，在人与计算机之间挑战赛的历史上可以说是历史性的一天。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2708793-6ac5573a67984769.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1997年电脑深蓝首次战胜国象棋王卡斯帕罗夫"></p>
-<p>计算机在正常时限的比赛中首次击败了等级分排名世界第一的棋手。加里·卡斯帕罗夫以 2.5:3.5 （1胜2负3平）输给 IBM 的计算机程序 “深蓝”。机器的胜利标志着国际象棋历史的新时代。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2708793-2df1255bbe157475.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="落败"></p>
-<p>其中，比赛的转折点出现在第二局。</p>
-<p>卡斯帕罗夫第一局获胜，感觉很好。但在第二局中，双方却打得不可开交。在第 36 步棋时，电脑的做法让卡斯帕罗夫不寒而栗。在当时的情况下，几乎所有顶尖国际象棋程序都会攻击卡斯帕罗夫暴露在外的皇后，但深蓝却走出了一步更为狡猾的棋，最终的效果也更好。这令卡斯帕罗夫对电脑另眼相看。</p>
-<p>对卡斯帕罗夫和所有旁观者来说，深蓝突然不再像电脑一样下棋（它顶住诱惑，没有攻击皇后），反而采取了只有最聪明的人类大师级选手才有可能使用的策略。通过在卡斯帕罗夫面前深藏不漏，IBM成功让人类低估了它的水平。</p>
-<p>他的斗志和体力在随后3局被拖垮，在决胜局中，仅 <strong>19</strong> 步就宣布放弃。</p>
-<p>后来，IBM拒绝了卡斯帕罗夫的再战请求，拆卸了“深蓝”。卡斯帕罗夫虽然后来多次挑战电脑战平，却无法找“深蓝”“复仇”，留下永久的遗憾。</p>
-<p>在今天看来，“深蓝”还算不上智能，它主要依靠强大的计算能力穷举所有路数来选择最佳策略：“深蓝”靠硬算可以预判12步，卡斯帕罗夫可以预判10步，两者高下立现。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2708793-312a79fc000d8963.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="深蓝计算机"></p>
-<h2><span id="二-alphago-的今生">二、AlphaGo 的“今生”</span></h2>
-<p>在 AlphaGo 诞生之前，计算机在除围棋之外，几乎所有棋类游戏上战胜了人类，唯独围棋没有被攻克，为什么呢？</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2708793-b43fa88833fed97e.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="AlphaGo"></p>
-<p>围棋游戏只有两个非常简单的规则，而其复杂性却是难以想象的，一共有 10 的 170 次方种可能性，这个数字之大，以至于用当今世界最强大的计算系统，算几十年也算不完，是没有办法穷举出围棋所有的可能结果的。所以，计算机需要一种更加聪明的方法。</p>
-<p>直到 2016 年，AlphaGo 第一版发表在了 Nature 自然杂志上，这可是牛逼得不要不要的期刊。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2708793-1ad5528611e005ce.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Nature 杂志封面"></p>
-<p>而刚过去一年，Google DeepMind 又在 Nature 上发表了一篇 AlphaGo 的改进版——AlphaGo Zero，同样的围棋 AI，竟然在自然杂志上发了两次！赞叹他们的实力呀！</p>
-<p>AlphaGo 战胜过欧洲冠军樊麾，韩国九段棋手李世石，而后又赢了世界冠军柯洁，种种迹象表明，人类已经失守最拿手的围棋了。这些围棋高手一个个都表示 AlphaGo 走到了他们想不到的地方，战胜了人类的生物极限。那 AlphaGo 又是怎么在策略上战胜人类的呢？很简单，它会做计划。</p>
-<blockquote>
-<p>在我被 AlphaGo 2:0 领先以后，我彻夜未眠。因为我一直在想我如何才能赢了它，它会不会有什么漏洞，哪怕是捡一盘也好啊！在第三局中，我竭尽全力以求一胜。因为在第二局的时候，我其实布局是领先的，布局的领先让我依稀看到了胜利的曙光。在第三盘中我跟它拼了！可是就在早早布局的阶段，我却出现了一个非常致命的失误。——引自柯洁的演讲</p>
-</blockquote>
-<blockquote>
-<p>棋至中盘，我努力寻找机会，可是 AlphaGo 实在是太完美了，它下出了让我感到寒冷的一步棋，令我感到绝望的一步棋。它下完之后，我知道我这盘棋是不可能赢了。我感到浑身都在颤抖，真的，寒冷地颤抖。我再也控制不住情绪，赶紧冲出对局室，找到一个无人的角落里哭了起来。因为即将到来的3:0，这样的结局对我来说实在是太绝望了。——引自柯洁的演讲</p>
-</blockquote>
-<h2><span id="三-alphago-背后的原理">三、AlphaGo 背后的原理</span></h2>
-<p>阿尔法狗（AlphaGo）是通过两个不同神经网络合作来改进下棋。这就像有两个导师，每个都是多层神经网络。它们从多层启发式二维过滤器开始，去处理围棋棋盘的定位，就像图片分类器网络处理图片一样。经过过滤，13 个完全连接的神经网络层产生对它们看到的局面判断。这些层能够做分类和逻辑推理。</p>
-<p>这些网络通过反复训练来检查结果，再去校对调整参数，去让下次执行更好。这个处理器有大量的随机性元素，所以人们是不可能精确知道网络是如何“思考”的，但更多的训练后能让它进化到更好。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2708793-835fa33beed00ad1.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="AlphaGo 原理"></p>
-<p>导师1号：落子选择器（Move Picker）</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2708793-86b111f8953d4c0e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Policy network"></p>
-<p>AlphaGo 的第一个神经网络大脑是**“策略网络（Policy Network）”**，观察棋盘布局企图找到最佳的下一步。事实上，它预测每一个合法下一步的最佳概率，那么最前面猜测的就是那个概率最高的。这可以理解成“落子选择器”。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2708793-56320fab7f4e5ee7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-<p>导师2号：棋局评估器（Position Evaluator）</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2708793-73d9adb95319d67f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Value network"></p>
-<p>AlphaGo 的第二个大脑相对于落子选择器是回答另一个问题。不是去猜测具体下一步，它预测每一个棋手赢棋的可能，在给定棋子位置情况下。这个局面评估器就是**“价值网络（Value Network）”**，通过整体局面判断来辅助落子选择器。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2708793-7d92d153e3871e7e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-<p>然后，AlphaGo 通过吸收人类<strong>几千年</strong>来优秀的棋谱，不断学习优化 策略网络 和 价值网络，从而战胜了欧洲冠军樊麾，韩国九段棋手李世石，而后又赢了世界冠军柯洁。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2708793-90f0a3cf289ee257.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="AlphaGo 下棋"></p>
-<p>但是，这并不是重点。</p>
-<h2><span id="四-alphago-zero">四、AlphaGo Zero</span></h2>
-<p>终于说到重点了~~</p>
-<p>Zero 英文意思是：零。除了围棋最基本规则（棋盘的几何学定义，轮流落子规则，终局输赢计算，打劫等），它就是一张白纸。放弃参考任何人类棋谱，完全自我学习。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2708793-4accc2d4035a02e2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="AlphaGo Zero"></p>
-<p>如果你和一个有人类老师的 AlphaGo 交手，那可能还会在它背后看到人类下棋的影子。但是 AlphaGo Zero，完全是一个无师自通的家伙，和它下棋，你可能闻到很浓烈的机械味。但从另一方面想，这样的 AlphaGo 打破了数千年来人类下棋思维的限制，探索了人类想不到的下棋境界，学会了一个崭新的下棋方式。</p>
-<p>仅仅经过 <strong>3</strong> 天的训练后，这套系统已经可以击败 AlphaGo Lee，也就是击败韩国顶尖棋手李世石的那套系统，而且比分高达100：0。经过 40 天训练后，它总计运行了大约 2900 万次自我对弈，使得 AlphaGo Zero 击败 AlphaGo Master，也就是击败世界冠军柯洁的系统，比分为 89：11。要知道职业围棋选手一生中的正式比赛也就一千多局， 而 AlphaGo Zero 却进行了 2900 万次对局。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2708793-ab16fa5c39c7508a.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="AlphaGo Zero 训练效果"></p>
-<p>在技术层面来说，AlphaGo Zero 使用的不再是之前提到的两套神经网络系统，而是将它们融合成一个神经网络系统，这样做能更有效利用资源，学习效果更好。其关键在于采用了新的<a href="/2018/03/22/强化学习/" title="强化学习">强化学习</a>，并给该算法带了新的发展。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2708793-3ec4dc2f66906705.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="柯洁对 AlphaGo Zero 的看法"></p>
-<p>而且，它不再仅仅使用 GPU，转而添加了自家的专门为机器学习打造的 TPU，而且使用的硬件个数也在逐步降低，然而学习的效果却不断上升。在短短 40 天没有老师教的训练中，AlphaGo Zero 超越了他所有的前辈，在这个时候，我相信它真正做到了在围棋场上无人能敌了。</p>
-<p>最后，正如 AlphaGo 之父 David Silver 所说，一个无师自通 AlphaGo 的产生，并不仅仅意味着我们的 AI 能在围棋场上战胜人类，放眼未来，它还意味着，在更多方面，我们能用这样的 AI 创造出更多人类历史上的新篇章。</p>
-<p>围棋场上，无论谁赢，最终获胜的都是人类自己。</p>
+                <h2><span id="一-基本概念">一、基本概念</span></h2>
+<p>对于 IO(InputStream、OutputStream) 我们应该比较熟悉，IO 不仅仅针对文件的操作，网络编程 Socket 的通信，也是IO操作。输入、输出流（InputStream、OutputStream）用于读取或写入字节，如操作图片、视频等。</p>
+<p>同时在了解 IO 的前提下，我们还需要知道几个概念：<code>阻塞</code>与<code>非阻塞</code>，<code>同步</code>与<code>异步</code>。</p>
+<p><strong><code>阻塞</code>与<code>非阻塞</code>是指：线程访问资源，该资源是否准备就绪的一种处理方式。</strong></p>
+<p>例如线程 A 去访问一个资源，该资源正在处理中，于是线程 A 什么都不干，就在这里一直等着，直到资源处理完毕，这就是<code>阻塞</code>。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-2769023741c1d272.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="阻塞"></p>
+<p>再来看一个聪明点的线程 B，它去访问一个资源，该资源也在处理中，于是线程 B 就再去请求下一个资源，如果下一个资源也在处理中，那么它还可能去请求第三个、第四个资源。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-374c6c4304654791.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="非阻塞"></p>
+<p><strong><code>同步</code>与<code>异步</code>是指访问数据的一种机制。</strong></p>
+<p>例如线程 A 去请求资源，线程 A 要定时的读取，判断数据有没有准备好，如果准备好了，就返回数据，这就是<code>同步</code>。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-374bef80ea8b2aa0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="同步"></p>
+<p>例如线程 B 去请求资源，B 不会主动去看看资源有没有准备好，而是资源准备好之后，会来通知线程 B，这就是<code>异步</code>。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-b6cc0198573d6274.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="异步"></p>
+<p>以上模式两两组合，就可以分为<code>同步阻塞(BIO)</code>、<code>同步非阻塞(NIO)</code>、<code>异步阻塞</code>、<code>异步非阻塞(AIO)</code>四种。</p>
+<h2><span id="二-bio">二、BIO</span></h2>
+<p>BIO(Block IO)同步阻塞 IO，IO 在进行读写的时候，这个线程是阻塞的，不能去做其他的事情，这是一种非常传统、简单的通信模式，并发处理能力非常低，并且线程之间访问资源通信的时候耗时也是比较久，相应的也依赖网速与带宽。</p>
+<p>例如有一台服务器，可以接受多个客户端请求，那么使用 BIO 是可以实现的。但是为了一个用户的请求而单独启动一个线程，开销应该不小吧。Java 语言对线程的实现是比较重量的，启动或销毁线程，都会有明显开销，每个线程都有单独的线程棧占用明显的内存。引入线程池，就能很大程度的避免不必要的开销。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-900fee47b89ba96d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="BIO"></p>
+<p>这种情况适合连接数并不多，只有最多几百个连接的普通应用，能比较好的进行工作，但如果连接数量剧增，肯定是不可取的。</p>
+<h2><span id="三-nio">三、NIO</span></h2>
+<p>NIO(New IO 或 Non-Block IO) 同步非阻塞 IO，NIO 采用的是一种多路复用的机制，利用单线程主动轮询事件。</p>
+<p>当客户端与服务端进行连接的时候，实际上是与 Selector 进行注册，注册完毕之后会有双向通道 Channel，每个客户端注册后都会有一个 Channel。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-4e9f3de12179dd69.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="NIO"></p>
+<p>NIO 的<code>非阻塞</code>是指，Selector 会轮询多个 Channel，定位就绪的 Channel 来决定做什么，如果没有数据，Selector 会跳过该 Channel，而不会阻塞的等待数据，能有效避免大量连接数时，频繁线程的切换带来的性能或各种问题。</p>
+<p>NIO 的<code>同步</code>是指，这个线程仍然要定时的读取 Stream，判断数据有没有准备好。</p>
+<p>这里的的 Selector 是一个单线程，可以处理成百上千个 Channel，但如果是高并发、大负载，NIO 还是处理不了，这时就需要新的线程模型。NIO 有三种线程模型：</p>
+<p><strong>1、Reactor 单线程模型：</strong></p>
+<p>单个线程完成所有事情包括接收客户端的TCP连接请求，读取和写入套接字数据等，上面所讲的就是单线程模型。</p>
+<p><strong>2、Reactor 多线程模型：</strong></p>
+<p>Rector多线程模型与单线程模型最大的区别就是：有专门一个 NIO 线程——Acceptor 线程用于监听服务端，接收客户端的TCP连接请求；另外还有一组 NIO 线程处理真实的IO操作。</p>
+<p>网络IO操作-读、写等由一个NIO线程池负责，线程池可以采用标准的JDK线程池实现，它包含一个任务队列和N个可用的线程，由这些NIO线程负责消息的读取、解码、编码和发送；</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-ee4f8775eb542339.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="多线程模型"></p>
+<p>从上图中可看出，相比于单线程模型，从单线程中由一个线程即监听连接事件、读写事件、由完成数据读写，拆分为由一个线程专门监听各种事件，再由专门的线程池负责处理真正的IO数据读写。</p>
+<p><strong>3、主从 Reactor 多线程模型</strong></p>
+<p>主从Reactor线程模型与Reactor多线程模型的最大区别就是有一组NIO线程处理连接、读写事件。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-d31c157c67819658.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="主从线程模型"></p>
+<p>相比于多线程模型，主从模型吧一个线程监听连接事件，改为线程池的多个线程监听已经建立连接的套接字的数据读写事件，另外一个与多线程模型一样有专门的线程池处理真正的IO操作。</p>
+<h2><span id="四-aio">四、AIO</span></h2>
+<p>AIO 是在 NIO 的基础上引入异步通道的概念，实现异步非阻塞式的IO处理。</p>
+<p>AIO 不需要通过多路复用器对注册的通道进行轮询操作即可实现异步读写。</p>
+<p>NIO 采用轮询的方式，一直在询问数据是否准备就绪，如果准备就绪发起处理。但是 AIO 就不需要了，应用程序向操作系统注册 IO 监听，然后继续做自己的事情。操作系统发生 IO 事件，并且准备好数据后，在主动通知应用程序，触发相应的函数。由于应用程序不是“轮询”方式而是订阅-通知方式，所以不再需要selector轮询，由channel通道直接到操作系统注册监听。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-d907a980af272b86.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="小结"></p>
 
                 
 
@@ -279,12 +264,12 @@
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2018/05/25/强化学习——Policy-Gradients/" data-toggle="tooltip" data-placement="top" title="强化学习——Policy Gradients">&larr; Previous Post</a>
+                            <a href="/2019/03/18/iOS-Runtime-教程/" data-toggle="tooltip" data-placement="top" title="iOS Runtime 教程">&larr; Previous Post</a>
                         </li>
                     
                     
                         <li class="next">
-                            <a href="/2018/04/16/强化学习——Deep-Q-Network/" data-toggle="tooltip" data-placement="top" title="强化学习——Deep Q Network">Next Post &rarr;</a>
+                            <a href="/2019/02/19/一个完整的-Web-请求到底发生了什么/" data-toggle="tooltip" data-placement="top" title="一个完整的 Web 请求到底发生了什么">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -314,7 +299,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">一、AlphaGo 的“前世”——深蓝——蛮算的“硬汉”</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">二、AlphaGo 的“今生”</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">三、AlphaGo 背后的原理</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">四、AlphaGo Zero</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">一、基本概念</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">二、BIO</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">三、NIO</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">四、AIO</span></a></li></ol>
         
         </div>
       </aside>
@@ -334,9 +319,7 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#机器学习" title="机器学习">机器学习</a>
-                        
-                          <a class="tag" href="/tags/#天方夜谭" title="天方夜谭">天方夜谭</a>
+                          <a class="tag" href="/tags/#-JAVA" title="-JAVA">-JAVA</a>
                         
                     </div>
                 </section>
@@ -367,8 +350,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "your-disqus-ID";
-    var disqus_identifier = "https://hezongjiang.github.io/2018/05/21/AlphaGo-的“前世今生”/";
-    var disqus_url = "https://hezongjiang.github.io/2018/05/21/AlphaGo-的“前世今生”/";
+    var disqus_identifier = "https://hezongjiang.github.io/2019/03/18/BIO、NIO、AIO/";
+    var disqus_url = "https://hezongjiang.github.io/2019/03/18/BIO、NIO、AIO/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

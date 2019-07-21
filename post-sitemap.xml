@@ -7,8 +7,8 @@
     </url>
 
     <url>
-        <loc>https://hezongjiang.github.io/2019/03/18/iOS-Runtime-%E6%95%99%E7%A8%8B/</loc>
-        <lastmod>2019-03-18T06:11:18.485Z</lastmod>
+        <loc>https://hezongjiang.github.io/2019/07/21/%E7%99%BD%E8%AF%9D%E2%80%99%E4%B8%80%E8%87%B4%E5%93%88%E5%B8%8C%E2%80%98/</loc>
+        <lastmod>2019-07-21T08:16:31.995Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -16,7 +16,15 @@
 
     <url>
         <loc>https://hezongjiang.github.io/2019/03/18/BIO%E3%80%81NIO%E3%80%81AIO/</loc>
-        <lastmod>2019-03-18T06:03:16.309Z</lastmod>
+        <lastmod>2019-03-19T01:48:35.260Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://hezongjiang.github.io/2019/03/18/iOS-Runtime-%E6%95%99%E7%A8%8B/</loc>
+        <lastmod>2019-03-18T06:11:18.485Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 

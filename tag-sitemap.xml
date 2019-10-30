@@ -30,36 +30,8 @@
     </url>
 
     <url>
-        <loc>https://hezongjiang.github.io/tags/%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%AD/</loc>
-        <lastmod>2019-02-22T01:19:36.501Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://hezongjiang.github.io/tags/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%94/</loc>
-        <lastmod>2019-02-22T14:13:20.313Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://hezongjiang.github.io/tags/iOS%E5%BC%80%E5%8F%91/</loc>
         <lastmod>2019-03-18T06:11:18.485Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://hezongjiang.github.io/tags/JAVA/</loc>
-        <lastmod>2019-03-19T01:48:35.260Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://hezongjiang.github.io/tags/JAVA/</loc>
-        <lastmod>2019-07-21T08:44:40.048Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
@@ -81,6 +53,27 @@
     <url>
         <loc>https://hezongjiang.github.io/tags/Java/</loc>
         <lastmod>2019-07-23T11:53:28.193Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://hezongjiang.github.io/tags/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%94/</loc>
+        <lastmod>2019-10-30T02:38:52.440Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://hezongjiang.github.io/tags/JAVA/</loc>
+        <lastmod>2019-10-30T02:42:10.539Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://hezongjiang.github.io/tags/%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%AD/</loc>
+        <lastmod>2019-10-30T03:03:02.089Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

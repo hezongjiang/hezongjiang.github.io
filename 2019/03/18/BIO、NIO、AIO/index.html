@@ -90,7 +90,7 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#JAVA" title="JAVA">JAVA</a>
+                              <a class="tag" href="/tags/#服务端开发" title="服务端开发">服务端开发</a>
                             
                         </div>
                         <h1>BIO、NIO、AIO</h1>
@@ -219,24 +219,24 @@
 <p>同时在了解 IO 的前提下，我们还需要知道几个概念：<code>阻塞</code>与<code>非阻塞</code>，<code>同步</code>与<code>异步</code>。</p>
 <p><strong><code>阻塞</code>与<code>非阻塞</code>是指：线程访问资源，该资源是否准备就绪的一种处理方式。</strong></p>
 <p>例如线程 A 去访问一个资源，该资源正在处理中，于是线程 A 什么都不干，就在这里一直等着，直到资源处理完毕，这就是<code>阻塞</code>。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2708793-2769023741c1d272.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="阻塞"></p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8gei211gvj309q0303ys.jpg" alt="阻塞"></p>
 <p>再来看一个聪明点的线程 B，它去访问一个资源，该资源也在处理中，于是线程 B 就再去请求下一个资源，如果下一个资源也在处理中，那么它还可能去请求第三个、第四个资源。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2708793-374c6c4304654791.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="非阻塞"></p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8gebvk7nrj309d04w752.jpg" alt="非阻塞"></p>
 <p><strong><code>同步</code>与<code>异步</code>是指访问数据的一种机制。</strong></p>
 <p>例如线程 A 去请求资源，线程 A 要定时的读取，判断数据有没有准备好，如果准备好了，就返回数据，这就是<code>同步</code>。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2708793-374bef80ea8b2aa0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="同步"></p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8gecdbn04j309b02awes.jpg" alt="同步"></p>
 <p>例如线程 B 去请求资源，B 不会主动去看看资源有没有准备好，而是资源准备好之后，会来通知线程 B，这就是<code>异步</code>。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2708793-b6cc0198573d6274.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="异步"></p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8gecoh2gnj309f066myc.jpg" alt="异步"></p>
 <p>以上模式两两组合，就可以分为<code>同步阻塞(BIO)</code>、<code>同步非阻塞(NIO)</code>、<code>异步阻塞</code>、<code>异步非阻塞(AIO)</code>四种。</p>
 <h2><span id="二-bio">二、BIO</span></h2>
 <p>BIO(Block IO)同步阻塞 IO，IO 在进行读写的时候，这个线程是阻塞的，不能去做其他的事情，这是一种非常传统、简单的通信模式，并发处理能力非常低，并且线程之间访问资源通信的时候耗时也是比较久，相应的也依赖网速与带宽。</p>
 <p>例如有一台服务器，可以接受多个客户端请求，那么使用 BIO 是可以实现的。但是为了一个用户的请求而单独启动一个线程，开销应该不小吧。Java 语言对线程的实现是比较重量的，启动或销毁线程，都会有明显开销，每个线程都有单独的线程棧占用明显的内存。引入线程池，就能很大程度的避免不必要的开销。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2708793-900fee47b89ba96d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="BIO"></p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8gecxz6yij30fy05vjsf.jpg" alt="BIO"></p>
 <p>这种情况适合连接数并不多，只有最多几百个连接的普通应用，能比较好的进行工作，但如果连接数量剧增，肯定是不可取的。</p>
 <h2><span id="三-nio">三、NIO</span></h2>
 <p>NIO(New IO 或 Non-Block IO) 同步非阻塞 IO，NIO 采用的是一种多路复用的机制，利用单线程主动轮询事件。</p>
 <p>当客户端与服务端进行连接的时候，实际上是与 Selector 进行注册，注册完毕之后会有双向通道 Channel，每个客户端注册后都会有一个 Channel。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2708793-4e9f3de12179dd69.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="NIO"></p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8ged64b93j30h606kmz8.jpg" alt="NIO"></p>
 <p>NIO 的<code>非阻塞</code>是指，Selector 会轮询多个 Channel，定位就绪的 Channel 来决定做什么，如果没有数据，Selector 会跳过该 Channel，而不会阻塞的等待数据，能有效避免大量连接数时，频繁线程的切换带来的性能或各种问题。</p>
 <p>NIO 的<code>同步</code>是指，这个线程仍然要定时的读取 Stream，判断数据有没有准备好。</p>
 <p>这里的的 Selector 是一个单线程，可以处理成百上千个 Channel，但如果是高并发、大负载，NIO 还是处理不了，这时就需要新的线程模型。NIO 有三种线程模型：</p>
@@ -245,17 +245,17 @@
 <p><strong>2、Reactor 多线程模型：</strong></p>
 <p>Rector多线程模型与单线程模型最大的区别就是：有专门一个 NIO 线程——Acceptor 线程用于监听服务端，接收客户端的TCP连接请求；另外还有一组 NIO 线程处理真实的IO操作。</p>
 <p>网络IO操作-读、写等由一个NIO线程池负责，线程池可以采用标准的JDK线程池实现，它包含一个任务队列和N个可用的线程，由这些NIO线程负责消息的读取、解码、编码和发送；</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2708793-ee4f8775eb542339.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="多线程模型"></p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8gedezr78j30ji05wjts.jpg" alt="多线程模型"></p>
 <p>从上图中可看出，相比于单线程模型，从单线程中由一个线程即监听连接事件、读写事件、由完成数据读写，拆分为由一个线程专门监听各种事件，再由专门的线程池负责处理真正的IO数据读写。</p>
 <p><strong>3、主从 Reactor 多线程模型</strong></p>
 <p>主从Reactor线程模型与Reactor多线程模型的最大区别就是有一组NIO线程处理连接、读写事件。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2708793-d31c157c67819658.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="主从线程模型"></p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8gedm7s51j30id05oq4x.jpg" alt="主从线程模型"></p>
 <p>相比于多线程模型，主从模型吧一个线程监听连接事件，改为线程池的多个线程监听已经建立连接的套接字的数据读写事件，另外一个与多线程模型一样有专门的线程池处理真正的IO操作。</p>
 <h2><span id="四-aio">四、AIO</span></h2>
 <p>AIO 是在 NIO 的基础上引入异步通道的概念，实现异步非阻塞式的IO处理。</p>
 <p>AIO 不需要通过多路复用器对注册的通道进行轮询操作即可实现异步读写。</p>
 <p>NIO 采用轮询的方式，一直在询问数据是否准备就绪，如果准备就绪发起处理。但是 AIO 就不需要了，应用程序向操作系统注册 IO 监听，然后继续做自己的事情。操作系统发生 IO 事件，并且准备好数据后，在主动通知应用程序，触发相应的函数。由于应用程序不是“轮询”方式而是订阅-通知方式，所以不再需要selector轮询，由channel通道直接到操作系统注册监听。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2708793-d907a980af272b86.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="小结"></p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8gedt4tsxj30jk06w0ux.jpg" alt="小结"></p>
 
                 
 
@@ -319,7 +319,7 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#JAVA" title="JAVA">JAVA</a>
+                          <a class="tag" href="/tags/#服务端开发" title="服务端开发">服务端开发</a>
                         
                     </div>
                 </section>

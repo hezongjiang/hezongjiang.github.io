@@ -90,7 +90,7 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#JAVA" title="JAVA">JAVA</a>
+                              <a class="tag" href="/tags/#服务端开发" title="服务端开发">服务端开发</a>
                             
                         </div>
                         <h1>SpringBoot 缓存技术浅谈</h1>
@@ -228,9 +228,9 @@
 <h2><span id="三-数据库与实体类创建">三、数据库与实体类创建</span></h2>
 <p><strong>1、数据库创建</strong><br>
 简单起见，这里创建一个 <code>student</code> 表，里面只有 3 个字段：<code>student_id</code>，<code>student_name</code>，<code>student_age</code>。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2708793-30d1668b9b8198e7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="数据库字段"></p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8ggw0psblj30xc03s74z.jpg" alt="数据库字段"></p>
 <p>在表中加几条数据：</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2708793-53aeb96a0c975bca.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="数据"></p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8ggwc6rryj30do06sweb.jpg" alt="数据"></p>
 <p><strong>2、对应的实体类</strong></p>
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> lombok.<span class="keyword">Data</span>;</span><br><span class="line"></span><br><span class="line">@<span class="keyword">Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> Student &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">Integer</span> studentId;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> String studentName;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">Integer</span> studentAge;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2><span id="三-mapper层和service层编写">三、Mapper层和Service层编写</span></h2>
@@ -265,7 +265,7 @@
 </tr>
 </tbody>
 </table>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.<span class="keyword">annotation</span>.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.cache.<span class="keyword">annotation</span>.CachePut;</span><br><span class="line"><span class="keyword">import</span> org.springframework.cache.<span class="keyword">annotation</span>.Cacheable;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Service;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StudentServies</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> StudentMapper studentMapper;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将方法的返回值(value)缓存在stu中，key默认为方法传入的参数；可类比数据库，在stu表中新增一条key-value记录</span></span><br><span class="line">    <span class="comment">// 当调用该方法时，会先去stu表中根据key查找有没有value，若有value则不会进入方法；若没有value，则新增一条key-value记录</span></span><br><span class="line">    <span class="meta">@Cacheable(value = <span class="meta-string">"stu"</span>, key = <span class="meta-string">"#id"</span>)</span></span><br><span class="line">    <span class="keyword">public</span> Student getStu(Integer id) &#123;</span><br><span class="line">        Student student = studentMapper.getStudentById(id);</span><br><span class="line">        System.<span class="keyword">out</span>.print(<span class="string">"查询id = "</span> + id + <span class="string">": "</span>);</span><br><span class="line">        System.<span class="keyword">out</span>.println(student);</span><br><span class="line">        <span class="keyword">return</span> student;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 根据key更新stu中的缓存，若stu中没有这个key，则会在stu中新增缓存，无论在stu中是否有这个key，该方法都会执行</span></span><br><span class="line">    <span class="meta">@CachePut(value = <span class="meta-string">"stu"</span>, key = <span class="meta-string">"#student.studentId"</span>)</span></span><br><span class="line">    <span class="keyword">public</span> Student updateStu(Student student) &#123;</span><br><span class="line">        int s1 = studentMapper.updateStudent(student);</span><br><span class="line">        System.<span class="keyword">out</span>.println(<span class="string">"更新"</span>);</span><br><span class="line">        System.<span class="keyword">out</span>.println(s1);</span><br><span class="line">        <span class="keyword">return</span> student;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.<span class="keyword">annotation</span>.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.cache.<span class="keyword">annotation</span>.CachePut;</span><br><span class="line"><span class="keyword">import</span> org.springframework.cache.<span class="keyword">annotation</span>.Cacheable;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Service;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StudentServies</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> StudentMapper studentMapper;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将方法的返回值缓存在value(stu)中，key默认为方法传入的参数；可类比数据库，在stu表中新增一条 key-返回值 记录</span></span><br><span class="line">    <span class="comment">// 当调用该方法时，会先去stu表中查找key，若有则不会进入方法；若没有，则新增一条 key-返回值 记录</span></span><br><span class="line">    <span class="meta">@Cacheable(value = <span class="meta-string">"stu"</span>, key = <span class="meta-string">"#id"</span>)</span></span><br><span class="line">    <span class="keyword">public</span> Student getStu(Integer id) &#123;</span><br><span class="line">        Student student = studentMapper.getStudentById(id);</span><br><span class="line">        System.<span class="keyword">out</span>.print(<span class="string">"查询id = "</span> + id + <span class="string">": "</span>);</span><br><span class="line">        System.<span class="keyword">out</span>.println(student);</span><br><span class="line">        <span class="keyword">return</span> student;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 根据key更新stu中的缓存，若stu中没有这个key，则会在stu中新增缓存，无论在stu中是否有这个key，该方法都会执行</span></span><br><span class="line">    <span class="meta">@CachePut(value = <span class="meta-string">"stu"</span>, key = <span class="meta-string">"#student.studentId"</span>)</span></span><br><span class="line">    <span class="keyword">public</span> Student updateStu(Student student) &#123;</span><br><span class="line">        int s1 = studentMapper.updateStudent(student);</span><br><span class="line">        System.<span class="keyword">out</span>.println(<span class="string">"更新"</span>);</span><br><span class="line">        System.<span class="keyword">out</span>.println(s1);</span><br><span class="line">        <span class="keyword">return</span> student;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>注意：</strong></p>
 <ol>
 <li><code>@Cacheable</code> 和 <code>@CachePut</code> 标注的方法的返回值必须相同。</li>
@@ -282,15 +282,15 @@
 <tbody>
 <tr>
 <td style="text-align:left">value</td>
-<td style="text-align:left">缓存的名称，在 spring 配置文件中定义，必须指定 至少一个</td>
+<td style="text-align:left">缓存的名称，在 Spring 配置文件中定义，必须指定至少一个</td>
 </tr>
 <tr>
 <td style="text-align:left">key</td>
-<td style="text-align:left">缓存的 key，可以为空，如果指定要按照 SpEL 表达 式编写，如果不指定，则缺省按照方法的所有参数 进行组合</td>
+<td style="text-align:left">缓存的 key，如果为空则按照方法的所有参数进行组合，如果指定则要按照 SpEL 表达式编写</td>
 </tr>
 <tr>
 <td style="text-align:left">condition</td>
-<td style="text-align:left">缓存的条件，可以为空，使用 SpEL 编写，返回 true 或者 false，只有为 true 才进行缓存/清除缓存，在 调用方法之前之后都能判断</td>
+<td style="text-align:left">缓存的条件，可以为空，使用 SpEL 编写，返回 true 或false，只有为 true 才进行缓存/清除缓存，在调用方法前后都能判断</td>
 </tr>
 <tr>
 <td style="text-align:left">allEntries</td>
@@ -298,15 +298,16 @@
 </tr>
 <tr>
 <td style="text-align:left">beforeInvocation</td>
-<td style="text-align:left">是否在方法执行前就清空，缺省为 false，如果指定 为 true，则在方法还没有执行的时候就清空缓存， 缺省情况下，如果方法执行抛出异常，则不会清空 缓存</td>
+<td style="text-align:left">是否在方法执行前就清空，缺省为 false，如果指定为 true，则在方法还没有执行的时候就清空缓存， 缺省情况下，如果方法执行抛出异常，则不会清空缓存</td>
 </tr>
 <tr>
 <td style="text-align:left">unless</td>
-<td style="text-align:left">用于否决缓存的，不像condition，该表达式只在方 法执行之后判断，此时可以拿到返回值result进行判 断。条件为true不会缓存，fasle才缓存</td>
+<td style="text-align:left">用于否决缓存的，不像condition，该表达式只在方法执行之后判断，此时可以拿到返回值result进行判断。条件为true不会缓存，fasle才缓存</td>
 </tr>
 </tbody>
 </table>
-
+<p>例如：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 根据studentId来进行缓存，当 studentAge &gt; 1 时才缓存，或者返回值的 personId &lt; 0 时不缓存</span></span><br><span class="line">@CachePut(<span class="keyword">value</span> = <span class="string">"stu"</span>, key = <span class="string">"#student.studentId"</span>, condition = <span class="string">"#student.studentAge &gt; 1"</span>, unless = <span class="string">"#result.personId &lt; 0"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Student <span class="title">updateStu</span>(<span class="params">Student student</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> s1 = studentMapper.updateStudent(student);</span><br><span class="line">        System.<span class="keyword">out</span>.println(<span class="string">"更新"</span>);</span><br><span class="line">        System.<span class="keyword">out</span>.println(s1);</span><br><span class="line">        <span class="keyword">return</span> student;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
                 
 
                 <hr>
@@ -369,7 +370,7 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#JAVA" title="JAVA">JAVA</a>
+                          <a class="tag" href="/tags/#服务端开发" title="服务端开发">服务端开发</a>
                         
                     </div>
                 </section>

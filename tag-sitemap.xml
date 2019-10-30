@@ -2,57 +2,8 @@
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url>
-        <loc>https://hezongjiang.github.io/tags/Hexo/</loc>
-        <lastmod>2018-09-21T03:40:24.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://hezongjiang.github.io/tags/Blog/</loc>
-        <lastmod>2018-09-21T03:40:24.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://hezongjiang.github.io/tags/AppleWatch/</loc>
         <lastmod>2018-11-22T12:29:54.722Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://hezongjiang.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</loc>
-        <lastmod>2019-02-22T01:19:36.501Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://hezongjiang.github.io/tags/iOS%E5%BC%80%E5%8F%91/</loc>
-        <lastmod>2019-03-18T06:11:18.485Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://hezongjiang.github.io/tags/iOS%E5%BC%80%E5%8F%91/</loc>
-        <lastmod>2019-07-23T11:41:20.506Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://hezongjiang.github.io/tags/Love/</loc>
-        <lastmod>2019-07-23T11:46:21.625Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://hezongjiang.github.io/tags/Java/</loc>
-        <lastmod>2019-07-23T11:53:28.193Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
@@ -65,15 +16,43 @@
     </url>
 
     <url>
-        <loc>https://hezongjiang.github.io/tags/JAVA/</loc>
-        <lastmod>2019-10-30T02:42:10.539Z</lastmod>
+        <loc>https://hezongjiang.github.io/tags/%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%AD/</loc>
+        <lastmod>2019-10-30T09:17:26.141Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>https://hezongjiang.github.io/tags/%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%AD/</loc>
-        <lastmod>2019-10-30T03:03:02.089Z</lastmod>
+        <loc>https://hezongjiang.github.io/tags/Love/</loc>
+        <lastmod>2019-10-30T09:22:14.035Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://hezongjiang.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</loc>
+        <lastmod>2019-10-30T09:45:43.858Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://hezongjiang.github.io/tags/JAVA/</loc>
+        <lastmod>2019-10-30T10:30:27.909Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://hezongjiang.github.io/tags/iOS%E5%BC%80%E5%8F%91/</loc>
+        <lastmod>2019-10-30T11:03:21.459Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://hezongjiang.github.io/tags/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%BC%80%E5%8F%91/</loc>
+        <lastmod>2019-10-30T12:06:41.694Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

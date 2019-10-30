@@ -219,16 +219,16 @@
 <p>简单的说（虽然不准确），响应者链的作用就是让 APP 知道用户点击里了哪里，然后应该哪个控件做出反应。专业点说，响应者链就是由多个响应者组合起来的链条，就叫做响应者链。它表示了每个响应者之间的联系，并且可以使得一个事件可选择多个对象处理。</p>
 <h2><span id="二-事件的产生和传递">二、事件的产生和传递</span></h2>
 <p>当一个触摸事件产生的时候，程序是如何找到第一响应者的呢？也就是说程序怎么知道点击了哪个控件呢？</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2708793-6fe5f7cdd3c269ff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="事件的产生与传递"></p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8gfj5ivg1j30gk08q74s.jpg" alt="事件的产生与传递"></p>
 <p>当点击了屏幕会产生一个触摸事件，消息循环(runloop)会接收到触摸事件放到消息队列里，UIApplication 会从消息队列里取事件分发下去，接着需要找到去响应这个事件的最佳视图，也就是 Responder，所以开始的第一步应该是找到 Responder，那么又是如何找到的呢？那就不得不引出 UIView 的 2 个方法：</p>
 <figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 返回此次触摸事件初始点所在的视图</span></span><br><span class="line"><span class="selector-tag">-</span> (UIView *)<span class="selector-tag">hitTest</span><span class="selector-pseudo">:(CGPoint)point</span> <span class="selector-tag">withEvent</span><span class="selector-pseudo">:(UIEvent</span> *)<span class="selector-tag">event</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回视图是否包含指定的某个点</span></span><br><span class="line"><span class="selector-tag">-</span> (BOOL)<span class="selector-tag">pointInside</span><span class="selector-pseudo">:(CGPoint)point</span> <span class="selector-tag">withEvent</span><span class="selector-pseudo">:(UIEvent</span> *)<span class="selector-tag">event</span></span><br></pre></td></tr></table></figure>
 <p>通过在显示视图层级中依次对视图调用这个 2 个方法来确认该视图是不是能响应这个点击的点，<strong>首先会调用 <code>hitTest</code>，然后在 <code>hitTest</code> 中调用 <code>pointInside</code>，最终 <code>hitTest</code> 返回的那个 <code>view</code> 就是最终的响应者Responder</strong>。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2708793-0fd9711d7a443ffb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8gfjo8oq0j30du0f23zj.jpg" alt="image.png"></p>
 <p>以上图为例，假设点击了 <code>View3</code>。</p>
 <p>首先调用 UIWindow 的 <code>hitTest:withEvent:</code>，在这个方法中调用 <code>pointInside:withEvent:</code> 方法判断点击是否在 UIWindow 的范围内，显然 <code>pointInside</code> 返回 <code>YES</code>；</p>
 <p>然后遍历 window 的子视图，来到 RootView，调用 RootView 的 <code>hitTest</code> 和 <code>pointInside</code>，因为点击发生在 RootView 中所以继续遍历它的子视图。</p>
 <p>从 View2 开始的，调用 View2 的 <code>hitTest</code> 和 <code>pointInside</code>，由于触摸点在 View2 的范围内，所以 <code>pointInside</code> 返回 <code>YES</code>；然后继续遍历 View2 的子视图，从 View4 开始，因为点击不发生在 View4， 所以 <code>pointInside</code> 返回 <code>NO</code>，而 View4 没有子视图，所以 <code>hitTest</code> 返回 <code>null</code>；然后继续在 View2 的另外一个子视图 View3 中调用 <code>hitTest</code> 和 <code>pointInside</code>，因为点击的就是 View3 所以 <code>pointInside</code> 返回 <code>YES</code>，且 View3 没有子视图，所以 <code>hitTest</code> 返回了自己 <code>View3</code>；接着 <code>View2</code> 的 <code>hitTest</code> 也返回 <code>View3</code>，RootView 的 <code>hitTest</code> 也返回 View3，直到 UIWindow 也返回 View3，自此我们找到了响应视图：View3。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2708793-7ab8c74e4b09dfb7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="打印过程"></p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8gfjw70shj30xc0fqdvd.jpg" alt="打印过程"></p>
 <p><strong>小结：</strong></p>
 <ol>
 <li>寻找事件的响应视图是通过调用视图的 <code>hitTest</code> 和 <code>pointInside</code> 完成的。</li>
@@ -237,13 +237,13 @@
 </ol>
 <h2><span id="三-响应者">三、响应者</span></h2>
 <p>所有继承 UIResponder 的控件都有一个 nextResponder 属性，此属性会返回在 Responder Chain 中的下一个事件处理者，如果每个 Responder 都不处理事件，那么事件将会被丢弃。所以继承自 UIResponder 的子类便会构成一条响应者链，所以我们可以打印下以 View3 为开始的响应者链是什么样的：</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2708793-5986f3729e124f30.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8gfk2p381j30xc08bn3b.jpg" alt="image.png"></p>
 <p>可以看到响应者链一直延伸到 AppDelegate，View3 的下一个是 View2，也就是 View3 的父视图，View2 下一个是 RootView，也是父视图，而 RootView 的下一个则是 Controller。</p>
 <p>**所以下一个响应者的规则是：**如果有父视图，则 nextResponder 指向父视图，如果是控制器根视图则指向控制器，控制器如果在导航控制器中，则指向导航控制器的相关显示视图，最后指向导航控制器，如果是根控制器则指向 UIWindow，UIWindow 的 nexResponder 指向 UIApplication，最后指向 AppDelegate，而他们实现这一套指向都是靠重写 nextReponder 实现的。</p>
 <p>继续接着上面的例子，当点击了 View3，先是由 UIWindow 通过 <code>hitTest</code> 返回所找到响应者 View3；接着会执行 View3 的 <code>touchesBegan</code>，然后是通过 <code>nextResponder</code> 依次是 View2、RootView，完全是按照 <code>nextResponder</code> 链条的调用顺序，<code>touchesEnded</code> 也是同样的顺序。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2708793-eced797e4d0a9c12.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="touches 执行顺序"></p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8gfk7fqc4j30xc092gu4.jpg" alt="touches 执行顺序"></p>
 <p>上面是 View3 不处理点击事件的情况，接下来我们为 View3 添加一个点击事件处理，看看又会是什么样的调用过程：</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2708793-34ef6b3b686273ee.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="touches 执行顺序"></p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8gfkh2rnnj30xc08x46f.jpg" alt="touches 执行顺序"></p>
 <p>可以看到 <code>touchesBegan</code> 顺着 <code>nextResponder</code> 链条调用了，但是 View3 处理了事件，去执行了相关是事件处理方法，而 <code>touchesEnded</code> 并没有得到调用。</p>
 <p><strong>小结：</strong></p>
 <ol>
@@ -254,7 +254,7 @@
 <p>如果视图有父视图则 <code>nextResponder</code> 指向父视图，如果是根视图则指向控制器，最终指向 <code>AppDelegate</code>, 他们都是通过重写 <code>nextResponder</code> 来实现。</p>
 </li>
 </ol>
-<p><img src="https://upload-images.jianshu.io/upload_images/2708793-26733ba091a1ddc1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="响应者链"></p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8gfkpvoogj30go09mjsz.jpg" alt="响应者链"></p>
 <p>以上是视图可以正常点击的情况，但在一些情况下，视图无法点击，这时候响应者链会如何传递呢？</p>
 <p><strong>无法点击是的情况总结：</strong></p>
 <ol>

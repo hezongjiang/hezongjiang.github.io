@@ -69,7 +69,7 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('timg.jpeg')
+            background-image: url('timg.jpg')
             /*post*/
         
     }
@@ -90,7 +90,7 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#-iOS开发" title="-iOS开发">-iOS开发</a>
+                              <a class="tag" href="/tags/#iOS开发" title="iOS开发">iOS开发</a>
                             
                         </div>
                         <h1>iOS Runtime 教程</h1>
@@ -236,7 +236,7 @@
 <p>既然说类也是对象，那么类的类型是什么呢？这里就引出了另外一个概念 —— Meta Class（元类）。</p>
 <p>在 Objective-C 中，每一个类都有对应的元类，也就是类的 <code>isa</code> 指向的类。而在元类的 <code>methodLists</code> 中，保存了类的方法链表，即所谓的「类方法」，所以「类方法」其实就是调用了元类的方法。这一段有些拗口。</p>
 <p>实际上元类也有一个 <code>isa</code> 指针，元类也是一个对象。为了不让这种结构无限延伸下去，所有元类的 <code>isa</code> 指向基类（比如 NSObject ）的元类。而基类的元类的 <code>isa</code> 指向自己。这样就形成了一个闭环。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2708793-f82ee1a52a6bd51b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8gdxvx589j30nj0i2t94.jpg" alt=""></p>
 <h2><span id="三-method">三、Method</span></h2>
 <p>下面介绍一下 Objective-C 中的方法调用。</p>
 <p>先来看一下 Method 在头文件中的定义：</p>
@@ -261,7 +261,7 @@
 <h2><span id="四-消息转发">四、消息转发</span></h2>
 <p>刚才提到如果找不到对应的消息，会抛出异常，这里让我想到一道经典面试题：<strong>从一个对象收到一个它无法响应的方法到崩溃之间发生了什么？</strong></p>
 <p><strong>答：当一个方法找不到的时候，会走拦截调用和消息转发流程。</strong></p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2708793-9518e94c0772e37e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="消息转发流程"></p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8gdy768mrj30go091dgt.jpg" alt="消息转发流程"></p>
 <p>图中已经很明确的展示了消息转发的流程，下面分析一下：</p>
 <p><strong>第一步：</strong></p>
 <p>如果调用了一个对象的方法，在执行方法之前，首先会调用该类的 <code>+resolveInstanceMethod:</code> 方法进行判断，如果返回 <code>YES</code>， 则表示能接受消息，<code>NO</code> 表示不能接受消息并进入第二步。</p>
@@ -361,7 +361,7 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#-iOS开发" title="-iOS开发">-iOS开发</a>
+                          <a class="tag" href="/tags/#iOS开发" title="iOS开发">iOS开发</a>
                         
                     </div>
                 </section>

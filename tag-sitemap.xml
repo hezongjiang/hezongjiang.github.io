@@ -30,13 +30,6 @@
     </url>
 
     <url>
-        <loc>https://hezongjiang.github.io/tags/JAVA/</loc>
-        <lastmod>2019-10-30T10:30:27.909Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://hezongjiang.github.io/tags/iOS%E5%BC%80%E5%8F%91/</loc>
         <lastmod>2019-10-30T11:03:21.459Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -53,6 +46,13 @@
     <url>
         <loc>https://hezongjiang.github.io/tags/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%BC%80%E5%8F%91/</loc>
         <lastmod>2019-10-31T16:39:55.087Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://hezongjiang.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/</loc>
+        <lastmod>2019-11-04T02:46:15.083Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

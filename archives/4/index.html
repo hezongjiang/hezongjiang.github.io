@@ -213,6 +213,35 @@
 
 <div class="post-preview">
 
+    <a href="/2018/10/11/十道海量数据处理面试题与十个方法大总结/">
+        <h2 class="post-title">
+            十道海量数据处理面试题与十个方法大总结
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            第一部分：十道海量数据处理面试题
+1、海量日志数据，提取出某日访问百度次数最多的那个IP。
+IP的数目还是有限的，最多2^32个，所以可以考虑使用hash将ip直接存入内存，然后进行统计。
+再详细介绍下此方案：首先是这一天，并且是访问百度的日志中的IP取出来，逐个写入到一个大文件中。注意到IP是32位的，最多有个2^32个IP。同样可以采用映射的方法，......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by He Zongjiang on
+            2018-10-11
+        </p>
+        <div class="tags">
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2018/09/30/不一样的鸦片战争/">
         <h2 class="post-title">
             不一样的鸦片战争
@@ -503,37 +532,6 @@ DQN 是一种融合了 神经网络 和 Q_learning 的方法，如果你还不�
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2018/04/15/强化学习——Q-learning/">
-        <h2 class="post-title">
-            强化学习——Q-learning
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            一、什么是Q-learning
-Q_learning是强化学习中的一个决策算法，如果你还不知道什么是强化学习，可以参看强化学习这篇文章。
-二、Q-Learning 决策
-假设我们的行为准则已经学习好了，现在我们处于状态 s(tate) 1，有两个行为 a(ction) 1、a(ction) 2，在这种 s1 状态下，a2 带来的潜在奖励要比 a1 高（......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by He Zongjiang on
-            2018-04-15
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#机器学习" title="机器学习">机器学习</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -578,7 +576,7 @@ Q_learning是强化学习中的一个决策算法，如果你还不知道什么�
             
         
             
-            <a href="/tags/#天方夜谭" title="天方夜谭" rel="6">天方夜谭</a>
+            <a href="/tags/#天方夜谭" title="天方夜谭" rel="7">天方夜谭</a>
             
         
             
@@ -657,6 +655,10 @@ Q_learning是强化学习中的一个决策算法，如果你还不知道什么�
     <ul>
       
         <li>
+          <a href="/2019/11/10/竞争不充分的领域里，才有英雄/">竞争不充分的领域里，才有英雄</a>
+        </li>
+      
+        <li>
           <a href="/2019/11/10/白话设计模式/">白话设计模式</a>
         </li>
       
@@ -670,10 +672,6 @@ Q_learning是强化学习中的一个决策算法，如果你还不知道什么�
       
         <li>
           <a href="/2019/11/01/Redis-基础详解/">Redis 基础详解</a>
-        </li>
-      
-        <li>
-          <a href="/2019/10/30/MyBatis-中-与-的区别/">MyBatis 中 # 与 $ 的区别</a>
         </li>
       
     </ul>

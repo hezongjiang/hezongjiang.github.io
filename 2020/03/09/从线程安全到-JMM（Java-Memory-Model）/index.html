@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="The only thing we fear is fear itself.">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          从线程安全到 JMM（Java Memory Model） - 小道消息&#39;s notes
+        
+    </title>
+
+    <link rel="canonical" href="https://hezongjiang.github.io/2020/03/09/从线程安全到-JMM（Java-Memory-Model）/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('jvm.jpg')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header">
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#服务端开发" title="服务端开发">服务端开发</a>
+                            
+                        </div>
+                        <h1>从线程安全到 JMM（Java Memory Model）</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by He Zongjiang on
+                            2020-03-09
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">小道消息&#39;s notes</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h2><span id="一-什么是线程安全">一、什么是线程安全</span></h2>
+<p>多个线程不管以何种方式访问共享变量，并且不需要进行同步，都能表现正确的行为。这就是线程安全。</p>
+<p>呃，这和 JMM（Java Memory Model）有什么联系呢？</p>
+<p>这里就需要知道为什么会产生线程不安全。</p>
+<p>发生线程不安全的本质实际上是<strong>主内存和工作内存中的数据不一致，或者发生了重排序所导致</strong>。</p>
+<p>什么是主内存，什么是工作内存，什么又是重排序呢？这就牵涉到 JMM 了。</p>
+<h2><span id="二-java-内存模型jmm">二、Java 内存模型——JMM</span></h2>
+<p><strong>Java 内存模型（Java Memory Model，JMM）本身是一种抽象的概念，并不真实存在，它描述的是一组规则或规范，通过这组规范定义了程序中各个变量（包括实例变量、静态变量和构成数组对象的元素）的访问方式。</strong></p>
+<p>需要注意的是别把 JMM 和 JVM 搞混了，JVM 是 Java 虚拟机（Java Virtual Machine）。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-8269e831fc0e6f19.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="JMM"></p>
+<p>JMM 定义了每个线程和主内存之间的抽象关系：线程之间的共享变量存储在“主内存”中，而每个线程都有一个<strong>私有</strong>的“工作内存”，工作内存中存储了该线程以读/写共享变量的副本。</p>
+<p>上图描述了一个多线程执行场景。</p>
+<p>线程 A 和线程 B 分别对主内存的变量进行读写操作。其中主内存中的变量为共享变量，也就是说此变量只此一份，多个线程间共享。</p>
+<p>JMM 规定：<strong>线程不能直接读写主内存的共享变量，每个线程都有自己私有的工作内存，线程需要读写主内存的共享变量时，首先需要将该变量拷贝一份副本到自己工作内存，然后在自己的工作内存中对该变量进行所有操作，完成操作之后再将结果同步至主内存。</strong></p>
+<p>这么说起来有点抽象，下面举一个例子。</p>
+<p>例如 2 条线程，循环 1000 次，分别给 x 值加 1，若不加任何处理，其最终结果很可能会小于 2000。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-adb394f5498e0707.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>A、B 线程分别读取主内存中 x 的值，并把 x 的值复制到自己的工作内存中，此时，A、B 线程的工作内存的值都是 0。</p>
+<p>然后，每条线程对自己工作内存中的值进行自加操作，操作完成之后再写回主内存，这时候就出问题了。站在线程 A、B 的角度看是没问题的，但是站在主内存的角度看，结果就不对了。A、B 线程只把自己的值写回主内存，而没有考虑到其他线程在该期间内也对主内存中的值做了修改。这就是线程不安全的原因之一。</p>
+<h2><span id="三-volatile">三、volatile</span></h2>
+<p>为了解决上述问题，volatile 关键字就闪亮登场了。</p>
+<p>被 volatile 关键字描述变量的操作具有<strong>可见性</strong>和<strong>有序性</strong>（禁止指令重排）。</p>
+<p><strong>1、可见性</strong></p>
+<p>针对 volatile 修饰的变量 Java 虚拟机有特殊的约定：</p>
+<ul>
+<li>
+<p>当一条线程读取被 volatile 修饰的变量时，JMM 会把该线程的工作内存中对应的变量值置为无效，必须从主内存中读取；</p>
+</li>
+<li>
+<p>当一条线程写入被 volatile 修饰的变量时，JMM 会把该线程的工作内存中对应的值立即刷新到主内存；</p>
+</li>
+</ul>
+<p>从而避免出现数据脏读的现象，保证数据的“可见性”。</p>
+<p><strong>2、有序性</strong></p>
+<p>在执行程序时，为了提高性能，编译器和处理器常常会对指令进行重排序。那么什么情况下，不能进行重排序了？下面就来说说数据依赖性。有如下代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">double</span> pi = <span class="number">3.14</span>             <span class="comment">// A</span></span><br><span class="line"><span class="keyword">double</span> r = <span class="number">1.0</span>               <span class="comment">// B</span></span><br><span class="line"><span class="keyword">double</span> area = pi * r * r     <span class="comment">// C</span></span><br></pre></td></tr></table></figure>
+<p>这是一个计算圆面积的代码，由于 A、B 两句之间没有任何关系，对最终结果也不会存在关系，它们之间执行顺序可以重排序。</p>
+<p>因此可以执行顺序可以是 A-&gt;B-&gt;C 或者 B-&gt;A-&gt;C 执行最终结果都是3.14，即 A 和 B 之间没有数据依赖性。但是 C 一定在 A、B 执行完之后才能执行。因此，重排序有以下两个特点：</p>
+<ol>
+<li>
+<p>重排序操作不会对存在数据依赖关系的操作进行重排序。</p>
+</li>
+<li>
+<p>重排序是为了优化性能，但是不管怎么重排序，单线程下程序的执行结果不能被改变。</p>
+</li>
+</ol>
+<p>例如下面的代码，A 线程执行<code>changeStatus()</code>，B 线程执行<code>run()</code>，能保证输出一定等于 3 吗？</p>
+<p><strong>不一定</strong>，因为 1 和 2 之间不存在数据依赖关系，因此编译器和处理器可能会对指令进行重排序，若 A 线程先执行了 2，还未执行 1，此时 B 线程执行了 3 和 4，这就会时输出的值等于 2。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">TestVolatile</span> &#123;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line">    boolean status = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">changeStatus</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        a = <span class="number">2</span>;          <span class="comment">// 1</span></span><br><span class="line">        status = <span class="literal">true</span>;  <span class="comment">// 2</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (status) &#123;        <span class="comment">// 3</span></span><br><span class="line">                <span class="keyword">int</span> b = a + <span class="number">1</span>;   <span class="comment">// 4</span></span><br><span class="line">                System.<span class="keyword">out</span>.println(b);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用 volatile 关键字修饰共享变量便可以禁止这种重排序。若用 volatile 修饰共享变量，在编译时，会在指令序列中插入内存屏障来禁止特定类型的处理器重排序。</p>
+<p><strong>3、不保证原子性</strong></p>
+<p>在访问 volatile 变量时不会执行加锁操作，也就不会使执行线程阻塞，因此 volatile 是一种比 sychronized 关键字更轻量级的同步机制，可以保证可见性，保证不被重排序，但是，不能保证线程安全，也不保证原子性。</p>
+<p>为什么 volatile 不能保证原子性？</p>
+<p>以 i++ 为例，其包括读取、操作、赋值三个操作，下面是两个线程的操作顺序。</p>
+<p>假如说线程 A 在做了 i+1，但未赋值的时候，线程B就开始读取 i，那么当线程 A 赋值 i=1，并回写到主内存，而此时线程 B 已经不再需要 i 的值了，而是直接交给处理器去做 +1 的操作，于是当线程 B 执行完并回写到主内存，i 的值仍然是 1，而不是预期的 2。也就是说，volatile 缩短了普通变量在不同线程之间执行的时间差，但仍然存有漏洞，依然不能保证原子性。</p>
+<h2><span id="四-总结">四、总结</span></h2>
+<p>所以，结论是 <strong>volatile 是一种轻量级的同步机制，可以保证共享变量对所有线程的可见性，禁止指令重排序优化，但不保证原子性，像 num++ 这种复合操作，volatile 无法保证其原子性</strong>。</p>
+<p>当然，像 num++ 这种操作可以通过 CAS 的方式来保证原子性。</p>
+<p>如想保证线程安全和原子性，还是需要使用锁。<strong>锁可以保证可见性、有序性、原子性</strong>。</p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2020/05/13/TensorFlow-2-x-MNIST-图像分类-1/" data-toggle="tooltip" data-placement="top" title="TensorFlow 2.x - MNIST 图像分类(1)">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2020/01/14/我的-2019-年终总结/" data-toggle="tooltip" data-placement="top" title="我的 2019 年终总结">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">一、什么是线程安全</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">二、Java 内存模型——JMM</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">三、volatile</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">四、总结</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#服务端开发" title="服务端开发">服务端开发</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://www.jianshu.com/u/5fa5459c7b02" target="_blank">简书</a></li>
+                    
+                        <li><a href="https://github.com/hezongjiang" target="_blank">Github</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "your-disqus-ID";
+    var disqus_identifier = "https://hezongjiang.github.io/2020/03/09/从线程安全到-JMM（Java-Memory-Model）/";
+    var disqus_url = "https://hezongjiang.github.io/2020/03/09/从线程安全到-JMM（Java-Memory-Model）/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://github.com/hezongjiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; He Zongjiang 2020 
+                    <br>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://hezongjiang.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://hezongjiang.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

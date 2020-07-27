@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="The only thing we fear is fear itself.">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          TensorFlow 2.x - MNIST 图像分类(2) - 小道消息&#39;s notes
+        
+    </title>
+
+    <link rel="canonical" href="https://hezongjiang.github.io/2020/05/14/TensorFlow-2-x-MNIST-图像分类-2/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('tensorflow.jpg')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header">
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#机器学习" title="机器学习">机器学习</a>
+                            
+                        </div>
+                        <h1>TensorFlow 2.x - MNIST 图像分类(2)</h1>
+                        <h2 class="subheading">TensorFlow入门</h2>
+                        <span class="meta">
+                            Posted by He Zongjiang on
+                            2020-05-14
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">小道消息&#39;s notes</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p>在上一节<a href="/2020/05/13/TensorFlow-2-x-MNIST-图像分类-1/" title="《TensorFlow 2.x MNIST-图像分类(1)》">《TensorFlow 2.x MNIST-图像分类(1)》</a>中，我们搭建了一个全连接的神经网络用于手写数字识别。本节将在上一节的基础上，将使用卷积神经网络 (Convolutional Neural Network, CNN) 来搭建网络识别数字。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-207924bb7c1b030e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="CNN"></p>
+<h2><span id="一-为什么要用-cnn">一、为什么要用 CNN</span></h2>
+<p>在全连接神经网络中，每相邻两层之间的每个神经元之间都是相连的。当输入层的特征维度变得很高时，这时全连接网络需要训练的参数就会增大很多，计算速度就会变得很慢。</p>
+<p>例如一张黑白的 28×28 的手写数字图片，输入层的神经元就有 784 个，若在中间只使用一层 15 个神经元的隐藏层，那么神经元的权重参数 w 就有 784 × 15 = 11760 个；若输入的是 28×28 带有颜色的 RGB 颜色的手写数字图片，那么参数 w 的个数还需要再乘以 3，而这仅仅是 28×28 像素的图片。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-99dec7a45d0ded12.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="28×28 像素的数字"></p>
+<p>如果需要识别一张高清图片呢？很容易看出使用全连接神经网络处理图像中的需要训练参数过多的问题。这就需要使用 CNN 来减少需要训练的参数 w。如果你还不了解 CNN，建议先看一下 <a href="https://www.jianshu.com/p/d813215b27fc" target="_blank" rel="noopener">《卷积神经网络—CNN》</a>，没错，也是我的文章。</p>
+<h2><span id="二-加载数据">二、加载数据</span></h2>
+<p>加载数据与上一节基本相同，也是使用 MNIST 数据集。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line">from tensorflow.keras import datasets, layers, models</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DataSource</span>(<span class="title">object</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(<span class="keyword">self</span>)</span></span><span class="symbol">:</span></span><br><span class="line">        <span class="comment"># mnist数据集存储的位置</span></span><br><span class="line">        data_path = <span class="string">'/path/mnist/mnist.npz'</span></span><br><span class="line">        (train_images, train_labels), (test_images, test_labels) = datasets.mnist.load_data(path=data_path)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 6万张训练图片，1万张测试图片</span></span><br><span class="line">        train_images = train_images.reshape((<span class="number">60000</span>, <span class="number">28</span>, <span class="number">28</span>, <span class="number">1</span>))</span><br><span class="line">        test_images = test_images.reshape((<span class="number">10000</span>, <span class="number">28</span>, <span class="number">28</span>, <span class="number">1</span>))</span><br><span class="line">        <span class="comment"># 像素值映射到 0 - 1 之间</span></span><br><span class="line">        train_images, test_images = train_images / <span class="number">255.0</span>, test_images / <span class="number">255.0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.train_images, <span class="keyword">self</span>.train_labels = train_images, train_labels</span><br><span class="line">        <span class="keyword">self</span>.test_images, <span class="keyword">self</span>.test_labels = test_images, test_labels</span><br></pre></td></tr></table></figure>
+<h2><span id="三-搭建网络">三、搭建网络</span></h2>
+<p>模型定义的前半部分主要使用 Keras.layers 提供的 Conv2D (卷积) 与MaxPooling2D (池化) 函数。</p>
+<p>CNN 的输入层的 input_shape 为 (image_height, image_width, color_channels) 的张量。mnist 数据集是黑白的，因此只有一个 color_channel，即 color_channel = 1；彩色图片有 3 个颜色通道 (R,G,B)，所以 color_channel = 3。</p>
+<p>对于 mnist 数据集，输入的张量维度就是 (28, 28, 1)，通过参数 input_shape 传给网络的第一层。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">class CNN(object):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        model = models.Sequential()</span><br><span class="line">        # 输入层，用32个3<span class="number">*3</span>的卷积核进行卷积操作，28<span class="number">*28</span>为待训练图片的大小</span><br><span class="line">        model.<span class="builtin-name">add</span>(layers.Conv2D(<span class="attribute">filters</span>=32, kernel_size=(3, 3), <span class="attribute">activation</span>=<span class="string">'relu'</span>, input_shape=(28, 28, 1)))</span><br><span class="line">        # 添加池化层</span><br><span class="line">        model.<span class="builtin-name">add</span>(layers.MaxPooling2D((2, 2)))</span><br><span class="line">        # 第2层卷积，用64个3<span class="number">*3</span>的卷积核进行卷积操作</span><br><span class="line">        model.<span class="builtin-name">add</span>(layers.Conv2D(<span class="attribute">filters</span>=64, kernel_size=(3, 3), <span class="attribute">activation</span>=<span class="string">'relu'</span>))</span><br><span class="line">        # 添加池化层</span><br><span class="line">        model.<span class="builtin-name">add</span>(layers.MaxPooling2D((2, 2)))</span><br><span class="line">        # 第3层卷积，用64个3<span class="number">*3</span>的卷积核进行卷积操作</span><br><span class="line">        model.<span class="builtin-name">add</span>(layers.Conv2D(<span class="attribute">filters</span>=64, kernel_size=(3, 3), <span class="attribute">activation</span>=<span class="string">'relu'</span>))</span><br><span class="line">        # 压扁</span><br><span class="line">        model.<span class="builtin-name">add</span>(layers.Flatten())</span><br><span class="line">        # 全连接层</span><br><span class="line">        model.<span class="builtin-name">add</span>(layers.Dense(64, <span class="attribute">activation</span>=<span class="string">'relu'</span>))</span><br><span class="line">        model.<span class="builtin-name">add</span>(layers.Dense(10, <span class="attribute">activation</span>=<span class="string">'softmax'</span>))</span><br><span class="line">        # 打印模型的结构</span><br><span class="line">        model.summary()</span><br><span class="line"></span><br><span class="line">        self.model = model</span><br></pre></td></tr></table></figure>
+<p>每一个 Conv2D 和 MaxPooling2D 层的输出都是一个三维的张量 (height, width, channels)。height 和 width 会逐渐地变小。输出的 channel 的个数，是由 filters 参数控制，随着 height 和 width 的变小，channel 可以变大。</p>
+<p>整个卷积过程就是把图片的宽高减小，图片的“厚度”增加。</p>
+<ol>
+<li>原始图片大小为 (28, 28, 1)；</li>
+<li>经过输入层卷积后变为 (26, 26, 32)，池化后变为 (13, 13, 32)；</li>
+<li>经过第二层卷积后变为 (11, 11, 64)，池化后变为  (5, 5, 64)；</li>
+<li>经过第三层卷积后变为 (3, 3, 64)。</li>
+</ol>
+<p>模型的后半部分，是定义全连接层。layers.Flatten 会将三维的张量转为一维的向量。展开前张量的维度是 (3, 3, 64) ，转为一维 (576) 的向量后，再使用 layers.Dense 层，构造了 2 层全连接层，逐步地将一维向量的位数从 576 变为 64，再变为 10。</p>
+<p>后半部分相当于是构建了一个输入层为 576，隐藏层为 64，输出层为 10 的普通的神经网络。最后一层的激活函数是 softmax，10 位恰好可以表达 0-9 十个数字。</p>
+<h2><span id="四-开始训练并保存训练结果">四、开始训练并保存训练结果</span></h2>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Train</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(<span class="keyword">self</span>)</span></span><span class="symbol">:</span></span><br><span class="line">        <span class="keyword">self</span>.cnn = CNN()</span><br><span class="line">        <span class="keyword">self</span>.data = DataSource()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">train</span><span class="params">(<span class="keyword">self</span>)</span></span><span class="symbol">:</span></span><br><span class="line">        check_path = <span class="string">'./ckpt/cp-&#123;epoch:04d&#125;.ckpt'</span></span><br><span class="line">        <span class="comment"># period 每隔5epoch保存一次</span></span><br><span class="line">        save_model_cb = tf.keras.callbacks.ModelCheckpoint(check_path, save_weights_only=True, verbose=<span class="number">1</span>, period=<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.cnn.model.compile(optimizer=<span class="string">'adam'</span>, loss=<span class="string">'sparse_categorical_crossentropy'</span>, metrics=[<span class="string">'accuracy'</span>])</span><br><span class="line">        <span class="keyword">self</span>.cnn.model.fit(<span class="keyword">self</span>.data.train_images, <span class="keyword">self</span>.data.train_labels, epochs=<span class="number">5</span>, callbacks=[save_model_cb])</span><br><span class="line"></span><br><span class="line">        test_loss, test_acc = <span class="keyword">self</span>.cnn.model.evaluate(<span class="keyword">self</span>.data.test_images, <span class="keyword">self</span>.data.test_labels)</span><br><span class="line">        print(<span class="string">"准确率: %.4f，共测试了%d张图片 "</span> % (test_acc, len(<span class="keyword">self</span>.data.test_labels)))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name_<span class="number">_</span> == <span class="string">"__main__"</span><span class="symbol">:</span></span><br><span class="line">    app = Train()</span><br><span class="line">    app.train()</span><br></pre></td></tr></table></figure>
+<p>训练 4~5 次，准确率就能达到 99% 以上了。</p>
+<p>在第五轮时，模型参数成功保存在了<code>./ckpt/cp-0005.ckpt</code>。接下来我们就可以加载保存的模型参数，恢复整个卷积神经网络，进行真实图片的预测了。</p>
+<h2><span id="五-图片预测">五、图片预测</span></h2>
+<p>这里我们从本地选择一张 28 * 28 的数字图片，然后输入给程序。看看能不能准确预测。<br>
+安装 PIL：<code>pip3 install pillow</code>。</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="title">from</span> <span class="type">PIL</span> <span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="type">Predict</span>(<span class="title">object</span>):</span></span><br><span class="line"><span class="class">    def __init__(<span class="title">self</span>):</span></span><br><span class="line"><span class="class">        latest = tf.train.latest_checkpoint('./<span class="title">ckpt'</span>)</span></span><br><span class="line"><span class="class">        self.cnn = <span class="type">CNN</span>()</span></span><br><span class="line"><span class="class">        # 恢复网络权重</span></span><br><span class="line"><span class="class">        self.cnn.model.load_weights(<span class="title">latest</span>)</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">    def predict(<span class="title">self</span>, <span class="title">image_path</span>):</span></span><br><span class="line"><span class="class">        # 以黑白方式读取图片</span></span><br><span class="line"><span class="class">        img = <span class="type">Image</span>.open(<span class="title">image_path</span>).convert('<span class="type">L</span>')</span></span><br><span class="line"><span class="class">        flatten_img = np.reshape(<span class="title">img</span>, (28, 28, 1)) / 255</span></span><br><span class="line"><span class="class">        x = np.array([1 - <span class="title">flatten_img</span>])</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">        # 预测</span></span><br><span class="line"><span class="class">        y = self.cnn.model.predict(<span class="title">x</span>)</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">        # np.argmax()取得最大值的下标，即代表的数字</span></span><br><span class="line"><span class="class">        print(<span class="title">image_path</span>)</span></span><br><span class="line"><span class="class">        print(<span class="title">y</span>[0])</span></span><br><span class="line"><span class="class">        print('-&gt; <span class="type">Predict</span> <span class="title">digit'</span>, <span class="title">np</span>.<span class="title">argmax</span>(<span class="title">y</span>[0]))</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">if __name__ == "__main__":</span></span><br><span class="line"><span class="class">    app = <span class="type">Predict</span>()</span></span><br><span class="line"><span class="class">    app.predict('/<span class="type">Users</span>/<span class="type">Desktop</span>/4.<span class="title">png'</span>)</span></span><br></pre></td></tr></table></figure>
+<p>最后，你可以在<a href="https://github.com/hezongjiang/TensorflowDemos/blob/master/classify_images_number_cnn.py" target="_blank" rel="noopener">我的 GitHub</a> 上看到完整的代码。</p>
+<p>在下一节<a href="/2020/05/15/TensorFlow-2-x-MNIST-图像分类-3/" title="《TensorFlow 2.x MNIST-图像分类(3)》">《TensorFlow 2.x MNIST-图像分类(3)》</a>中，我们将使用更复杂的图片来进行分类测试。</p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2020/05/15/TensorFlow-2-x-MNIST-图像分类-3/" data-toggle="tooltip" data-placement="top" title="TensorFlow 2.x - MNIST 图像分类(3)">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2020/05/13/TensorFlow-2-x-MNIST-图像分类-1/" data-toggle="tooltip" data-placement="top" title="TensorFlow 2.x - MNIST 图像分类(1)">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">一、为什么要用 CNN</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">二、加载数据</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">三、搭建网络</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">四、开始训练并保存训练结果</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">五、图片预测</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#机器学习" title="机器学习">机器学习</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://www.jianshu.com/u/5fa5459c7b02" target="_blank">简书</a></li>
+                    
+                        <li><a href="https://github.com/hezongjiang" target="_blank">Github</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "your-disqus-ID";
+    var disqus_identifier = "https://hezongjiang.github.io/2020/05/14/TensorFlow-2-x-MNIST-图像分类-2/";
+    var disqus_url = "https://hezongjiang.github.io/2020/05/14/TensorFlow-2-x-MNIST-图像分类-2/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://github.com/hezongjiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; He Zongjiang 2020 
+                    <br>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://hezongjiang.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://hezongjiang.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

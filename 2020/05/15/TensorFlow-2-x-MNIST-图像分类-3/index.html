@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="The only thing we fear is fear itself.">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          TensorFlow 2.x - MNIST 图像分类(3) - 小道消息&#39;s notes
+        
+    </title>
+
+    <link rel="canonical" href="https://hezongjiang.github.io/2020/05/15/TensorFlow-2-x-MNIST-图像分类-3/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('tensorflow.jpg')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header">
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#机器学习" title="机器学习">机器学习</a>
+                            
+                        </div>
+                        <h1>TensorFlow 2.x - MNIST 图像分类(3)</h1>
+                        <h2 class="subheading">TensorFlow入门</h2>
+                        <span class="meta">
+                            Posted by He Zongjiang on
+                            2020-05-15
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">小道消息&#39;s notes</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p>这一节将使用 <a href="https://tensorflow.google.cn/tutorials/keras/classification?hl=zh_cn" target="_blank" rel="noopener">TensorFlow 官方教程</a> 的一个例子——Basic classification: Classify images of clothing——基础分类：衣物图片分类，训练一个神经网络模型来分类像运动鞋和衬衫这样的衣服的图像。</p>
+<p>有了<a href="/2020/05/13/TensorFlow-2-x-MNIST-图像分类-1/" title="《TensorFlow 2.x MNIST-图像分类(1)》">《TensorFlow 2.x MNIST-图像分类(1)》</a>和<a href="/2020/05/14/TensorFlow-2-x-MNIST-图像分类-2/" title="《TensorFlow 2.x MNIST-图像分类(2)》">《TensorFlow 2.x MNIST-图像分类(2)》</a>这两节的铺垫，本节将显得比较简单。</p>
+<h2><span id="一-加载数据">一、加载数据</span></h2>
+<p>在之前的文章中，我们都是使用 MNIST，但是 MNIST 太简单了，只需要几分钟的训练，准确率就可以达到 99% 以上，并且大部分图片可能只需要几个像素点就可以区分开来。真实世界千变万化，我们需要更真实的图片。</p>
+<p>本次使用的数据集是 Fashion MNIST。该数据集由 70,000 张黑白图片构成，每张图片大小为 28x28，图片数量和大小与经典 MNIST 完全相同，但 Fashion MNIST 是由十类服饰图片构成，MNIST 是手写数字。Fashion MNIST 更有挑战性，更适合用来验证算法。Fashion-MNIST 的目的是要代替 MNIST。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-c729995af3629e9c.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Fashion-MNIST"></p>
+<p>废话不多说，先下载四个数据集：</p>
+<p>（1）训练集图片：<a href="http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-images-idx3-ubyte.gz" target="_blank" rel="noopener">train-images-idx3-ubyte.gz</a>，60,000张，26 MBytes。<br>
+（2）训练集标签：<a href="http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-labels-idx1-ubyte.gz" target="_blank" rel="noopener">train-labels-idx1-ubyte.gz</a>，60,000张，29 KBytes。<br>
+（3）测试集图片：<a href="http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-images-idx3-ubyte.gz" target="_blank" rel="noopener">t10k-images-idx3-ubyte.gz</a>，10,000张，4.3 MBytes。<br>
+（4）测试集标签：<a href="http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-labels-idx1-ubyte.gz" target="_blank" rel="noopener">t10k-labels-idx1-ubyte.gz</a>，10,000张，5.1 KBytes。</p>
+<p>下载后，加载数据：</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="built_in">from</span> tensorflow import keras</span><br><span class="line">import matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">import os</span><br><span class="line">import gzip</span><br><span class="line">import numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">def load_data(data_folder):</span><br><span class="line">    <span class="built_in">files</span> = [<span class="string">'train-labels-idx1-ubyte.gz'</span>, <span class="string">'train-images-idx3-ubyte.gz'</span>,</span><br><span class="line">             <span class="string">'t10k-labels-idx1-ubyte.gz'</span>, <span class="string">'t10k-images-idx3-ubyte.gz'</span>]</span><br><span class="line">    paths = []</span><br><span class="line">    <span class="keyword">for</span> f_name <span class="keyword">in</span> <span class="built_in">files</span>:</span><br><span class="line">        paths.append(os.path.join(data_folder, f_name))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> gzip.<span class="built_in">open</span>(paths[<span class="number">0</span>], <span class="string">'rb'</span>) <span class="keyword">as</span> lb_path:</span><br><span class="line">        y_train = np.frombuffer(lb_path.<span class="built_in">read</span>(), np.uint8, <span class="built_in">offset</span>=<span class="number">8</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> gzip.<span class="built_in">open</span>(paths[<span class="number">1</span>], <span class="string">'rb'</span>) <span class="keyword">as</span> img_path:</span><br><span class="line">        x_train = np.frombuffer(img_path.<span class="built_in">read</span>(), np.uint8, <span class="built_in">offset</span>=<span class="number">16</span>).reshape(<span class="built_in">len</span>(y_train), <span class="number">28</span>, <span class="number">28</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> gzip.<span class="built_in">open</span>(paths[<span class="number">2</span>], <span class="string">'rb'</span>) <span class="keyword">as</span> lb_path:</span><br><span class="line">        y_test = np.frombuffer(lb_path.<span class="built_in">read</span>(), np.uint8, <span class="built_in">offset</span>=<span class="number">8</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> gzip.<span class="built_in">open</span>(paths[<span class="number">3</span>], <span class="string">'rb'</span>) <span class="keyword">as</span> img_path:</span><br><span class="line">        x_test = np.frombuffer(img_path.<span class="built_in">read</span>(), np.uint8, <span class="built_in">offset</span>=<span class="number">16</span>).reshape(<span class="built_in">len</span>(y_test), <span class="number">28</span>, <span class="number">28</span>)</span><br><span class="line"></span><br><span class="line">    <span class="literal">return</span> (x_train, y_train), (x_test, y_test)</span><br><span class="line"></span><br><span class="line">(train_images, train_labels), (test_images, test_labels) = load_data(os.path.dirname(__file__) + <span class="string">'/data/fashion'</span>)</span><br></pre></td></tr></table></figure>
+<p>这里的数据加载方法与 TensorFlow 官方教程上的不同，因为官方教程加载数据时，直接下载，而下载链接需要翻墙，如果你能科学上网，可以使用如下官方教程，代替上一段代码：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(train_images, train_labels), (test_images, test_labels) = keras<span class="selector-class">.datasets</span><span class="selector-class">.fashion_mnist</span><span class="selector-class">.load_data</span>()</span><br></pre></td></tr></table></figure>
+<h2><span id="二-数据预处理">二、数据预处理</span></h2>
+<p>数据格式如下：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">train_images.shape # (<span class="number">60000</span>, <span class="number">28</span>, <span class="number">28</span>)</span><br><span class="line">len(train_labels) # <span class="number">60000</span></span><br><span class="line">train_labels # ([<span class="number">9</span>, <span class="number">0</span>, <span class="number">0</span>, ..., <span class="number">3</span>, <span class="number">0</span>, <span class="number">5</span>], dtype=uint8)</span><br><span class="line">test_images.shape # (<span class="number">10000</span>, <span class="number">28</span>, <span class="number">28</span>)</span><br><span class="line">len(test_labels) # <span class="number">10000</span></span><br></pre></td></tr></table></figure>
+<p>然后我们查看第一张图片：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.figure</span>()</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.imshow</span>(<span class="selector-tag">train_images</span><span class="selector-attr">[0]</span>)</span><br><span class="line"><span class="selector-tag">plt</span><span class="selector-class">.show</span>()</span><br><span class="line"><span class="selector-tag">print</span>(<span class="selector-tag">train_labels</span><span class="selector-attr">[0]</span>)  # 9</span><br></pre></td></tr></table></figure>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-7ec317b0b9329c37.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Ankle boot"></p>
+<p>图片大小 28x28，每个像素值取值范围 0-255。标签是整数，取值范围 0-9，与实际的服饰类别对应关系如下。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Label</th>
+<th style="text-align:center">Class</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">T-shirt/top （T恤）</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Trouser（裤子）</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">Pullover（套衫）</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">Dress （裙子）</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">Coat（外套）</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">Sandal（凉鞋）</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">Shirt（汗衫）</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">Sneaker（运动鞋）</td>
+</tr>
+<tr>
+<td style="text-align:center">8</td>
+<td style="text-align:center">Bag（包）</td>
+</tr>
+<tr>
+<td style="text-align:center">9</td>
+<td style="text-align:center">Ankle boot（短靴）</td>
+</tr>
+</tbody>
+</table>
+<p>每个图像都映射到一个标签。上图的标签是 9，所以图片中应该是 Ankle boot (短靴)，虽然没看出哪里短。</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">class_names</span> = [<span class="string">'T-shirt/top'</span>, <span class="string">'Trouser'</span>, <span class="string">'Pullover'</span>, <span class="string">'Dress'</span>, <span class="string">'Coat'</span>, <span class="string">'Sandal'</span>, <span class="string">'Shirt'</span>, <span class="string">'Sneaker'</span>, <span class="string">'Bag'</span>, <span class="string">'Ankle boot'</span>]</span><br></pre></td></tr></table></figure>
+<p>图片的每个像素值在 0-255 之间，需要转为 0-1。训练集和测试集都需要经过相同的处理。</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">train_images</span> = train_images / <span class="number">255.0</span></span><br><span class="line"><span class="attr">test_images</span> = test_images / <span class="number">255.0</span></span><br></pre></td></tr></table></figure>
+<p>显示前 25 张图片与标签的对应关系：</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># <span class="built_in">show</span> <span class="built_in">first</span> <span class="number">25</span> images <span class="keyword">and</span> <span class="built_in">labels</span></span><br><span class="line">plt.figure(figsize=(<span class="number">10</span>, <span class="number">10</span>))</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">25</span>):</span><br><span class="line">    plt.subplot(<span class="number">5</span>, <span class="number">5</span>, i + <span class="number">1</span>)</span><br><span class="line">    plt.xticks([])</span><br><span class="line">    plt.yticks([])</span><br><span class="line">    plt.imshow(train_images[i], cmap=plt.cm.binary)</span><br><span class="line">    plt.<span class="built_in">xlabel</span>(class_names[train_labels[i]])</span><br><span class="line">plt.<span class="built_in">show</span>()</span><br></pre></td></tr></table></figure>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-6c119b414227ef89.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2><span id="三-搭建神经网络">三、搭建神经网络</span></h2>
+<p>搭建神经网络分为两步，首先配置模型的每一层，然后编译模型。</p>
+<p><strong>配置模型层</strong></p>
+<p>神经网络的基本构成是网络层 (layer)，大部分深度学习网络都由多个简单的 layers 构成。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">model = keras.Sequential([</span><br><span class="line">    keras<span class="selector-class">.layers</span><span class="selector-class">.Flatten</span>(input_shape=(<span class="number">28</span>, <span class="number">28</span>)),</span><br><span class="line">    keras<span class="selector-class">.layers</span><span class="selector-class">.Dense</span>(<span class="number">128</span>, activation=<span class="string">'relu'</span>),</span><br><span class="line">    keras<span class="selector-class">.layers</span><span class="selector-class">.Dense</span>(<span class="number">10</span>, activation=<span class="string">'softmax'</span>)</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
+<p>网络的输入层 <code>tf.keras.layers.Flatten</code> 将输入的图片从 28 × 28 的二维数组（28 × 28 像素）转为 784 的一维数组，这一层的作用仅仅是将每一行值平铺在一行，没有参数需要学习。</p>
+<p>接下来是 2 层 <code>tf.keras.layers.Dense</code>，即全连接层 (Fully Connected, FC)，第一层 Dense 有 128 个神经元。第二层有 10 个神经元，经过 softmax 后，返回了和为 1 长度为 10 的概率数组，每一个数分别代表当前图片属于分类 0-9 的概率。</p>
+<p><strong>编译模型</strong></p>
+<p>在开始训练前，模型需要编译 (Compile) 并设置一些参数：</p>
+<ol>
+<li>Loss function - 损失函数，训练时评估模型的正确率，希望最小化这个函数，往正确的方向训练模型。</li>
+<li>Optimizer - 优化器算法，更新模型参数的算法。</li>
+<li>Metrics - 指标，用来监视训练和测试步数，下面的例子中使用 accuracy，即图片被正确分类的比例。</li>
+</ol>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">model.compile(optimizer=<span class="string">'adam'</span>,</span><br><span class="line">              loss=tf<span class="selector-class">.keras</span><span class="selector-class">.losses</span><span class="selector-class">.SparseCategoricalCrossentropy</span>(from_logits=True),</span><br><span class="line">              metrics=[<span class="string">'accuracy'</span>])</span><br></pre></td></tr></table></figure>
+<h2><span id="四-训练模型">四、训练模型</span></h2>
+<p>训练神经网络，通常有以下几个步骤。</p>
+<ol>
+<li>传入训练集数据，<code>train_images</code> 和 <code>train_labels</code>。</li>
+<li>训练模型，关联图片和标签。</li>
+<li>使用测试集 <code>test_images</code> 预测，并用标签 <code>test_labels</code> 进行验证。</li>
+</ol>
+<p><strong>Feed the model</strong></p>
+<p>调用 <code>model.fit</code> 方法开始训练。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model.fit(train_images, train_labels, <span class="attribute">epochs</span>=10)</span><br></pre></td></tr></table></figure>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Epoch 1/10</span><br><span class="line">1875/1875 [==============================] - 5s 3ms/<span class="keyword">step</span> - loss: 0.5025 - accuracy: 0.8243</span><br><span class="line"><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span></span><br><span class="line">Epoch 7/10</span><br><span class="line">1875/1875 [==============================] - 5s 3ms/<span class="keyword">step</span> - loss: 0.2696 - accuracy: 0.9001</span><br><span class="line">Epoch 8/10</span><br><span class="line">1875/1875 [==============================] - 5s 3ms/<span class="keyword">step</span> - loss: 0.2576 - accuracy: 0.9035</span><br><span class="line">Epoch 9/10</span><br><span class="line">1875/1875 [==============================] - 6s 3ms/<span class="keyword">step</span> - loss: 0.2491 - accuracy: 0.9075</span><br><span class="line">Epoch 10/10</span><br><span class="line">1875/1875 [==============================] - 6s 3ms/<span class="keyword">step</span> - loss: 0.2396 - accuracy: 0.9112</span><br></pre></td></tr></table></figure>
+<p>经过 10 轮训练后，准确率达到了 91.12%。</p>
+<p><strong>评估准确率</strong></p>
+<p>使用测试集数据看看模型训练的结果：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">test_loss, test_acc = model.evaluate(test_images,  test_labels, verbose=2)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'\nTest accuracy:'</span>, test_acc)  <span class="comment"># Test accuracy: 0.8865000009536743</span></span><br></pre></td></tr></table></figure>
+<p>测试集的准确率低于训练集，训练集和测试集准确率之间的差距代表模型过拟合 (overfitting)。即对于训练中没有见过的新数据，模型表现差。如果你对过拟合不熟悉，可以看看<a href="https://www.jianshu.com/p/b3d98ce0bc1e" target="_blank" rel="noopener">《过拟合(Overfitting) 与 Dropout》</a>，没错，也是我的文章。</p>
+<p><strong>预测</strong></p>
+<p>使用 predict 函数进行预测，并显示图片，打印预测结果及标签。</p>
+<figure class="highlight hsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># 预测</span></span><br><span class="line">predictions = model.predict(test_images)</span><br><span class="line"></span><br><span class="line">idx = <span class="number">20</span></span><br><span class="line">plt.figure()</span><br><span class="line">plt.imshow(train_images[idx])  <span class="meta"># 显示图片</span></span><br><span class="line">plt.show()</span><br><span class="line"><span class="keyword">print</span>(predictions[idx])</span><br><span class="line">predict = <span class="keyword">int</span>(np.argmax(predictions[idx]))</span><br><span class="line"><span class="keyword">print</span>(<span class="string">'predict: '</span> + class_names[predict])  <span class="meta"># 预测结果</span></span><br><span class="line"><span class="keyword">print</span>(<span class="string">'label: '</span> + class_names[test_labels[idx]])  <span class="meta"># 标签</span></span><br></pre></td></tr></table></figure>
+<p>看一下第一个预测结果。</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">3</span>.<span class="number">1960328</span>e-<span class="number">09</span> <span class="number">1</span>.<span class="number">2830121</span>e-<span class="number">11</span> <span class="number">1</span>.<span class="number">0000000</span>e+<span class="number">00</span> <span class="number">1</span>.<span class="number">5766790</span>e-<span class="number">18</span> <span class="number">1</span>.<span class="number">2614347</span>e-<span class="number">16</span></span><br><span class="line"> <span class="number">7</span>.<span class="number">3473108</span>e-<span class="number">24</span> <span class="number">1</span>.<span class="number">2678178</span>e-<span class="number">11</span> <span class="number">2</span>.<span class="number">2807704</span>e-<span class="number">21</span> <span class="number">2</span>.<span class="number">7815026</span>e-<span class="number">11</span> <span class="number">3</span>.<span class="number">0496564</span>e-<span class="number">14</span>]</span><br><span class="line">predict: Pullover</span><br><span class="line">label: Pullover</span><br></pre></td></tr></table></figure>
+<p>结果是一个长度为 10 的数组，数组的每个值代表模型认为是对应标签的概率。上述例子中 9 号标签的概率最大 1.0000000e+00，即模型认为该图片是 9 号标签的概率是 100%。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-0c5551083b3b497d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Pullover"></p>
+<p>预测结果和标签结果相同，都是 Pullover。</p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2020/06/27/白话“量子力学”/" data-toggle="tooltip" data-placement="top" title="白话“量子力学”">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2020/05/14/TensorFlow-2-x-MNIST-图像分类-2/" data-toggle="tooltip" data-placement="top" title="TensorFlow 2.x - MNIST 图像分类(2)">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">一、加载数据</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">二、数据预处理</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">三、搭建神经网络</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">四、训练模型</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#机器学习" title="机器学习">机器学习</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://www.jianshu.com/u/5fa5459c7b02" target="_blank">简书</a></li>
+                    
+                        <li><a href="https://github.com/hezongjiang" target="_blank">Github</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "your-disqus-ID";
+    var disqus_identifier = "https://hezongjiang.github.io/2020/05/15/TensorFlow-2-x-MNIST-图像分类-3/";
+    var disqus_url = "https://hezongjiang.github.io/2020/05/15/TensorFlow-2-x-MNIST-图像分类-3/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://github.com/hezongjiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; He Zongjiang 2020 
+                    <br>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://hezongjiang.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://hezongjiang.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

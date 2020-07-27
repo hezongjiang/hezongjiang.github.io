@@ -213,6 +213,97 @@
 
 <div class="post-preview">
 
+    <a href="/2019/10/22/Java-垃圾回收-GC-机制/">
+        <h2 class="post-title">
+            Java 垃圾回收(GC)机制
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            一、为什么要进行垃圾回收
+随着程序的运行，内存中存在的实例对象、变量等信息占据的内存越来越多，其中有很多对象再也用不到，这些用不到的对象就被称之为垃圾，如果不及时进行垃圾回收，必然会带来程序性能的下降，甚至会因为可用内存不足造成一些不必要的系统异常。
+垃圾回收机制主要是对 JVM 中堆内存进行管理，如果对 JVM 相关的概念还不了解，可以看一看《JVM......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by He Zongjiang on
+            2019-10-22
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#服务端开发" title="服务端开发">服务端开发</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/10/16/JVM-从入门到出门/">
+        <h2 class="post-title">
+            JVM 从入门到出门
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            一、JVM 是什么
+Java 是一种跨平台的语言，这是大家都知道常识。但是 Java 源文件是不能直接运行的，而是需要将 Java 源文件编译成一种“中间码”——字节码，但是字节码也是不能直接运行，字节码是需要在 Java 虚拟机（Java Virtual Machine，简称 JVM）上运行。同时由于每个系统平台都有自己的 JVM，所以 Java 语......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by He Zongjiang on
+            2019-10-16
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#服务端开发" title="服务端开发">服务端开发</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/09/30/你的系统如何支持高并发/">
+        <h2 class="post-title">
+            你的系统如何支持高并发
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            一、从一道面试题开始
+面试一家公司，上来就问：项目中是怎么解决高并发的？
+看来高并发这个问题在面试中是逃离不了了，现在写一点自己浅薄的理解。我觉得要回答这个问题可以从这几个方面入手：
+第一、硬件层面，服务器用更大的内存，更好的硬盘。考虑到 Money，这肯定不是面试官想听的答案，不过可以提上一嘴。
+第二、软件层面，这也是重点，先简单介绍一下，后面再详细......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by He Zongjiang on
+            2019-09-30
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#服务端开发" title="服务端开发">服务端开发</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2019/07/20/白话'一致哈希'/">
         <h2 class="post-title">
             白话'一致哈希'
@@ -234,6 +325,40 @@
         <div class="tags">
             
               <a href="/tags/#服务端开发" title="服务端开发">服务端开发</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/06/07/Let-s-Go-Lhasa/">
+        <h2 class="post-title">
+            Let's Go Lhasa
+        </h2>
+        <h3 class="post-subtitle">
+            我们去旅游
+        </h3>
+        <div class="post-content-preview">
+            拉萨
+不是所有人都会来到这里，但来过就会忘记。
+走进拉萨，有数不尽的理由，每一条都足以让热衷梦想的人怦然心动。
+走进拉萨，也根本无需理由，仅仅是这个名字本身，就足以让人魂牵梦绕。
+
+
+拉萨，像一个梦，总是萦绕心头挥之不去，终于，在那一日，我们终于踏上了这神秘的雪域高原。在拉萨这座魅力无限的雪域圣城里，能看到古老的寺庙、接触神秘的宗教、邂逅虔诚的朝拜者、......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by He Zongjiang on
+            2019-06-07
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Love" title="Love">Love</a>
             
         </div>
     
@@ -396,124 +521,6 @@
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2019/02/19/iOS-响应者链/">
-        <h2 class="post-title">
-            iOS 响应者链
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            一、概述
-iOS 响应者链(Responder Chain)是支撑 App 界面交互的重要基础，点击、滑动、旋转、摇晃等都离不开其背后的响应者链链。
-简单的说（虽然不准确），响应者链的作用就是让 APP 知道用户点击里了哪里，然后应该哪个控件做出反应。专业点说，响应者链就是由多个响应者组合起来的链条，就叫做响应者链。它表示了每个响应者之间的联系，并且可......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by He Zongjiang on
-            2019-02-19
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#iOS开发" title="iOS开发">iOS开发</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2019/01/30/情书-5/">
-        <h2 class="post-title">
-            情书(5)
-        </h2>
-        <h3 class="post-subtitle">
-            我与亚莉的故事
-        </h3>
-        <div class="post-content-preview">
-            亚莉亲启：
-明天你就要回家了，你看到这封信的时候应该是在高铁上吧，之前说好的过年陪你回家，这次又食言了，我很抱歉，这也不是我第一次食言了，有很多次，但是每一次我都记在心里，从未忘记。明年我有很多计划，首先我要陪你看海，地点我已经想好了，咱们去大理苍山洱海，真的很久没有陪你出去旅游了，如果我没记错，咱们最后一次旅游应该是去的梵净山了，那都是大三时候的事了......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by He Zongjiang on
-            2019-01-30
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Love" title="Love">Love</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2019/01/23/Linux-安装-Python-3-x/">
-        <h2 class="post-title">
-            Linux 安装 Python 3.x
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            一般来说，Linux 都自带了 Python 2.x
-12# python --versionPython 2.7.10
-如果本机安装了 Python 2.x，尽量不要管它，使用 Python3 运行Python 3.x 脚本就好，因为可能有程序依赖目前的 Python 2 环境，
-比如yum！不要动现有的 Python 2 环境！下面我们直接安装 P......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by He Zongjiang on
-            2019-01-23
-        </p>
-        <div class="tags">
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2019/01/22/SpringBoot-缓存技术浅谈/">
-        <h2 class="post-title">
-            SpringBoot 缓存技术浅谈
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            一、为什么要缓存
-随着时间的积累，应用的使用用户不断增加，数据规模也越来越大，往往数据库查询操作会成为影响用户使用体验的瓶颈，数据库的访问越少越好，此时使用缓存往往是解决这一问题非常好的手段之一。
-在开发中，如果相同的查询条件去频繁查询数据库, 会给数据库带来很大的压力。因此，我们需要对查询出来的数据进行缓存,这样客户端只需要从数据库查询一次数据，然后......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by He Zongjiang on
-            2019-01-22
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#服务端开发" title="服务端开发">服务端开发</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -566,7 +573,11 @@ iOS 响应者链(Responder Chain)是支撑 App 界面交互的重要基础，点
             
         
             
-            <a href="/tags/#服务端开发" title="服务端开发" rel="10">服务端开发</a>
+            <a href="/tags/#服务端开发" title="服务端开发" rel="12">服务端开发</a>
+            
+        
+            
+            <a href="/tags/#Love" title="Love" rel="9">Love</a>
             
         
             
@@ -578,11 +589,7 @@ iOS 响应者链(Responder Chain)是支撑 App 界面交互的重要基础，点
             
         
             
-            <a href="/tags/#生活随笔" title="生活随笔" rel="4">生活随笔</a>
-            
-        
-            
-            <a href="/tags/#Love" title="Love" rel="7">Love</a>
+            <a href="/tags/#生活随笔" title="生活随笔" rel="5">生活随笔</a>
             
         
     </div>
@@ -637,6 +644,10 @@ iOS 响应者链(Responder Chain)是支撑 App 界面交互的重要基础，点
     <ul>
       
         <li>
+          <a href="/2020/01/14/我的-2019-年终总结/">我的 2019 年终总结</a>
+        </li>
+      
+        <li>
           <a href="/2019/11/20/情书-8/">情书(8)</a>
         </li>
       
@@ -650,10 +661,6 @@ iOS 响应者链(Responder Chain)是支撑 App 界面交互的重要基础，点
       
         <li>
           <a href="/2019/11/10/竞争不充分的领域里，才有英雄/">竞争不充分的领域里，才有英雄</a>
-        </li>
-      
-        <li>
-          <a href="/2019/11/10/白话设计模式/">白话设计模式</a>
         </li>
       
     </ul>

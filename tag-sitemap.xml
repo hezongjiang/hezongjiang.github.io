@@ -16,13 +16,6 @@
     </url>
 
     <url>
-        <loc>https://hezongjiang.github.io/tags/Love/</loc>
-        <lastmod>2020-07-26T14:35:51.707Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://hezongjiang.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/</loc>
         <lastmod>2020-07-27T02:02:31.974Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -53,6 +46,13 @@
     <url>
         <loc>https://hezongjiang.github.io/tags/%E5%A4%A9%E6%96%B9%E5%A4%9C%E8%B0%AD/</loc>
         <lastmod>2020-07-27T03:15:08.718Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://hezongjiang.github.io/tags/Love/</loc>
+        <lastmod>2020-07-27T06:50:34.169Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

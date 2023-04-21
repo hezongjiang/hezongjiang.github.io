@@ -12,7 +12,7 @@ GPT 全称 Generative Pre-trained Transformer，生成式预训练转化模型�
 
 **Generative**：生成式，是指给定前文可以自动生成后文，例如输入 “天气真”，可以生成“好”字输出。
 
-![123](ChatGPT-简介/1.png)
+![](https://s2.loli.net/2023/04/21/oltZQRYIP7aTUiN.png)
 
 **Pre-trained**：预训练，预先训练过的。GPT3 大约使用了 5000 亿个 token，这里可以把每个 token 是为一个单词，这几乎把互联网上能找到的文本全部都用于 GPT 的训练了。
 
@@ -47,11 +47,11 @@ do|2.9%
 
 GPT3 及之前的版本都是使用这种方法，给定上文，推理出下文，如此循环，便能给出句子回复。
 
-![](https://upload-images.jianshu.io/upload_images/2708793-923c36dd55e5c963.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://s2.loli.net/2023/04/21/lSbvQquxoKBtfnD.png)
 
 但这种方式有明显的缺陷，因为训练数据全部来自书籍、互联网等，如果问一个之前不存在的问题，回答就会一本正经的胡说八道，原因就是它只是根据海量训练数据，计算单词之间的相关性，重复生成下一个单词。
 
-![](https://upload-images.jianshu.io/upload_images/2708793-132f974c8282503c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://s2.loli.net/2023/04/21/AISHDFXlsGfLN4W.png)
 
 ## 一切的开始，Attention 和 Transformer
 
@@ -59,7 +59,7 @@ GPT 包括后续很多技术的开始其实都始于 Google。2017年，Google�
 
 从直觉来理解其实非常简单。他们认为人类在说话的时候，每一个词和其他词有关联，就像人的注意力一样。我们看下面这张图更好理解，下图中输出的"it"和左侧的关系强弱可以通过颜色深浅看出来，那么这种机制可以被赋予权重从而应用在神经网络之中。
 
-![](https://upload-images.jianshu.io/upload_images/2708793-6115cd900daecb03.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://s2.loli.net/2023/04/21/lcjb6kC3qX1ANEz.png)
 
 通过这样的注意力机制，语言模型就可以脱离开 RNN 结构，甩开了之前大家常用的模型网络。算法的效果很不错，而且设计上非常精巧。
 
@@ -97,19 +97,19 @@ GPT3 是如何计算下一个单词出现的概率呢？
 
 例如，部分高度下物体自由落体的耗时的实验数据，横坐标为高度，纵坐标为时间：
 
-![](https://upload-images.jianshu.io/upload_images/2708793-984a2d7e7b2a547b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://s2.loli.net/2023/04/21/iA3Qd2FIVCtGauJ.png)
 
 可以通过一元一次函数 a + b x 对实验数据进行拟合：
 
-![](https://upload-images.jianshu.io/upload_images/2708793-9bcff973600d03af.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://s2.loli.net/2023/04/21/wdpXLfY6g8CmOKy.png)
 
 也通过一元二次函数 a + b x + c x^2^ 对实验数据进行拟合：
 
-![](https://upload-images.jianshu.io/upload_images/2708793-7bf0636207dd6044.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://s2.loli.net/2023/04/21/Ja41UshSZgQY3KM.png)
 
 再通过复合函数 a + b / x + c sin(x) 对实验数据进行拟合：
 
-![](https://upload-images.jianshu.io/upload_images/2708793-bee578904e37024a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://s2.loli.net/2023/04/21/glO6MLSV8fUt7c9.png)
 
 上面可以发现，通过一元二次函数 a + b x + c x^2^ 对实验数据进行拟合的效果比较好。
 
@@ -121,7 +121,7 @@ ChatGPT 的核心本质上也是一个拟合函数，这个函数的输入是你
 
 神经网络可以理解为模仿人类大脑工作方式，用于解决一些复杂问题的数学工具，这里我们举一个人类看到图像的例子：
 
-![](https://upload-images.jianshu.io/upload_images/2708793-9124d7f4ca932966.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://s2.loli.net/2023/04/21/KEXOcawHB5jLUxY.png)
 
 来自图像的光落在眼睛光感细胞上时，会在神经细胞中产生电信号，这些神经细胞与其他神经细胞相连，最终信号通过一系列神经元层，正是在这个过程中，我们“认出了”图像。
 
@@ -131,12 +131,12 @@ ChatGPT 的核心本质上也是一个拟合函数，这个函数的输入是你
 
 受生物学启发，每个神经元实际上都具有来自前一层神经元的一组特定“传入连接”，每个连接都被分配了特定的“权重”（可以是正数或负数），给定神经元的值是通过将“先前神经元”的值乘以它们相应的权重，然后将它们相加并添加一个常数来确定的——最后应用“阈值”（或“激活”）函数来确定传入下一级神经元的数值。
 
-![](https://upload-images.jianshu.io/upload_images/2708793-12799ed7cc406cfd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://s2.loli.net/2023/04/21/DM1uvXrlFhHmOR7.png)
 
 
 阈值（激活）函数通常使用 Ramp（或 ReLU），Ramp 是一个分段函数：如果 x ≥ 0，则 Ramp[x]=x，如果 x<0，则 Ramp[x]=0，对应的函数图表如下所示：
 
-![](https://upload-images.jianshu.io/upload_images/2708793-3317d7bc3af09119.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://s2.loli.net/2023/04/21/6kDfQZXlCuasBWw.png)
 
 ## 训练神经网络
 
@@ -160,15 +160,15 @@ ChatGPT 的核心本质上也是一个拟合函数，这个函数的输入是你
 
 但人工撰写的问答对，虽然质量好，但费时费力。于是让 GPT3 为同一个问题生成多个答案，由人按照有用程度进行排序。
 
-![](https://upload-images.jianshu.io/upload_images/2708793-e3d5f5273e52f051.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://s2.loli.net/2023/04/21/4U3QJaOiMRwbzeY.png)
 
 总共使用了 33000+ 个问题及其答案，训练了一个新的奖励模型，为每个问题和答案的组合提供一个评分，标明答案的好坏，这里人们不提供答案，只把答案排名。
 
-![](https://upload-images.jianshu.io/upload_images/2708793-d9521e39a7c7f60d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://s2.loli.net/2023/04/21/SmDxp2rVWR5M86I.png)
 
 最后又收集了 31000 个外部用户的提问，生成答案，使用奖励模型评分，进一步微调训练 SFT 模型，反复迭代。这个过程称为从人类反馈中强化学习 RLHF（Reinforcement Learning by Human Feedback）。
 
-![](https://upload-images.jianshu.io/upload_images/2708793-a00c2f95d71ffe06.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://s2.loli.net/2023/04/21/htI1WgVDPdH8TAO.png)
 
 总结起来，GPT3.5 的训练分 3 步：
 
@@ -193,7 +193,7 @@ ChatGPT 的核心本质上也是一个拟合函数，这个函数的输入是你
 
 2021 年 openai 的研究员在训练过程中有些意外的发现，过程就是下面这张图
 
-![](https://upload-images.jianshu.io/upload_images/2708793-7cb791820e9b972e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![12.png](https://s2.loli.net/2023/04/21/Rh7sAjE3LedwZgN.png)
 
 红色曲线代表训练，绿色曲线代表生成性发挥。
 
@@ -223,9 +223,9 @@ GPT-3 的模型参数、训练数据和工作量都是惊人的，论文署名�
 
 从理论上分析，可以参考物理学空间距离的概念，哪两个单词的空间距离越近，那他们同时出现的概率就越高，如下图，二维空间里面重叠的两个数字，在三维空间里面可能相距甚远，可见在高维空间找到全局最近的距离要比在低维空间更容易，数组里面数字的多少可以表示空间维度的多少，例如[x,y]可表示二维空间，[x,y,z]可表示三维空间，以此类推。
 
-![数字在二维空间投影](https://upload-images.jianshu.io/upload_images/2708793-304d6c3047cc499f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![1.png](https://s2.loli.net/2023/04/21/Mv6INXRJacyu91x.png)
 
-![数字在三维空间投影](https://upload-images.jianshu.io/upload_images/2708793-9784462241bcfacf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![2.png](https://s2.loli.net/2023/04/21/GDoZyI4NjYJdLHS.png)
 
 ## ChatGPT可优化的地方
 

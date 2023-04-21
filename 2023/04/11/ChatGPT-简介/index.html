@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="The only thing we fear is fear itself.">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          ChatGPT 简介 - 小道消息&#39;s notes
+        
+    </title>
+
+    <link rel="canonical" href="https://hezongjiang.github.io/2023/04/11/ChatGPT-简介/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('null')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header">
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                        </div>
+                        <h1>ChatGPT 简介</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by He Zongjiang on
+                            2023-04-11
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">小道消息&#39;s notes</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h2><span id="什么是-gpt">什么是 GPT</span></h2>
+<p>GPT 全称 Generative Pre-trained Transformer，生成式预训练转化模型。虽然每个字都认识，还是不知道 GPT 是个啥玩意。下面拆解一个每个次的含义。</p>
+<p><strong>Generative</strong>：生成式，是指给定前文可以自动生成后文，例如输入 “天气真”，可以生成“好”字输出。</p>
+<p><img src="/.io//1.png" alt="123"></p>
+<p><strong>Pre-trained</strong>：预训练，预先训练过的。GPT3 大约使用了 5000 亿个 token，这里可以把每个 token 是为一个单词，这几乎把互联网上能找到的文本全部都用于 GPT 的训练了。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">数据集</th>
+<th style="text-align:center">token数量（亿）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">爬虫数据</td>
+<td style="text-align:center">4100</td>
+</tr>
+<tr>
+<td style="text-align:center">网页文本</td>
+<td style="text-align:center">190</td>
+</tr>
+<tr>
+<td style="text-align:center">书籍书籍</td>
+<td style="text-align:center">670</td>
+</tr>
+<tr>
+<td style="text-align:center">维基百科</td>
+<td style="text-align:center">30</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Transformer</strong>：指的是 Transformer 模型，这也目前大多数语言模型的基石架构。是一种用于自然语言处理任务的深度神经网络架构。<br>
+最大的特点是自注意力机制，它可以学习词语之间的关系，并综合不同位置的词语，得出整个序列的含义。这种机制使得 Transformer 架构可以并行地处理整个输入序列，从而加速训练和推理过程</p>
+<p>因此，“Chat” 表示它是一个对话模型，“GPT” 则代表了它是使用 Generative Pretrained Transformer 架构构建的。一句话介绍：ChatGPT 是基于给定的文本，生成合理文本延续的对话模型。</p>
+<p>当前的 ChatGPT 使用的是 GPT-3.5 架构，既然有 3.5，那么肯定有 GPT-3、GPT-2、GPT-1，只不过前几代都有很明显的缺陷，不是广为人知。</p>
+<p>假如向 ChatGPT 输入给定文本：The best thing about AI is its ability to，那么 ChatGPT 会给出可能跟在这段文本后面的单词列表，以及每一个单词的概率：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">单词</th>
+<th style="text-align:center">概率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">learn</td>
+<td style="text-align:center">4.5%</td>
+</tr>
+<tr>
+<td style="text-align:center">predict</td>
+<td style="text-align:center">3.5%</td>
+</tr>
+<tr>
+<td style="text-align:center">make</td>
+<td style="text-align:center">3.2%</td>
+</tr>
+<tr>
+<td style="text-align:center">understand</td>
+<td style="text-align:center">3.1%</td>
+</tr>
+<tr>
+<td style="text-align:center">do</td>
+<td style="text-align:center">2.9%</td>
+</tr>
+</tbody>
+</table>
+<p>如何确定给定文本 “The best thing about AI is its ability to” 后面紧跟着的单词，经过实践发现，如果一直选择概率最高的单词，如此循环，便会生成一段非常平淡，甚至重复的文章，后来发现，如果增加一个随机参数，使其存在一定概率能够使用概率较低的单词，这样就能够生成比较有趣的文章（这个随机参数叫做“温度”，实践发现“温度”数值等于 0.8 时效果比较好）。</p>
+<p>GPT3 及之前的版本都是使用这种方法，给定上文，推理出下文，如此循环，便能给出句子回复。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-923c36dd55e5c963.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>但这种方式有明显的缺陷，因为训练数据全部来自书籍、互联网等，如果问一个之前不存在的问题，回答就会一本正经的胡说八道，原因就是它只是根据海量训练数据，计算单词之间的相关性，重复生成下一个单词。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-132f974c8282503c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2><span id="一切的开始attention-和-transformer">一切的开始，Attention 和 Transformer</span></h2>
+<p>GPT 包括后续很多技术的开始其实都始于 Google。2017年，Google的研究员发表了一篇影响非常深远的文章《Attention is All You Need》，提出了Transformer模型，这也目前大多数语言模型的基石架构。</p>
+<p>从直觉来理解其实非常简单。他们认为人类在说话的时候，每一个词和其他词有关联，就像人的注意力一样。我们看下面这张图更好理解，下图中输出的&quot;it&quot;和左侧的关系强弱可以通过颜色深浅看出来，那么这种机制可以被赋予权重从而应用在神经网络之中。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-6115cd900daecb03.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>通过这样的注意力机制，语言模型就可以脱离开 RNN 结构，甩开了之前大家常用的模型网络。算法的效果很不错，而且设计上非常精巧。</p>
+<h2><span id="如何得出单词的概率">如何得出单词的概率</span></h2>
+<p>GPT3 是如何计算下一个单词出现的概率呢？</p>
+<p><strong>1、统计单个单词出现的频率</strong></p>
+<p>英语中大约有 40,000 个常用的单词。通过查看大量的英语文本语料库，可以估计每个单词的出现频率。把每个单词的频率作为添加到给定文本后面的概率，经过实践发现，这种方式生成的文章十分混乱。</p>
+<p><strong>2、统计成对单词出现的频率</strong></p>
+<p>从已有的文字内容中，统计 2 个单词成对出现的频率，这样就可以根据给定文本的最后 1 个单词，按照跟这个单词成对出现的另外 1 个单词的频率，作为添加到给定文本后面对应单词的概率；</p>
+<p>常用的英文单词有 40000 个左右，成对单词可能出现的数量就是 16 亿，实践发现，这种效果要比统计单个单词出现频率生成的文章效果更好一些，但仍然有待完善。</p>
+<p><strong>3、统计多个单词出现的频率</strong></p>
+<p>如果统计 3 个单词同时出现的频率，这样就可以根据给定文本的最后 2 个单词，按照这 2 个单词同时出现的另外 1 个单词的频率，作为添加到文本后面对应单词的概率，这样生成的文章效果要更好；</p>
+<p>但这里遇到了问题，3 个单词同时出现的可能数量是 60 万亿，在网络中可能有几千亿个单词，在已经数字化的书籍中，可能还有 1000 亿字，但是无法满足统计 3 个单词同时出现的概率的；</p>
+<p>如果要统计 20 个单词同时出现的频率，所以从某种意义上说，它们永远不可能全部写下来。</p>
+<p>因此我们需要构建一个模型，帮助我们预测那些在现有文本语料库中没有看到的单词序列，ChatGPT 的核心“大型语言模型”(LLM)，它的构建就是为了更好地估计这些概率。</p>
+<h2><span id="构建大语言模型llm">构建大语言模型（LLM）</span></h2>
+<p>针对无法通过实践获取的数据，目前有两种方式可以得到：</p>
+<p>方式一：发现相应的科学定律，直接基于对应的科学定律公式进行计算。</p>
+<p>方式二：在不知道对应的科学定律的情况下，可以基于已有的数据，可以通过不同的函数进行拟合。</p>
+<p>例如，部分高度下物体自由落体的耗时的实验数据，横坐标为高度，纵坐标为时间：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-984a2d7e7b2a547b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>可以通过一元一次函数 a + b x 对实验数据进行拟合：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-9bcff973600d03af.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>也通过一元二次函数 a + b x + c x^2^ 对实验数据进行拟合：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-7bf0636207dd6044.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>再通过复合函数 a + b / x + c sin(x) 对实验数据进行拟合：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-bee578904e37024a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>上面可以发现，通过一元二次函数 a + b x + c x^2^ 对实验数据进行拟合的效果比较好。</p>
+<p>ChatGPT 的核心本质上也是一个拟合函数，这个函数的输入是你提出的问题，输出是问题的答案，只不过这个函数极其复杂，存在 1750 亿个参数，很难依靠人类直接设计出来，因此我们需要借助一个工具“神经网络”。</p>
+<h2><span id="神经网络">神经网络</span></h2>
+<p><strong>人眼看到物体的过程</strong></p>
+<p>神经网络可以理解为模仿人类大脑工作方式，用于解决一些复杂问题的数学工具，这里我们举一个人类看到图像的例子：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-9124d7f4ca932966.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>来自图像的光落在眼睛光感细胞上时，会在神经细胞中产生电信号，这些神经细胞与其他神经细胞相连，最终信号通过一系列神经元层，正是在这个过程中，我们“认出了”图像。</p>
+<p>在人脑中约有 1000 亿个神经元，每个神经元每秒都能产生多达一千次的电脉冲。神经元连接在一个复杂的网络中，每个神经元都有树状分支，可以将电信号传递给可能有数千个其他神经元。在粗略的近似中，任何给定神经元是否在给定时刻产生电脉冲取决于它从其他神经元接收到什么脉冲——不同的连接产生不同的“权重”。</p>
+<p><strong>计算机模拟人类的神经网络</strong></p>
+<p>受生物学启发，每个神经元实际上都具有来自前一层神经元的一组特定“传入连接”，每个连接都被分配了特定的“权重”（可以是正数或负数），给定神经元的值是通过将“先前神经元”的值乘以它们相应的权重，然后将它们相加并添加一个常数来确定的——最后应用“阈值”（或“激活”）函数来确定传入下一级神经元的数值。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-12799ed7cc406cfd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>阈值（激活）函数通常使用 Ramp（或 ReLU），Ramp 是一个分段函数：如果 x ≥ 0，则 Ramp[x]=x，如果 x&lt;0，则 Ramp[x]=0，对应的函数图表如下所示：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-3317d7bc3af09119.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2><span id="训练神经网络">训练神经网络</span></h2>
+<p>构建了神经网络之后，我们就可以通过提供大量的数据，像教育小孩一样来训练神经网络了，主要有下面三种训练方式：非监督学习、监督学习和强化学习。</p>
+<h3><span id="非监督学习">非监督学习</span></h3>
+<p>顾名思义，非监督学习就是不需要人类监督着进行学习，也就是不需要人类针对数据进行标记，可以直接把数据用于训练神经网络。</p>
+<p>例如直接给 GPT 一段文章，GPT 可以裁剪后面一段文本，将前面一段文本作为输入，最后将 GPT 输出的后面的一段文本和裁剪的文本进行比对。</p>
+<p>由于这种训练方式的数据集全部来自网络、数据等，如果问一个之前不存在的问题，回答就会一本正经的胡说八道，原因就是它只是根据海量训练数据，计算单词之间的相关性，重复生成下一个单词。</p>
+<h3><span id="监督学习">监督学习</span></h3>
+<p>所谓监督学习，就是需要人类监督着进行学习，也就是需要人类针对数据进行标记。</p>
+<p>在实际过程中，由标注人员编写问题和答案，共创建了 11000 个问答对，同时人工回答外部用户提出的问题，1500 个组合。合计 12500 个问答对，用来进行有监督微调 (SFT)，训练原始的 GPT3 使其产生更好的答案。</p>
+<h2><span id="强化学习">强化学习</span></h2>
+<p>但人工撰写的问答对，虽然质量好，但费时费力。于是让 GPT3 为同一个问题生成多个答案，由人按照有用程度进行排序。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-e3d5f5273e52f051.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>总共使用了 33000+ 个问题及其答案，训练了一个新的奖励模型，为每个问题和答案的组合提供一个评分，标明答案的好坏，这里人们不提供答案，只把答案排名。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-d9521e39a7c7f60d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>最后又收集了 31000 个外部用户的提问，生成答案，使用奖励模型评分，进一步微调训练 SFT 模型，反复迭代。这个过程称为从人类反馈中强化学习 RLHF（Reinforcement Learning by Human Feedback）。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-a00c2f95d71ffe06.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>总结起来，GPT3.5 的训练分 3 步：</p>
+<p>第一步：基于人类给定的样本和回复，建立一个监督模型，让监督模型来判断 ChatGPT 输出的回复，是否接近给定的回复；</p>
+<p>第二步：让人类针对监督模型筛选后 ChatGPT 的回复进行打分，为了进一步节省人工投入，便建立了一个与人类偏好类似的奖励模型 (RM)，来对监督模型筛选后的 ChatGPT 的回复进行评分；</p>
+<p>第三步：用奖励模型 (RM) 的结果不断地反馈给监督模型，从而不断地优化监督模型。</p>
+<p>而 ChatGPT 则是 GPT3.5 的基础上进行了微调，只不过训练数据不是问答，而是对话。</p>
+<p>1、使用有监督微调方式训练初始模型<br>
+监督微调阶段，人类提供对话数据，与 GPT3.5 的数据集混合，并转换为对话格式，然后随机选择对话，并生成备选答案。<br>
+2、标注人员对答案排名，生成奖励模型。<br>
+3、通过奖励模型使用强化学习微调模型。</p>
+<p>这样多次迭代，就是 ChatGPT 的核心原理了</p>
+<h2><span id="大就是不一样">大就是不一样</span></h2>
+<p>语言模型有很多巧妙的设计，例如 transform 就是一个最关键的架构技术，但主要区别还在于大，当你的模型足够大，用于训练的语料足够多，训练的时间足够长，就会发现一些神奇的事情。</p>
+<p>2021 年 openai 的研究员在训练过程中有些意外的发现，过程就是下面这张图</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-7cb791820e9b972e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>红色曲线代表训练，绿色曲线代表生成性发挥。</p>
+<p>训练一千次时，模型对训练到题目已经有很好的表现，但对生成性的题目基本无法回答，继续训练一万次，乃至十万次，都没有什么提高。但十万次之后，却突然有了明显的进展，在训练到百万次时，模型对生成性题目的准确性几乎达到了 100%。这就是量变产生质变。研究者把这个成为 开悟。</p>
+<p>我只能说：“大力出奇迹”。模型大到一定程度，训练数据多到一定程度，就能涌现一些东西出来了。</p>
+<p>这些强大能力的实现则依赖于 GPT-3 疯狂的 1750 亿的参数量， 45TB 的训练数据以及高达 1200 万美元的训练费用。</p>
+<p>当然这里面又不仅仅是所谓的“大力出奇迹”，这群科研工作者对于语言模型的本质思考可一点儿不少。不然，谁敢花这么多钱去训练呢。</p>
+<p>GPT-3 的模型参数、训练数据和工作量都是惊人的，论文署名多达 31 个作者，所有实验做下来花费的时间和财力也是非常巨大的，即便是当时模型还有 bug 和信息泄露的风险，OpenAI也没有重新训练，因为太贵了。</p>
+<h2><span id="损失函数">损失函数</span></h2>
+<p>通过将神经网络的输出结果，与给定的样本进行比对。</p>
+<p>例如可以通过平方差或者标准差之和，来衡量神经网络输出的结果与真实样本的差异，损失函数值越小，说明越贴近真实值。</p>
+<p>构建 ChatGPT 的一个关键措施是在“被动阅读”网络上的内容后，再进一步：让真实的人主动与 ChatGPT 互动，看看 ChatGPT 输出了什么内容，并给它进行评价反馈。</p>
+<p>第一步只是让人类对神经网络输出的结果进行评分。但随后建立了另一个神经网络模型，试图预测这些评级。现在这个预测模型可以在原始网络上运行，本质上就像一个损失函数，实际上允许该网络根据给出的人类反馈“调整”。实践证明人类的反馈似乎对系统能否成功产生“类人”的输出内容有很大影响。</p>
+<h1><span id="嵌入数据">嵌入数据</span></h1>
+<p>神经网络本身是基于数字的，所以需要将文本映射成对应的数字，这样神经网络才能处理，最简单就是把每一个英文单词都映射为一个阿拉伯数字，但是后来经过实践发现，将文本映射成多个数字的数组，这样的效果更好，GPT-2 的数组长度为 768，ChatGPT 的 GPT-3 的数组长度为 12288。</p>
+<p>从理论上分析，可以参考物理学空间距离的概念，哪两个单词的空间距离越近，那他们同时出现的概率就越高，如下图，二维空间里面重叠的两个数字，在三维空间里面可能相距甚远，可见在高维空间找到全局最近的距离要比在低维空间更容易，数组里面数字的多少可以表示空间维度的多少，例如[x,y]可表示二维空间，[x,y,z]可表示三维空间，以此类推。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-304d6c3047cc499f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="数字在二维空间投影"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-9784462241bcfacf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="数字在三维空间投影"></p>
+<h2><span id="chatgpt可优化的地方">ChatGPT可优化的地方</span></h2>
+<p>现有神经网络的框架内，目前存在一个关键限制：现在进行的神经网络训练基本上是顺序的，每批示例的效果都会被传播回去以更新权重。</p>
+<p>事实上，对于当前的计算机硬件（包括 GPU），大多数神经网络在训练期间的大部分时间都是“空闲”的，一次只更新一个部分。</p>
+<p>从某种意义上说，这是因为我们当前的计算机往往具有与其 CPU（或 GPU）分离的内存。但在大脑中，它可能是不同的，每个“记忆元素”（即神经元）也是一个潜在的活跃计算元素（即同时支持运算和存储）。如果我们能够以这种方式（计算和存储能够同时进行）设置我们未来的计算机硬件，则可能会更有效地进行神经网络的训练。</p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2020/07/27/黑羊——卡尔维诺/" data-toggle="tooltip" data-placement="top" title="黑羊——卡尔维诺">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">什么是 GPT</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">一切的开始，Attention 和 Transformer</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">如何得出单词的概率</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">构建大语言模型（LLM）</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">神经网络</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">训练神经网络</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">6.1.</span> <span class="toc-nav-text">非监督学习</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">6.2.</span> <span class="toc-nav-text">监督学习</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">7.</span> <span class="toc-nav-text">强化学习</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">8.</span> <span class="toc-nav-text">大就是不一样</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">9.</span> <span class="toc-nav-text">损失函数</span></a></li></ol><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number"></span> <span class="toc-nav-text">嵌入数据</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">ChatGPT可优化的地方</span></a></li></ol>
+        
+        </li></div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://www.jianshu.com/u/5fa5459c7b02" target="_blank">简书</a></li>
+                    
+                        <li><a href="https://github.com/hezongjiang" target="_blank">Github</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "your-disqus-ID";
+    var disqus_identifier = "https://hezongjiang.github.io/2023/04/11/ChatGPT-简介/";
+    var disqus_url = "https://hezongjiang.github.io/2023/04/11/ChatGPT-简介/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://github.com/hezongjiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; He Zongjiang 2023 
+                    <br>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://hezongjiang.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://hezongjiang.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

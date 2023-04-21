@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="The only thing we fear is fear itself.">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          每天自动发送天气预报到女朋友邮箱 - 小道消息&#39;s notes
+        
+    </title>
+
+    <link rel="canonical" href="https://hezongjiang.github.io/2020/07/27/每天自动发送天气预报到女朋友邮箱/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('time.jpg')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header">
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#生活随笔" title="生活随笔">生活随笔</a>
+                            
+                        </div>
+                        <h1>每天自动发送天气预报到女朋友邮箱</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by He Zongjiang on
+                            2020-07-27
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">小道消息&#39;s notes</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p>手机上每天都会收到天气预报的提醒，但都是出门后才发过来，我都出门，你再跟我说今天的天气预报，该没带伞还是没带伞，有啥用？于是琢磨自己写一个天气预报，顺便还可以撩妹，嘿嘿😊。先上最终成果图：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-36908db6c1c66dd6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>为了简单起见，代码使用 Python3 编写，天气数据直接从网上拿。整个过程主要分 3 步：</p>
+<ol>
+<li>获取天气数据</li>
+<li>coding</li>
+<li>打开浏览器截图</li>
+<li>部署到服务器</li>
+</ol>
+<p>废话不多说，直接开始。</p>
+<h2><span id="一-获取天气数据">一、获取天气数据</span></h2>
+<p>这里的天气数据是在 <a href="https://console.heweather.com/" target="_blank" rel="noopener">和风天气</a> 上获取的，通过 注册 -&gt; 登录 -&gt; 控制台 -&gt; 应用管理 -&gt; 创建应用。通过这些步骤，就可以免费获取到 Key。可能界面会更新，以后创建流程可能会不一样，但无论如何，拿到 Key 就可以了。我们最终的目的是获取天气数据，无论怎么变动，拿到天气数据就行。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-5e59458a2571d106.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="获取Key"></p>
+<p>获取到 Key 之后，打开 <a href="https://dev.heweather.com/docs/api/weather" target="_blank" rel="noopener">和风天气的开发文档</a>，使用免费版接口。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-61143bfbf2f67774.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>知道这些，就可以开始请求 API，获取数据，解析天气信息了。</p>
+<h2><span id="二-解析天气数据">二、解析天气数据</span></h2>
+<p>发起请求，获取天气数据，URL 中的 <code>location</code> 修改为需要获取地点的参数，<code>key</code> 为上一步申请的 Key。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">url = 'https:<span class="comment">//free-api.heweather.net/s6/weather/forecast?location=深圳&amp;key=your_key'</span></span><br><span class="line">res = requests.<span class="keyword">get</span>(url).json()</span><br><span class="line"><span class="built_in">print</span>(res)</span><br></pre></td></tr></table></figure>
+<p>这样就已经获取到天气数据了。</p>
+<p>为了简单起见，下面只解析天气和温度，解析其他数据方法是一样的。</p>
+<figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">def get_weather():</span><br><span class="line"></span><br><span class="line">    url = <span class="string">'https://free-api.heweather.net/s6/weather/forecast?location=深圳&amp;key=your_key'</span></span><br><span class="line">    res = requests.get(url).json()</span><br><span class="line">    print(res)</span><br><span class="line">    result = res[<span class="string">'HeWeather6'</span>][<span class="number">0</span>][<span class="string">'daily_forecast'</span>]</span><br><span class="line">    </span><br><span class="line">    # 今天的天气</span><br><span class="line">    today_date = result[<span class="number">0</span>][<span class="string">'date'</span>]  # 日期</span><br><span class="line">    today_day = result[<span class="number">0</span>][<span class="string">'cond_txt_d'</span>]  # 白天天气</span><br><span class="line">    today_night = result[<span class="number">0</span>][<span class="string">'cond_txt_n'</span>]  # 晚上天气</span><br><span class="line">    today_max_tmp = result[<span class="number">0</span>][<span class="string">'tmp_max'</span>]  # 最高温度</span><br><span class="line">    today_min_tmp = result[<span class="number">0</span>][<span class="string">'tmp_min'</span>]  # 最低温度</span><br><span class="line">    </span><br><span class="line">    # 明天的天气</span><br><span class="line">    tomorrow_date = result[<span class="number">1</span>][<span class="string">'date'</span>]</span><br><span class="line">    tomorrow_day = result[<span class="number">1</span>][<span class="string">'cond_txt_d'</span>]</span><br><span class="line">    tomorrow_night = result[<span class="number">1</span>][<span class="string">'cond_txt_n'</span>]</span><br><span class="line">    tomorrow_max_tmp = result[<span class="number">1</span>][<span class="string">'tmp_max'</span>]</span><br><span class="line">    tomorrow_min_tmp = result[<span class="number">1</span>][<span class="string">'tmp_min'</span>]</span><br><span class="line">    </span><br><span class="line">    weather_msg = <span class="string">'天气预报来啦~\n深圳今天('</span> + today_date + <span class="string">')'</span> + today_day + <span class="string">'转'</span> + today_night + <span class="string">'，'</span> + today_min_tmp + <span class="string">'℃ ~ '</span> + today_max_tmp + <span class="string">'℃。\n'</span></span><br><span class="line">    weather_msg += <span class="string">'深圳明天('</span> + tomorrow_date + <span class="string">')'</span> + tomorrow_day + <span class="string">'转'</span> + tomorrow_night + <span class="string">'，'</span> + tomorrow_min_tmp + <span class="string">'℃ ~ '</span> + tomorrow_max_tmp + <span class="string">'℃。'</span></span><br><span class="line">    </span><br><span class="line">    # print(weather_msg)</span><br><span class="line">    return weather_msg</span><br></pre></td></tr></table></figure>
+<p>关于每个字段的具体含义，<a href="https://dev.heweather.com/docs/api/weather" target="_blank" rel="noopener">和风天气的开发文档</a>中有具体描述。这样天气信息就准备好了。</p>
+<h2><span id="三-天气截图">三、天气截图</span></h2>
+<p>关于天气截图还是用的和风天气。进入控制台 -&gt; 插件管理 -&gt; 添加插件 -&gt; H5插件。然后根据自己喜好，生成代码即可。然后会得到一个 URL，用浏览器打开是下面这样的：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-92b10c4621be802e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>我们要做的就是用 Python 对浏览器截图。</p>
+<p>最终需要部署到服务器，如果你没有服务器也不要紧，<s>买一个就可以了</s>，呃，跳过这一小结，直接发邮件也是没问题的，只是少张图片而已。当然也可以直接把连接附在邮件里，点击邮件中的链接也可以，下一小结会说到。</p>
+<p>大部分服务器是没有图形界面的，这里使用 Google 的无头浏览器。</p>
+<p>所谓的无头浏览器模式也就是不需要打开浏览器，但是却可以起到模拟打开浏览器的执行效果，一切无界面执行。</p>
+<p>我用的是 Centos7 的服务器，安装 Google 无头浏览器具体操作如下：</p>
+<ol>
+<li>添加 google 的 repo 源</li>
+</ol>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim /etc/yum<span class="selector-class">.repos</span><span class="selector-class">.d</span>/google.repo</span><br></pre></td></tr></table></figure>
+<p>在打开的空文件中填入以下内容</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[google]</span></span><br><span class="line"><span class="attr">name</span>=Google-x<span class="number">86_64</span></span><br><span class="line"><span class="attr">baseurl</span>=http://dl.google.com/linux/rpm/stable/x<span class="number">86_64</span></span><br><span class="line"><span class="attr">enabled</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="number">0</span></span><br><span class="line"><span class="attr">gpgkey</span>=https://dl-ssl.google.com/linux/linux_signing_key.pub</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>使用 yum 安装 chrome 浏览器</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo yum makecache</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo yum install google-chrome-stable -y</span></span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>查看 chrome 的版本</li>
+</ol>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ google-chrome --version</span><br><span class="line">Google Chrome <span class="number">81.0</span><span class="number">.4044</span><span class="number">.122</span></span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>下载 chromedriver</li>
+</ol>
+<p>打开<a href="https://links.jianshu.com/go?to=http%3A%2F%2Fnpm.taobao.org%2Fmirrors%2Fchromedriver%2F" target="_blank" rel="noopener">国内淘宝镜像地址</a>，根据 chrome 版本下载对应的驱动。例如，我的 chrom 版本是 81.0.4044.122。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-982e5118017c6991.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>下载驱动，然后解压：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>wget <span class="symbol">https:</span>/<span class="regexp">/npm.taobao.org/mirrors</span><span class="regexp">/chromedriver/</span><span class="number">81.0</span>.<span class="number">4044.138</span>/chromedriver_linux64.zip</span><br><span class="line"><span class="variable">$ </span>unzip chromedriver_linux64.zip</span><br></pre></td></tr></table></figure>
+<p>好了，浏览器完毕。接下来使用 selenium 来帮忙打开网页。当然你的服务器上得有 Python3 才行，如果没有可以看看<a href="https://www.jianshu.com/p/2740b9b7f653" target="_blank" rel="noopener">《Linux 安装 Python 3.x》</a>，简单几步就行。</p>
+<p>先安装 selenium：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> pip3 install selenium</span></span><br></pre></td></tr></table></figure>
+<p>安装完之后，终于可以开始截图了，不容易……</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">from</span> selenium.webdriver import Chrome</span><br><span class="line"><span class="built_in">from</span> selenium.webdriver.chrome.options import Options</span><br><span class="line">import <span class="built_in">time</span></span><br><span class="line">import os.path</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 配置驱动路径</span></span><br><span class="line">DRIVER_PATH = <span class="string">'/your/chromedriver/path'</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    <span class="comment"># 设置浏览器</span></span><br><span class="line">    options = Options()</span><br><span class="line">    options.add_argument(<span class="string">'--no-sandbox'</span>)</span><br><span class="line">    options.add_argument(<span class="string">'--headless'</span>)  <span class="comment"># 无头参数</span></span><br><span class="line">    options.add_argument(<span class="string">'--disable-gpu'</span>)</span><br><span class="line">    <span class="comment"># 启动浏览器</span></span><br><span class="line">    driver = Chrome(executable_path=DRIVER_PATH, options=options)</span><br><span class="line">    driver.maximize_window()</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="comment"># 配置你的和风天气H5界面的url</span></span><br><span class="line">        url = <span class="string">'https://your/hefeng/weather/url'</span></span><br><span class="line">        driver.<span class="built_in">get</span>(url)</span><br><span class="line">        <span class="built_in">time</span>.sleep(<span class="number">3</span>)</span><br><span class="line"> </span><br><span class="line">        <span class="comment"># 设置截屏整个网页的宽度以及高度</span></span><br><span class="line">        scroll_width = <span class="number">300</span></span><br><span class="line">        scroll_height = <span class="number">700</span></span><br><span class="line">        driver.set_window_size(scroll_width, scroll_height)</span><br><span class="line"> </span><br><span class="line">        <span class="comment"># 保存图片，自定义图片命名和路径，注意：发送邮件时需要用到</span></span><br><span class="line">        img_name = <span class="built_in">time</span>.strftime(<span class="string">'%Y-%m-%d'</span>, <span class="built_in">time</span>.localtime(<span class="built_in">time</span>.<span class="built_in">time</span>()))  <span class="comment"># 获取今天的日期</span></span><br><span class="line">        img = <span class="string">'/user/weather/'</span> + img_name + <span class="string">'.png'</span></span><br><span class="line">        driver.get_screenshot_as_file(img)</span><br><span class="line"> </span><br><span class="line">        <span class="comment"># 关闭浏览器</span></span><br><span class="line">        driver.<span class="built_in">close</span>()</span><br><span class="line">        driver.quit()</span><br><span class="line"> </span><br><span class="line">    except Exception <span class="keyword">as</span> e:</span><br><span class="line">        print(e)</span><br></pre></td></tr></table></figure>
+<p>运行代码，然后你就可以在代码中配置的路径下找到一张截图，注意路径需要自己配置，这个路径后面还要用到，图片命名是根据时间来的，也方便后面使用。</p>
+<p>小插曲，如果图片中的中文都会显示x，这是由于服务器没有配置中文字体，上传个中文字体到服务器就行，很简单，不多说了。</p>
+<p>准备了这么这么一大串，终于要发邮件了。</p>
+<h2><span id="四-发送天气到邮箱">四、发送天气到邮箱</span></h2>
+<p>要发邮件，首先需要获取邮箱授权码。无论什么邮箱，操作过程大同小异，这里以 QQ 邮箱为例。</p>
+<p>登录邮箱 -&gt; 设置 -&gt; 账户。开启 POP3/SMTP服务，获取授权码。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-3242e98eb1b15113.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>获取到的授权码如下图，是个字符串串。有了这个就可以通过代码来发邮件了。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-84bf8748357f74cc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="授权码"></p>
+<p>发送邮件：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> smtplib</span><br><span class="line"><span class="keyword">from</span> email.mime.text <span class="keyword">import</span> MIMEText</span><br><span class="line"><span class="keyword">from</span> email.mime.image <span class="keyword">import</span> MIMEImage</span><br><span class="line"><span class="keyword">from</span> email.mime.multipart <span class="keyword">import</span> MIMEMultipart</span><br><span class="line"><span class="keyword">import</span> datetime  <span class="comment"># 导入日期时间模块</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_email</span><span class="params">(msg)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    发送邮件</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="comment"># 设置邮箱的域名</span></span><br><span class="line">    HOST = <span class="string">'smtp.qq.com'</span></span><br><span class="line">    <span class="comment"># 设置邮件标题</span></span><br><span class="line">    SUBJECT = <span class="string">'叮咚~ 明儿的天气到账啦~'</span></span><br><span class="line">    <span class="comment"># 设置发件人邮箱</span></span><br><span class="line">    FROM = <span class="string">'xxxx@qq.com'</span></span><br><span class="line">    <span class="comment"># reciver</span></span><br><span class="line">    TO = <span class="string">'xxxx@qq.com'</span>  <span class="comment"># 可以同时发送到多个邮箱，逗号分割</span></span><br><span class="line"></span><br><span class="line">    message = MIMEMultipart(<span class="string">'related'</span>)</span><br><span class="line"></span><br><span class="line">    msg_alternative = MIMEMultipart(<span class="string">'alternative'</span>)</span><br><span class="line">    message.attach(msg_alternative)</span><br><span class="line"></span><br><span class="line">    mail_msg = msg + <span class="string">'&lt;br&gt;'</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 指定图片为当前目录</span></span><br><span class="line">    today = datetime.date.today()  <span class="comment"># 获得今天的日期</span></span><br><span class="line">    <span class="comment"># 注意这里的图片路径，需要和上一步截图中的路径一致</span></span><br><span class="line">    img_path = <span class="string">'/user/weather/'</span> + str(today) + <span class="string">'.png'</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 如果图片存在，则使用图片</span></span><br><span class="line">    <span class="keyword">if</span> os.path.exists(img_path):</span><br><span class="line">        mail_msg = mail_msg + <span class="string">'&lt;p&gt;&lt;img src="cid:image1"&gt;&lt;/p&gt;'</span></span><br><span class="line">        msg_alternative.attach(MIMEText(mail_msg, <span class="string">'html'</span>, <span class="string">'utf-8'</span>))</span><br><span class="line">        <span class="keyword">with</span> open(img_path, <span class="string">'rb'</span>) <span class="keyword">as</span> fp:</span><br><span class="line">            msg_image = MIMEImage(fp.read())</span><br><span class="line">            <span class="comment"># 定义图片 ID，在 HTML 文本中引用</span></span><br><span class="line">            msg_image.add_header(<span class="string">'Content-ID'</span>, <span class="string">'&lt;image1&gt;'</span>)</span><br><span class="line">            message.attach(msg_image)</span><br><span class="line">            fp.close()</span><br><span class="line">    <span class="keyword">else</span>: <span class="comment"># 如果图片不存在，则使用链接</span></span><br><span class="line">        mail_msg = mail_msg + <span class="string">'&lt;a href="https://your/hefeng/weather/url"&gt;🎈爱心天气❤&lt;/a&gt;'</span></span><br><span class="line">        msg_alternative.attach(MIMEText(mail_msg, <span class="string">'html'</span>, <span class="string">'utf-8'</span>))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 设置邮件发件人</span></span><br><span class="line">    message[<span class="string">'From'</span>] = FROM</span><br><span class="line">    <span class="comment"># 设置邮件收件人</span></span><br><span class="line">    message[<span class="string">'To'</span>] = TO</span><br><span class="line">    <span class="comment"># 设置邮件标题</span></span><br><span class="line">    message[<span class="string">'Subject'</span>] = SUBJECT</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 获取简单邮件传输协议的证书</span></span><br><span class="line">    email_client = smtplib.SMTP_SSL(host=HOST)</span><br><span class="line">    <span class="comment"># 设置发件人邮箱的域名和端口，端口为465</span></span><br><span class="line">    email_client.connect(HOST, <span class="string">'465'</span>)</span><br><span class="line">    <span class="comment"># 登录邮箱</span></span><br><span class="line">    login_result = email_client.login(FROM, <span class="string">'your authorization code'</span>)</span><br><span class="line">    print(<span class="string">'login result: '</span> + login_result)</span><br><span class="line">    <span class="comment"># 发送邮件</span></span><br><span class="line">    email_client.sendmail(from_addr=FROM, to_addrs=TO.split(<span class="string">','</span>), msg=message.as_string())</span><br><span class="line">    <span class="comment"># 关闭邮件发送客户端</span></span><br><span class="line">    email_client.close()</span><br></pre></td></tr></table></figure>
+<h2><span id="五-部署到服务器">五、部署到服务器</span></h2>
+<p>现在需要把写好的代码部署到服务器，让服务器每天定时发送。完整代码可以在<a href="https://github.com/hezongjiang/weather/tree/master" target="_blank" rel="noopener">我的 Github</a> 上查看。</p>
+<p>首先上传文件到服务器，<a href="http://weather.py" target="_blank" rel="noopener">weather.py</a> 文件是发送天气信息到邮箱，<a href="http://screenshot.py" target="_blank" rel="noopener">screenshot.py</a> 文件是对浏览器进行截图：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ scp /your/path/weather<span class="selector-class">.py</span> user@ip<span class="selector-class">.address</span>:/usesr/weather/</span><br><span class="line">$ scp /your/path/screenshot<span class="selector-class">.py</span> user@ip<span class="selector-class">.address</span>:/usesr/weather/</span><br></pre></td></tr></table></figure>
+<p>然后这两个文件需要有可执行权：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> chomd chmod a+x weather.py</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> chomd chmod a+x screenshot.py</span></span><br></pre></td></tr></table></figure>
+<p>接着使用 Python3 来执行这两个文件，但你需要知道 Python3 在哪，例如我的在<code>/usr/bin/python3</code>：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">which</span> python3</span></span><br><span class="line">/usr/bin/python3</span><br></pre></td></tr></table></figure>
+<p>最后配置 crontab 文件，定时发送就可以了：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> vim /etc/crontab</span></span><br></pre></td></tr></table></figure>
+<p>我的配置信息如下，每天19:50开始天气截图，20:00发送邮件。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-8e84c531d74f25e7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>现在，妈妈再也不用担心我不知道明天的天气了。</p>
+<p>当然，还可以改吧改吧，弄一下花哨的东西去撩妹了。</p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2020/07/27/黑羊——卡尔维诺/" data-toggle="tooltip" data-placement="top" title="黑羊——卡尔维诺">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2020/06/27/白话“量子力学”/" data-toggle="tooltip" data-placement="top" title="白话“量子力学”">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">一、获取天气数据</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">二、解析天气数据</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">三、天气截图</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">四、发送天气到邮箱</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">五、部署到服务器</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#生活随笔" title="生活随笔">生活随笔</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://www.jianshu.com/u/5fa5459c7b02" target="_blank">简书</a></li>
+                    
+                        <li><a href="https://github.com/hezongjiang" target="_blank">Github</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "your-disqus-ID";
+    var disqus_identifier = "https://hezongjiang.github.io/2020/07/27/每天自动发送天气预报到女朋友邮箱/";
+    var disqus_url = "https://hezongjiang.github.io/2020/07/27/每天自动发送天气预报到女朋友邮箱/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://github.com/hezongjiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; He Zongjiang 2023 
+                    <br>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://hezongjiang.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://hezongjiang.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

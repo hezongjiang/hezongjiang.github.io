@@ -1,11 +1,13 @@
 ---
-title: ChatGPT 简介
+title: 万字详解 ChatGPT 原理
 catalog: true
 date: 2023-04-11 08:44:15
 subtitle:
 header-img:
 tags:
+- 机器学习
 ---
+<meta name="referrer" content="no-referrer"/>
 ## 1、什么是 GPT
 
 GPT 全称 Generative Pre-trained Transformer，生成式预训练转化模型。虽然每个字都认识，还是不知道 GPT 是个啥玩意。下面拆解一个每个次的含义。
@@ -136,7 +138,7 @@ ChatGPT 是如何理解人类语言的？要回答这个问题，首先需要知
 
 多年以来，人类一直在用循环神经网络 RNN，基本训练方法跟前面说的差不多，就是把前面多少个词作为输入，让电脑去猜下一个词，离下一个词越近的词权重就越高，而越远的词影响就越小。
 
-![RNN](https://upload-images.jianshu.io/upload_images/2708793-c5f9cf1f6cce59ff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![RNN](https://upload-images.jianshu.io/upload_images/2708793-c5f9cf1f6cce59ff.png?imageMogr2/auto-orient/strip|imageView2/2/w/1240)
 
 但这不仅让电脑会遗忘掉太远的词，而且很多时候提取不出正确的特征。如果用这种方法去训练，是无法找到正确的词向量。后来 Transformer 踏着七彩祥云出现了。
 

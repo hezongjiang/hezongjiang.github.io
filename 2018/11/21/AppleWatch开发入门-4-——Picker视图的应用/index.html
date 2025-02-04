@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="The only thing we fear is fear itself.">
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          AppleWatch开发入门(4)——Picker视图的应用 - 小道消息&#39;s notes
+        
+    </title>
+
+    <link rel="canonical" href="https://hezongjiang.github.io/2018/11/21/AppleWatch开发入门-4-——Picker视图的应用/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('AppleWatch.jpg')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#AppleWatch" title="AppleWatch">AppleWatch</a>
+                            
+                        </div>
+                        <h1>AppleWatch开发入门(4)——Picker视图的应用</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by He Zongjiang on
+                            2018-11-21
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">小道消息&#39;s notes</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p>本文章是一个系列，如果有兴趣可以看看以下文章：<br>
+<strong><a href="/2018/11/18/AppleWatch开发入门-1-——界面布局/" title="AppleWatch开发入门(1)——界面布局">AppleWatch开发入门(1)——界面布局</a></strong><br>
+<strong><a href="/2018/11/19/AppleWatch开发入门-2-——控制器生命周期、界面跳转/" title="AppleWatch开发入门(2)——控制器生命周期、界面跳转">AppleWatch开发入门(2)——控制器生命周期、界面跳转</a></strong><br>
+<strong><a href="/2018/11/20/AppleWatch开发入门-3-——Table视图的应用/" title="AppleWatch开发入门(3)——Table视图的应用">AppleWatch开发入门(3)——Table视图的应用</a></strong><br>
+<strong>AppleWatch开发入门(4)——Picker视图的应用</strong><br>
+<strong><a href="/2018/11/21/AppleWatch开发入门-5-——Menu的使用/" title="AppleWatch开发入门(5)——Menu的使用">AppleWatch开发入门(5)——Menu的使用</a></strong><br>
+<strong><a href="/2018/11/21/AppleWatch开发入门-6-——watchOS中通知的应用/" title="AppleWatch开发入门(6)——watchOS中通知的应用">AppleWatch开发入门(6)——watchOS中通知的应用</a></strong><br>
+<strong><a href="/2018/11/21/AppleWatch开发入门-7-——AlertController/" title="AppleWatch开发入门(7)——AlertController">AppleWatch开发入门(7)——AlertController</a></strong><br>
+<strong><a href="/2018/11/21/AppleWatch开发入门-8-——动画/" title="AppleWatch开发入门(8)——动画">AppleWatch开发入门(8)——动画</a></strong></p>
+<h1><span id="一-简介">一、简介</span></h1>
+<p>Picker到底是个什么东西？如下图所示：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2708793-581a2976deb0a630.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2708793-829dc9d96c0434b0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<p>Picker有3种模式：List、Stack、Sequence：<br>
+1、List：有点像tableview，一行一行展示<br>
+2、Stack：有点像图片浏览器，一页一页展示，翻动时有动画效果<br>
+3、Sequence：与Stack类似，只不过翻动时没有动画效果</p>
+<h1><span id="二-创建picker">二、创建Picker</span></h1>
+<p>在 storyboard 中拖入 Picker：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2708793-926aaaec7ddf3092.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>因为Picker有3种模式（List、Stack、Sequence），我们每种模式弄一个：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2708793-1f54b0b20b6a8fb9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h1><span id="三-代码部分">三、代码部分</span></h1>
+<p>工欲善其事，必先利其器，呃，必先看头文件：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@available</span>(watchOS <span class="number">2.0</span>, *)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WKInterfacePicker</span> : <span class="title">WKInterfaceObject</span> </span>&#123;</span><br><span class="line">      <span class="comment">// 设置聚焦，有点像becomeFirstResponder</span></span><br><span class="line">      <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">focus</span><span class="params">()</span></span></span><br><span class="line">      <span class="comment">// 失去聚焦，有点像resignFirstResponder</span></span><br><span class="line">      <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">resignFocus</span><span class="params">()</span></span></span><br><span class="line">      <span class="comment">// 改变选中的索引</span></span><br><span class="line">      <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">setSelectedItemIndex</span><span class="params">(<span class="number">_</span> itemIndex: Int)</span></span></span><br><span class="line">      <span class="comment">// 设置Picker中的内容</span></span><br><span class="line">      <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">setItems</span><span class="params">(<span class="number">_</span> items: [WKPickerItem]?)</span></span></span><br><span class="line">      <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">setCoordinatedAnimations</span><span class="params">(<span class="number">_</span> coordinatedAnimations: [WKInterfaceObject]?)</span></span></span><br><span class="line">      <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">setEnabled</span><span class="params">(<span class="number">_</span> enabled: Bool)</span></span></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">@available</span>(watchOS <span class="number">2.0</span>, *)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WKPickerItem</span> : <span class="title">NSObject</span>, <span class="title">NSSecureCoding</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 设置文字，仅当Picker是'List'时有效.</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">var</span> title: <span class="type">String?</span></span><br><span class="line">    <span class="comment">// Caption to show for the item when focus style includes a caption callout.</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">var</span> caption: <span class="type">String?</span></span><br><span class="line">    <span class="comment">// 设置title前面的小图片，仅当Picker是'List'时有效，图片大小固定是13×13pt。</span></span><br><span class="line">    <span class="meta">@NSCopying</span> <span class="keyword">public</span> <span class="keyword">var</span> accessoryImage: <span class="type">WKImage?</span></span><br><span class="line">    <span class="comment">// 大图</span></span><br><span class="line">    <span class="meta">@NSCopying</span> <span class="keyword">public</span> <span class="keyword">var</span> contentImage: <span class="type">WKImage?</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>具体实现<br>
+1、 Pick 中的数据源是 WKPickerItem，先懒加载<code>[WKPickerItem]</code></p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">lazy var items: [WKPickerItem] = &#123;</span><br><span class="line">        var <span class="keyword">its</span> = [WKPickerItem]()</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0.</span>.<span class="number">.4</span> &#123;</span><br><span class="line">            let <span class="built_in">item</span> = WKPickerItem()</span><br><span class="line">            <span class="built_in">item</span>.title = <span class="string">"Title"</span> + <span class="string">"\(i)"</span></span><br><span class="line">            <span class="built_in">item</span>.caption = <span class="string">"Caption"</span> + <span class="string">"\(i)"</span></span><br><span class="line">            <span class="built_in">item</span>.accessoryImage = WKImage(image: UIImage(named: <span class="string">"ad_0"</span> + <span class="string">"\(i)"</span>)!)</span><br><span class="line">            <span class="built_in">item</span>.contentImage = WKImage(image: UIImage(named: <span class="string">"ad_0"</span> + <span class="string">"\(i)"</span>)!)</span><br><span class="line">            <span class="keyword">its</span>.append(<span class="built_in">item</span>)</span><br><span class="line">        &#125;</span><br><span class="line"><span class="built_in">        return</span> <span class="keyword">its</span></span><br><span class="line">    &#125;()</span><br></pre></td></tr></table></figure>
+<p>这里图片资源大家根据实际需求添加，加载图片时要特别注意，否则可能加载不出，详细见：<a href="http://www.jianshu.com/p/7c223446040c" target="_blank" rel="noopener">AppleWatch开发（1）——界面布局</a> 这篇文章的末尾部分。</p>
+<p>2、 连线</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@IBOutlet</span> var <span class="attribute">listPicker</span>: WKInterfacePicker!</span><br><span class="line"><span class="variable">@IBOutlet</span> var <span class="attribute">stackPicker</span>: WKInterfacePicker!</span><br><span class="line"><span class="variable">@IBOutlet</span> var <span class="attribute">sequencePicker</span>: WKInterfacePicker!</span><br></pre></td></tr></table></figure>
+<p>3、 设置数据</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">override</span> <span class="selector-tag">func</span> <span class="selector-tag">awake</span>(withContext <span class="attribute">context</span>: Any?) &#123;</span><br><span class="line">        <span class="selector-tag">super</span><span class="selector-class">.awake</span>(<span class="attribute">withContext</span>: context)</span><br><span class="line">        </span><br><span class="line">        <span class="selector-tag">listPicker</span><span class="selector-class">.setItems</span>(items)</span><br><span class="line">        <span class="selector-tag">stackPicker</span><span class="selector-class">.setItems</span>(items)</span><br><span class="line">        <span class="selector-tag">sequencePicker</span><span class="selector-class">.setItems</span>(items)</span><br><span class="line">        <span class="selector-tag">sequencePicker</span><span class="selector-class">.focus</span>()</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>这里要注意，在有多个Picker时，需要设置<code>focus()</code>，不然系统不知道你要滚动哪一个。</p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2018/11/21/AppleWatch开发入门-5-——Menu的使用/" data-toggle="tooltip" data-placement="top" title="AppleWatch开发入门(5)——Menu的使用">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2018/11/20/AppleWatch开发入门-3-——Table视图的应用/" data-toggle="tooltip" data-placement="top" title="AppleWatch开发入门(3)——Table视图的应用">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">一、简介</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">二、创建Picker</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">三、代码部分</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#AppleWatch" title="AppleWatch">AppleWatch</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://www.jianshu.com/u/5fa5459c7b02" target="_blank">简书</a></li>
+                    
+                        <li><a href="https://github.com/hezongjiang" target="_blank">Github</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "your-disqus-ID";
+    var disqus_identifier = "https://hezongjiang.github.io/2018/11/21/AppleWatch开发入门-4-——Picker视图的应用/";
+    var disqus_url = "https://hezongjiang.github.io/2018/11/21/AppleWatch开发入门-4-——Picker视图的应用/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/hezongjiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; He Zongjiang 2025 
+                    <br>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://hezongjiang.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://hezongjiang.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="The only thing we fear is fear itself.">
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          你的系统如何支持高并发 - 小道消息&#39;s notes
+        
+    </title>
+
+    <link rel="canonical" href="https://hezongjiang.github.io/2019/09/30/你的系统如何支持高并发/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('light.jpg')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#服务端开发" title="服务端开发">服务端开发</a>
+                            
+                        </div>
+                        <h1>你的系统如何支持高并发</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by He Zongjiang on
+                            2019-09-30
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">小道消息&#39;s notes</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h2><span id="一-从一道面试题开始">一、从一道面试题开始</span></h2>
+<p>面试一家公司，上来就问：项目中是怎么解决高并发的？</p>
+<p>看来高并发这个问题在面试中是逃离不了了，现在写一点自己浅薄的理解。我觉得要回答这个问题可以从这几个方面入手：</p>
+<p>第一、硬件层面，服务器用更大的内存，更好的硬盘。考虑到 Money，这肯定不是面试官想听的答案，不过可以提上一嘴。</p>
+<p>第二、软件层面，这也是重点，先简单介绍一下，后面再详细说明：</p>
+<ol>
+<li>
+<p>应用服务器肯定是最先抗不住的，所以先搞一个 Nginx 做负责均衡，后台多部署几台应用服务器，将请求均匀的分发到每台服务器上；</p>
+</li>
+<li>
+<p>有了 Nginx 负责均衡，应用服务器的压力暂时抗住了，现在就轮到数据库这块抗不住了。这时候就要考虑分库分表了，还有就是读写分离，将写的压力搞到主库 Master 上，读的压力搞到从库 Slave。就是：分库分表 + 读写分离；</p>
+</li>
+<li>
+<p>如果访问量继续扩大，此时可以不停的加服务器，但如果就是简单的不停的加机器，其实是不对的，这时就应该加入缓存服务器。</p>
+</li>
+<li>
+<p>上一步的缓存只是解决了读的问题，其实写的压力还是很大，这个时候就要引入消息中间键了，像各种 MQ 之类的，可以很好的做写请求异步化处理，实现削峰填谷的效果。</p>
+</li>
+</ol>
+<h2><span id="二-先考虑一个最简单的系统架构">二、先考虑一个最简单的系统架构</span></h2>
+<p>假设刚刚开始你的系统就部署在一台机器上，背后就连接了一台数据库，数据库部署在一台服务器上。</p>
+<p>我们可以再现实点，给个例子，你的系统部署的机器是 4 核 8G，数据库服务器是 16 核 32G。这个架构够简单吧！</p>
+<p>此时假设系统用户量总共就 10 万，用户量很少，日活用户按照不同系统的场景有区别，取一个较为客观的比例，10% 吧，每天活跃的用户就 1 万。按照 2-8 法则，每天高峰期算 4 个小时，高峰期活跃的用户占比达到 80%，就是 8000 人活跃在 4 小时内。然后每个人对你的系统发起的请求，我们算每天是 20 次吧。那么高峰期 8000 人发起的请求也才 16 万次，平均每秒也就 10 次请求。</p>
+<p>好吧！完全跟高并发搭不上边，对不对？然后系统层面每秒是 10 次请求，对数据库的调用每次请求都会好几次数据库操作的，比如做做 CRUD 之类的。那么我们取一次请求对应 3 次数据库操作吧，那这样的话，数据库层每秒也就 30 次请求，对吧？</p>
+<p>按照上述这台数据库服务器的配置，支撑是绝对没问题的。用一张图表示，就是下面这样：</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8g1cpk4mmj30440adaaj.jpg" alt="最简单的架构"></p>
+<p>假设此时你的用户数开始快速增长，比如用户量增长了 50 倍，此时日活用户是 50 万，高峰期对系统每秒请求是 500/s。然后对数据库的每秒请求数量是 1500/s，这个时候会怎么样呢?</p>
+<p>按照上述的机器配置来说，库层面基本上 1500/s 的请求压力的话，还算可以接受。但是如果系统内处理的是较复杂的业务逻辑，很可能你会发，现应用服务器 CPU 负载较高了。这时，我们就需要对应用服务器做集群部署了。</p>
+<h2><span id="三-系统集群化部署">三、系统集群化部署</span></h2>
+<p>集群化部署可以在应用服务器前面挂一个负载均衡层，把请求均匀打到系统层面，让系统可以用多台机器集群化支撑更高的并发压力。</p>
+<p>比如说，这里假设给系统增加部署一台机器，那么平均下来，每台机器就只有 250/s 的请求了。这样一来，两台机器的 CPU 负载都会明显降低，这个初步的“高并发”不就先 hold 住了吗？</p>
+<p>要是连这个都不做，那单台机器负载越来越高的时候，极端情况下是可能出现机器上部署的系统无法有足够的资源响应请求了，然后出现请求卡死，甚至系统宕机之类的问题。</p>
+<p>所以，简单小结，第一步要做的：先搞一个 Nginx 做负责均衡，将请求均匀打到系统层，后台多部署几台应用服务器，将请求均匀的分发到每台服务器上，此时的架构图变成下面的样子：</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8g1r7zbw2j309g0dggmq.jpg" alt="Nginx 做负责均衡"></p>
+<h2><span id="四-数据库分库分表-读写分离">四、数据库：分库分表 + 读写分离</span></h2>
+<p>假设此时用户量继续增长，达到了 1000 万注册用户，那么此时对系统层面的请求量会达到每秒 1000/s，系统层面，你可以继续通过集群化的方式来扩容，反正前面的负载均衡层会均匀分散流量过去的。但是，这时数据库层面接受的请求量会达到 3000/s，这个就有点问题了。</p>
+<p>一般来说，普通配置的线上数据库，建议就是读写并发加起来，不要超过 3000/s。因为数据库压力过大，首先一个问题就是高峰期系统性能可能会降低，因为数据库负载过高对性能会有影响。</p>
+<p>另外，压力过大把你的数据库给搞挂了怎么办？所以此时你必须得对系统做分库分表 + 读写分离，也就是把一个库拆分为多个库，部署在多个数据库服务上。</p>
+<p>再另外，即使数据库抗住了并发，但随着时间的推移，数据量也会越来越大，过多的数据，在对数据库进行 CRUD 操作时也会大大影响性能。一般情况下，数据达到 500W+ 以后查询统计性能严重下降。</p>
+<p><strong>1、先说说数据库的分库分表：</strong></p>
+<p>数据切分根据其切分类型，可以分为两种方式：<strong>垂直拆分</strong>和<strong>水平拆分</strong>。</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8g1rv6tg3j30hs07ndfx.jpg" alt="水平拆分与垂直拆分"></p>
+<p><strong>垂直拆分</strong>：基于数据库中的&quot;列&quot;进行，某个表字段较多，可以新建一张扩展表，将不经常用或字段长度较大的字段拆分出去到扩展表中。</p>
+<p>例如在上图中，<code>name</code>、<code>age</code> 为常用字段，可以拆分到一张表中，而 <code>sex</code>、<code>photo</code>、<code>grade</code> 为不常用字段，可以拆分到另一张表中，当然这里只是举例子，你可以根据实际情况来拆分。</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8g1se8ci2j30dw069mxs.jpg" alt="垂直拆分"></p>
+<p>这样做的好处是：<br>
+由于 MySQL 底层是通过数据页存储的，一条记录占用空间过大，可能会导致跨页查询，进而造成额外的性能开销。通过垂直拆分，表中字段长度较短且访问频率较高的优先访问，内存能加载更多的数据，命中率更高，减少了磁盘 IO，从而提升了数据库性能。同时解决业务系统层面的耦合，业务清晰。</p>
+<p>当然缺点也很明显：<br>
+部分表无法 join，只能通过接口聚合方式解决，提升了开发的复杂度，分布式事务处理复杂，依然存在单表数据量过大的问题（需要水平切分）。</p>
+<p>**水平拆分：**将同一个表按不同的条件分散到多个数据库或多个表中，每个表中只包含一部分数据，从而使得单个表的数据量变小。</p>
+<p>还是上图的例子，把 <code>ID</code> 为 0 ~ 99999 的数据放在第一个表，把 <code>ID</code> 为 99999 ~ 199999 的数据放在第二个表，以此类推。</p>
+<p>水平切分的优点：<br>
+不存在单库数据量过大、高并发的性能瓶颈，提升系统稳定性和负载能力。应用端改造较小，不需要拆分业务模块。</p>
+<p>缺点：<br>
+跨分片的事务一致性难以保证，跨库的 join 关联查询性能较差，数据多次扩展难度和维护量极大。</p>
+<p><strong>2、再说说读写分离</strong></p>
+<p>回到并发的例子，此时假设对数据库层面的总并发是 3000/s，其中写并发占到了 1000/s，读并发占到了 2000/s。</p>
+<p>那么一旦分库分表之后，采用两台数据库服务器上部署主库来支撑写请求，每台服务器承载的写并发就是 500/s。每台主库挂载一个服务器部署从库，那么 2 个从库每个从库支撑的读并发就是 1000/s。</p>
+<p>简单总结，并发量继续增长时，我们就需要 focus 在数据库层面：分库分表 + 读写分离。此时的架构图如下所示：</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8g1sxca1dj30dr0dbwgs.jpg" alt="分库分表 + 读写分离"></p>
+<h2><span id="五-缓存引入">五、缓存引入</span></h2>
+<p>如果你的用户量继续增大呢？</p>
+<p>这还不好办？继续加机器就行了呗！</p>
+<p>如果你只是简单的不停的加机器，其实是不对的，因为服务器还是挺贵的。这时就应该加入缓存服务器。把所有请求过的结果，保存在缓存服务器，下次如果来了相同的请求，那么直接在缓存中查找，而不用查数据库了，这样一来减少了数据库的请求压力，二来缓存的查询一般都是比数据库快，进而加快了响应速度。</p>
+<p>在上面的例子中，假设 90% 的读请求都是重复的，那么现在的架构如下图：</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8g1tgvqrzj30ds0fn0vh.jpg" alt="缓存引入"></p>
+<p>可能未来你的系统读请求每秒都几万次了，但是可能 80%~90% 都是通过缓存集群来读的，而缓存集群里的机器可能单机每秒都可以支撑几万读请求，所耗费机器资源很少，可能就两三台机器就够了。</p>
+<p>你要是换成是数据库来试一下，可能就要不停的加从库到10台、20台机器才能抗住每秒几万的读并发，那个成本是极高的。</p>
+<p>关于缓存集群的进阶，可以看看<a href="https://www.jianshu.com/p/e9b158f723d4" target="_blank" rel="noopener">白话“一致哈希”</a>这篇文章。</p>
+<p>缓存机制的引入避免请求过多时，直接与数据库操作从而造成系统瓶颈，极大的提升了用户体验和系统稳定性。但同时也带来了一些需要注意的问题：</p>
+<p><strong>1、缓存穿透</strong><br>
+缓存穿透是指查询一个一定不存在的数据，因为缓存中也无该数据的信息，则会直接去数据库层进行查询，从系统层面来看像是穿透了缓存层直接达到 DB，从而称为缓存穿透。</p>
+<p>没有了缓存层的保护，查询一定不存在的数据对系统来说可能是一种危险，如果有人恶意用这种查询频繁请求，不，准确的说是攻击系统，大量的请求都会到达数据库层导致 DB 瘫痪从而引起系统故障。</p>
+<p>解决办法可以使用空值缓存：一种比较简单的解决办法。</p>
+<p>在第一次查询完不存在的数据后，将该 Key 与对应的空值也放入缓存中，只不过设定为较短的失效时间，例如几分钟，这样则可以应对短时间的大量的该 Key 攻击，设置为较短的失效时间是因为该值可能业务无关，存在意义不大，且该次的查询也未必是攻击者发起，无过久存储的必要，故可以早点失效。</p>
+<p><strong>2、缓存雪崩</strong><br>
+在普通的缓存系统中一般例如 Redis 中，我们会给缓存设置一个失效时间，但是如果所有的缓存的失效时间相同，那么在同一时间失效时，所有系统的请求都会发送到数据库层，db 可能无法承受如此大的压力导致系统崩溃。</p>
+<p><strong>3、缓存击穿</strong><br>
+缓存击穿实际上是缓存雪崩的一个特例，大家使用过微博的应该都知道，微博有一个热门话题的功能，用户对于热门话题的搜索量往往在一些时刻会大大的高于其他话题，这种我们成为系统的“热点“，由于系统中对这些热点的数据缓存也存在失效时间，在热点的缓存到达失效时间时，此时可能依然会有大量的请求到达系统，没有了缓存层的保护，这些请求同样的会到达 DB 从而可能引起故障。</p>
+<p>击穿与雪崩的区别即在于击穿是对于特定的热点数据来说，而雪崩是全部数据。</p>
+<h2><span id="六-引入消息中间件">六、引入消息中间件</span></h2>
+<p>你以为到缓存层面就结束了？NO~~~</p>
+<p>上一步的缓存集群只是解决了读的问题，其实写的压力还是很大，这个时候就要引入消息中间键了，像各种 MQ 之类的东西。是非常好的做写请求<strong>异步</strong>化处理，实现<strong>削峰填谷</strong>的效果，还有就是应用<strong>解耦</strong>。</p>
+<p>假如说，你现在每秒是 1000/s 次写请求，其中比如 500 次请求是必须请求过来立马写入数据库中的，但是另外 500 次写请求是可以允许异步化等待个几十秒，甚至几分钟后才落入数据库内的。</p>
+<p>那么此时完全可以引入消息中间件集群，把允许异步化的每秒 500 次请求写入 MQ，然后基于 MQ 做一个削峰填谷。比如就以平稳的 100/s 的速度消费出来然后落入数据库中即可，此时就会大幅度降低数据库的写入压力。</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8g1ucdl19j30df0cb0v2.jpg" alt="引入 MQ"></p>
+<p>消息中间件系统本身也是为高并发而生，所以通常单机都是支撑几万甚至十万级的并发请求的。所以，他本身也跟缓存系统一样，可以用很少的资源支撑很高的并发请求，用他来支撑部分允许异步化的高并发写入是没问题的，比使用数据库直接支撑那部分高并发请求要减少很多的机器使用量。</p>
+<p>既然说到了 MQ，那么面试时很有可能就会问：<strong>如何保证消息队列的高可用？</strong></p>
+<p>要是你傻乎乎的就用了一个 MQ，各种问题从来没考虑过，那你就杯具了，面试官对你的感觉就是，只会简单使用一些技术，没任何思考，马上对你的印象就不太好了。</p>
+<p>解决办法：</p>
+<p><strong>1、开启 MQ 的持久化</strong><br>
+消息写入之后会持久化到磁盘，哪怕是 MQ 自己挂了，恢复之后会自动读取之前存储的数据，一般数据不会丢。</p>
+<p><strong>2、普通集群模式</strong><br>
+在多台机器上启动多个 MQ 实例，每个机器启动一个。你创建的 queue，只会放在一个 MQ 实例上。消费的时候，实际上如果连接到了另外一个实例，那么那个实例会从 queue 所在实例上拉取数据过来。</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8g1uznkjzj30gt0be74m.jpg" alt="普通集群模式"></p>
+<p>这种方式确实很麻烦，也不怎么好，没做到所谓的分布式，就是个普通集群。因为这导致你要么消费者每次随机连接一个实例然后拉取数据，要么固定连接那个 queue 所在实例消费数据，前者有数据拉取的开销，后者导致单实例性能瓶颈。</p>
+<p>而且如果那个放 queue 的实例宕机了，会导致接下来其他实例就无法从那个实例拉取，如果你开启了消息持久化，让 RabbitMQ 落地存储消息的话，消息不一定会丢，得等这个实例恢复了，然后才可以继续从这个 queue 拉取数据。</p>
+<p>所以这个事儿就比较尴尬了，这就没有什么所谓的高可用性，这方案主要是提高吞吐量的，就是说让集群中多个节点来服务某个 queue 的读写操作。</p>
+<p><strong>3、镜像集群模式</strong><br>
+这种模式，才是所谓的 RabbitMQ 的高可用模式。跟普通集群模式不一样的是，在镜像集群模式下，你创建的 queue，无论元数据还是 queue 里的消息都会存在于多个实例上，就是说，每个 RabbitMQ 节点都有这个 queue 的一个完整镜像，包含 queue 的全部数据的意思。然后每次你写消息到 queue 的时候，都会自动把消息同步到多个实例的 queue 上。</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8g1wr6cdgj30hi0d2q37.jpg" alt="镜像集群模式"></p>
+<p>这样的话，好处在于，你任何一个机器宕机了，没事儿，其它机器（节点）还包含了这个 queue 的完整数据，别的 consumer 都可以到其它节点上去消费数据。坏处在于，第一，这个性能开销也太大了吧，消息需要同步到所有机器上，导致网络带宽压力和消耗很重！第二，这么玩儿，不是分布式的，就没有扩展性可言了，如果某个 queue 负载很重，你加机器，新增的机器也包含了这个 queue 的所有数据，并没有办法线性扩展你的 queue。</p>
+<p><strong>4、消费端弄丢了数据</strong><br>
+这个时候得用 RabbitMQ 提供的 ack 机制，简单来说，就是你必须关闭 RabbitMQ 的自动 ack，可以通过一个 api 来调用就行，然后每次你自己代码里确保处理完的时候，再在程序里 ack。</p>
+<h2><span id="七-总结">七、总结</span></h2>
+<p>到目前为止，通过这些的手段，我们已经可以让系统架构尽可能用最小的机器资源抗住了最大的请求压力，减轻了数据库的负担。总结起来就是下面几点：</p>
+<ol>
+<li>Nginx 系统集群化；</li>
+<li>数据库层面：分库分表 + 读写分离；</li>
+<li>针对读多写少的请求，引入缓存集群；</li>
+<li>针对高写入的压力，引入消息中间件集群。</li>
+</ol>
+<h2><span id="八-彩蛋">八、彩蛋</span></h2>
+<p>在上述的第一步 Nginx 系统集群化部署中，如果访问量继续增大 Nginx<br>
+扛不住了，咋整？</p>
+<p>在这种架构中 Nginx 特别重要，是整个系统的入口，一旦 Nginx 挂了，即使后面的整个系统都正常，也无法对外提供服务了。</p>
+<p>这里就要用 keepalived 了，用两台 Nginx 组成一个集群，分别部署上keepalived，设置成相同的虚拟 IP，这样一个节点在崩溃的情况下，另一个节点能够自动接替其工作。</p>
+<p>另外还可以配置 DNS，以DNS轮询方式进行负载均衡。</p>
+<blockquote>
+<p>参考：<br>
+<a href="https://www.jianshu.com/p/2f441c373d9e" target="_blank" rel="noopener">https://www.jianshu.com/p/2f441c373d9e</a><br>
+<a href="https://mp.weixin.qq.com/s/YmlcrHH1NeE_vWqDGSayVQ" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/YmlcrHH1NeE_vWqDGSayVQ</a></p>
+</blockquote>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2019/10/16/JVM-从入门到出门/" data-toggle="tooltip" data-placement="top" title="JVM 从入门到出门">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2019/09/30/由浅入深-MySQL-索引原理/" data-toggle="tooltip" data-placement="top" title="由浅入深 MySQL 索引原理">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">一、从一道面试题开始</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">二、先考虑一个最简单的系统架构</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">三、系统集群化部署</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">四、数据库：分库分表 + 读写分离</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">五、缓存引入</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">六、引入消息中间件</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">7.</span> <span class="toc-nav-text">七、总结</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">8.</span> <span class="toc-nav-text">八、彩蛋</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#服务端开发" title="服务端开发">服务端开发</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://www.jianshu.com/u/5fa5459c7b02" target="_blank">简书</a></li>
+                    
+                        <li><a href="https://github.com/hezongjiang" target="_blank">Github</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "your-disqus-ID";
+    var disqus_identifier = "https://hezongjiang.github.io/2019/09/30/你的系统如何支持高并发/";
+    var disqus_url = "https://hezongjiang.github.io/2019/09/30/你的系统如何支持高并发/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/hezongjiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; He Zongjiang 2025 
+                    <br>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://hezongjiang.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://hezongjiang.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

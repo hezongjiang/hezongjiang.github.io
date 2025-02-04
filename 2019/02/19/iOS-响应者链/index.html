@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="The only thing we fear is fear itself.">
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          iOS 响应者链 - 小道消息&#39;s notes
+        
+    </title>
+
+    <link rel="canonical" href="https://hezongjiang.github.io/2019/02/19/iOS-响应者链/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('Demo.png')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#iOS开发" title="iOS开发">iOS开发</a>
+                            
+                        </div>
+                        <h1>iOS 响应者链</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by He Zongjiang on
+                            2019-02-19
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">小道消息&#39;s notes</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h2><span id="一-概述">一、概述</span></h2>
+<p>iOS 响应者链(Responder Chain)是支撑 App 界面交互的重要基础，点击、滑动、旋转、摇晃等都离不开其背后的响应者链链。</p>
+<p>简单的说（虽然不准确），响应者链的作用就是让 APP 知道用户点击里了哪里，然后应该哪个控件做出反应。专业点说，响应者链就是由多个响应者组合起来的链条，就叫做响应者链。它表示了每个响应者之间的联系，并且可以使得一个事件可选择多个对象处理。</p>
+<h2><span id="二-事件的产生和传递">二、事件的产生和传递</span></h2>
+<p>当一个触摸事件产生的时候，程序是如何找到第一响应者的呢？也就是说程序怎么知道点击了哪个控件呢？</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8gfj5ivg1j30gk08q74s.jpg" alt="事件的产生与传递"></p>
+<p>当点击了屏幕会产生一个触摸事件，消息循环(runloop)会接收到触摸事件放到消息队列里，UIApplication 会从消息队列里取事件分发下去，接着需要找到去响应这个事件的最佳视图，也就是 Responder，所以开始的第一步应该是找到 Responder，那么又是如何找到的呢？那就不得不引出 UIView 的 2 个方法：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 返回此次触摸事件初始点所在的视图</span></span><br><span class="line"><span class="selector-tag">-</span> (UIView *)<span class="selector-tag">hitTest</span><span class="selector-pseudo">:(CGPoint)point</span> <span class="selector-tag">withEvent</span><span class="selector-pseudo">:(UIEvent</span> *)<span class="selector-tag">event</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回视图是否包含指定的某个点</span></span><br><span class="line"><span class="selector-tag">-</span> (BOOL)<span class="selector-tag">pointInside</span><span class="selector-pseudo">:(CGPoint)point</span> <span class="selector-tag">withEvent</span><span class="selector-pseudo">:(UIEvent</span> *)<span class="selector-tag">event</span></span><br></pre></td></tr></table></figure>
+<p>通过在显示视图层级中依次对视图调用这个 2 个方法来确认该视图是不是能响应这个点击的点，<strong>首先会调用 <code>hitTest</code>，然后在 <code>hitTest</code> 中调用 <code>pointInside</code>，最终 <code>hitTest</code> 返回的那个 <code>view</code> 就是最终的响应者Responder</strong>。</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8gfjo8oq0j30du0f23zj.jpg" alt="image.png"></p>
+<p>以上图为例，假设点击了 <code>View3</code>。</p>
+<p>首先调用 UIWindow 的 <code>hitTest:withEvent:</code>，在这个方法中调用 <code>pointInside:withEvent:</code> 方法判断点击是否在 UIWindow 的范围内，显然 <code>pointInside</code> 返回 <code>YES</code>；</p>
+<p>然后遍历 window 的子视图，来到 RootView，调用 RootView 的 <code>hitTest</code> 和 <code>pointInside</code>，因为点击发生在 RootView 中所以继续遍历它的子视图。</p>
+<p>从 View2 开始的，调用 View2 的 <code>hitTest</code> 和 <code>pointInside</code>，由于触摸点在 View2 的范围内，所以 <code>pointInside</code> 返回 <code>YES</code>；然后继续遍历 View2 的子视图，从 View4 开始，因为点击不发生在 View4， 所以 <code>pointInside</code> 返回 <code>NO</code>，而 View4 没有子视图，所以 <code>hitTest</code> 返回 <code>null</code>；然后继续在 View2 的另外一个子视图 View3 中调用 <code>hitTest</code> 和 <code>pointInside</code>，因为点击的就是 View3 所以 <code>pointInside</code> 返回 <code>YES</code>，且 View3 没有子视图，所以 <code>hitTest</code> 返回了自己 <code>View3</code>；接着 <code>View2</code> 的 <code>hitTest</code> 也返回 <code>View3</code>，RootView 的 <code>hitTest</code> 也返回 View3，直到 UIWindow 也返回 View3，自此我们找到了响应视图：View3。</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8gfjw70shj30xc0fqdvd.jpg" alt="打印过程"></p>
+<p><strong>小结：</strong></p>
+<ol>
+<li>寻找事件的响应视图是通过调用视图的 <code>hitTest</code> 和 <code>pointInside</code> 完成的。</li>
+<li><code>hitTest</code> 的调用顺序是从 UIWindow 开始，对视图的每个子视图依次调用。</li>
+<li>遍历直到找到响应视图，然后逐级返回最终到 UIWindow 返回此视图，哪怕还有未遍历到的视图，也不会去遍历了。</li>
+</ol>
+<h2><span id="三-响应者">三、响应者</span></h2>
+<p>所有继承 UIResponder 的控件都有一个 nextResponder 属性，此属性会返回在 Responder Chain 中的下一个事件处理者，如果每个 Responder 都不处理事件，那么事件将会被丢弃。所以继承自 UIResponder 的子类便会构成一条响应者链，所以我们可以打印下以 View3 为开始的响应者链是什么样的：</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8gfk2p381j30xc08bn3b.jpg" alt="image.png"></p>
+<p>可以看到响应者链一直延伸到 AppDelegate，View3 的下一个是 View2，也就是 View3 的父视图，View2 下一个是 RootView，也是父视图，而 RootView 的下一个则是 Controller。</p>
+<p>**所以下一个响应者的规则是：**如果有父视图，则 nextResponder 指向父视图，如果是控制器根视图则指向控制器，控制器如果在导航控制器中，则指向导航控制器的相关显示视图，最后指向导航控制器，如果是根控制器则指向 UIWindow，UIWindow 的 nexResponder 指向 UIApplication，最后指向 AppDelegate，而他们实现这一套指向都是靠重写 nextReponder 实现的。</p>
+<p>继续接着上面的例子，当点击了 View3，先是由 UIWindow 通过 <code>hitTest</code> 返回所找到响应者 View3；接着会执行 View3 的 <code>touchesBegan</code>，然后是通过 <code>nextResponder</code> 依次是 View2、RootView，完全是按照 <code>nextResponder</code> 链条的调用顺序，<code>touchesEnded</code> 也是同样的顺序。</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8gfk7fqc4j30xc092gu4.jpg" alt="touches 执行顺序"></p>
+<p>上面是 View3 不处理点击事件的情况，接下来我们为 View3 添加一个点击事件处理，看看又会是什么样的调用过程：</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8gfkh2rnnj30xc08x46f.jpg" alt="touches 执行顺序"></p>
+<p>可以看到 <code>touchesBegan</code> 顺着 <code>nextResponder</code> 链条调用了，但是 View3 处理了事件，去执行了相关是事件处理方法，而 <code>touchesEnded</code> 并没有得到调用。</p>
+<p><strong>小结：</strong></p>
+<ol>
+<li>
+<p>找到最适合的响应视图后事件会从此视图开始沿着响应链   <code>nextResponder</code> 传递，直到找到处理事件的视图,如果没有处理的事件会被丢弃。</p>
+</li>
+<li>
+<p>如果视图有父视图则 <code>nextResponder</code> 指向父视图，如果是根视图则指向控制器，最终指向 <code>AppDelegate</code>, 他们都是通过重写 <code>nextResponder</code> 来实现。</p>
+</li>
+</ol>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8gfkpvoogj30go09mjsz.jpg" alt="响应者链"></p>
+<p>以上是视图可以正常点击的情况，但在一些情况下，视图无法点击，这时候响应者链会如何传递呢？</p>
+<p><strong>无法点击是的情况总结：</strong></p>
+<ol>
+<li><code>alpha = 0</code>、子视图的 <code>frame</code> 超出父视图、<code>userInteractionEnabled = NO</code>、<code>hidden = YES</code> 这些情况下，视图会被忽略，不会调用 <code>hitTest</code>。</li>
+<li>若父视图被忽略，后其所有子视图也会被忽略。换句话说，若父视图不可点击，则其子视图一定不能点击。</li>
+</ol>
+<h2><span id="四-应用示例">四、应用示例</span></h2>
+<p>1、点击透传</p>
+<p>RootView 有 2 个重叠在一起的子视图 View1 和 View2，View2 覆盖在 View1 上面，如何做到点击 View1 触发 View2 的处理逻辑？<br>
+很简单，设置 View2 的 <code>userInteractionEnabled = NO</code> 即可。</p>
+<p>2、限定点击区域</p>
+<p>给定一个显示为圆形的视图，实现只有在点击区域在圆形里面才视为有效。<br>
+我们可以重写View的pointInside方法来判断点击的点是否在圆内，也就是判断点击的点到圆心的距离是否小于等于半径就可以。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">CircleView</span></span></span><br><span class="line">- (<span class="keyword">void</span>)awakeFromNib &#123;</span><br><span class="line">    [<span class="keyword">super</span> awakeFromNib];</span><br><span class="line">    <span class="keyword">self</span>.layer.cornerRadius = <span class="keyword">self</span>.frame.size.width / <span class="number">2.0</span>f;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">BOOL</span>)pointInside:(<span class="built_in">CGPoint</span>)point withEvent:(<span class="built_in">UIEvent</span> *)event &#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="built_in">CGFloat</span> radius = <span class="keyword">self</span>.frame.size.width / <span class="number">2.0</span>f;</span><br><span class="line">    <span class="built_in">CGFloat</span> xOffset = point.x - radius;</span><br><span class="line">    <span class="built_in">CGFloat</span> yOffset = point.y - radius;</span><br><span class="line">    <span class="built_in">CGFloat</span> distance = sqrt(xOffset * xOffset + yOffset * yOffset);</span><br><span class="line">    <span class="keyword">return</span> distance &lt;= radius;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2019/02/19/一个完整的-Web-请求到底发生了什么/" data-toggle="tooltip" data-placement="top" title="一个完整的 Web 请求到底发生了什么">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2019/01/30/情书-5/" data-toggle="tooltip" data-placement="top" title="情书(5)">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">一、概述</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">二、事件的产生和传递</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">三、响应者</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">四、应用示例</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#iOS开发" title="iOS开发">iOS开发</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://www.jianshu.com/u/5fa5459c7b02" target="_blank">简书</a></li>
+                    
+                        <li><a href="https://github.com/hezongjiang" target="_blank">Github</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "your-disqus-ID";
+    var disqus_identifier = "https://hezongjiang.github.io/2019/02/19/iOS-响应者链/";
+    var disqus_url = "https://hezongjiang.github.io/2019/02/19/iOS-响应者链/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/hezongjiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; He Zongjiang 2025 
+                    <br>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://hezongjiang.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://hezongjiang.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="The only thing we fear is fear itself.">
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          小道消息&#39;s notes
+        
+    </title>
+
+    <link rel="canonical" href="https://hezongjiang.github.io/archives/7/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('/img/header_img/home-bg-o.jpg') 
+            /*config*/
+        
+    }
+    
+    #signature{
+        background-image: url('/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="site-heading">
+                        <h1>小道消息&#39;s notes</h1>
+                        <!--<hr class="small">-->
+                        <span class="subheading">Record my study notes and essay feelings.</span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">小道消息&#39;s notes</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Main Content -->
+<div class="container">
+    <div class="row">
+        
+
+<!-- USE SIDEBAR -->
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                post-container
+            ">
+            
+                <!-- Main Content -->
+
+
+<div class="post-preview">
+
+    <a href="/2018/03/15/卷积神经网络—CNN/">
+        <h2 class="post-title">
+            卷积神经网络—CNN
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            一、为什么需要CNN
+在全连接神经网络中，每相邻两层之间的每个神经元之间都是有边相连的。当输入层的特征维度变得很高时，这时全连接网络需要训练的参数就会增大很多，计算速度就会变得很慢，例如一张黑白的 28×28 的手写数字图片，输入层的神经元就有784个，如下图所示：
+
+若在中间只使用一层15个神经元的隐藏层，那么参数 w 就有 784 × 15 = 1......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by He Zongjiang on
+            2018-03-15
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#机器学习" title="机器学习">机器学习</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/03/08/L1-L2-正规化-Regularization/">
+        <h2 class="post-title">
+            L1 / L2 正规化 (Regularization)
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            一、过拟合
+
+我们知道，过拟合就是所谓的模型对可见的数据过度自信，非常完美的拟合上了这些数据，如果具备过拟合的能力，那么这个方程就可能是一个比较复杂的非线性方程 ，正是因为这里的 x^2 和 x^3 使得这条虚线能够被弯来弯去，所以整个模型就会特别努力地去学习作用在 x^3 和 x^2 上的 c d 参数。但是我们期望模型要学到的却是这条蓝色的曲线。因......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by He Zongjiang on
+            2018-03-08
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#机器学习" title="机器学习">机器学习</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/03/08/过拟合-Overfitting-与-Dropout/">
+        <h2 class="post-title">
+            过拟合(Overfitting) 与 Dropout
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            一、过拟合(Overfitting)
+Overfitting 也被称为过度学习，过度拟合。 它是机器学习中常见的问题。 举个Classification（分类）的例子。
+
+图中黑色曲线是正常模型，绿色曲线就是overfitting模型。尽管绿色曲线很精确的区分了所有的训练数据，但是并没有描述数据的整体特征，对新测试数据的适应性较差。
+二、解决方法
+方法......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by He Zongjiang on
+            2018-03-08
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#机器学习" title="机器学习">机器学习</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/01/10/情书-7/">
+        <h2 class="post-title">
+            情书(7)
+        </h2>
+        <h3 class="post-subtitle">
+            亚莉与我的故事
+        </h3>
+        <div class="post-content-preview">
+            亲爱的宗江:
+我不知道如果我到了湘潭，见了你父母，该如何面对？我怕自己表现不好，让他们失望，怕自己不够优秀，与他们心中与你相配的人相差甚远，也怕你到了湘潭沉迷在与父母相聚的喜悦中，忽略了我……
+我也想过自己藏起来找借口不和你父母见面 ,可我也怕这样做是对你父母不敬。
+宗江你父母喜欢什么样的女孩？永二乖巧的？可爱的？大方的？优雅的？还是活泼的？亦或是综合......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by He Zongjiang on
+            2018-01-10
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Love" title="Love">Love</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/01/10/情书-6/">
+        <h2 class="post-title">
+            情书(6)
+        </h2>
+        <h3 class="post-subtitle">
+            我与亚莉的故事
+        </h3>
+        <div class="post-content-preview">
+            今天翻了翻日历。我们交往了快两年的时间。
+亲爱的，我们要一直一直相爱下去。再有两年。再有820天。我们即将结束大学生涯。我们将走向社会，接触不同的环境。接触陌生的一切。我等着那一天。三年而已，还记得四年之约吗？那是我大一的时候对对你许诺。现在。我们即将结束大二生活，还有三年，我就娶你，我们就是名正于顺的夫妻。等我好吗？我只知道我爱你。这便抵过所有的理由......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by He Zongjiang on
+            2018-01-10
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Love" title="Love">Love</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/01/10/情书-4/">
+        <h2 class="post-title">
+            情书(4)
+        </h2>
+        <h3 class="post-subtitle">
+            我与亚莉的故事
+        </h3>
+        <div class="post-content-preview">
+            亚莉，今天是2017年12月11日，咱们结婚一个多月了，好久没给你写情书了，刚才在翻东西的时候忽然发现了你之前给我写的情书。咱们应该是一对很特殊的夫妻吧，现在应该很少有人写信了。
+我已经记不得第一次给你写情书的内容了，但是我记得在大二的时候我给你写过一封情书，大致内容就是咱们大学毕业后，给我一年时间准备，第二年娶你，不知道你还记不记得，当年那封情书还存......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by He Zongjiang on
+            2018-01-10
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Love" title="Love">Love</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2017/12/29/Swift-高阶函数map、flatMap、filter、reduce/">
+        <h2 class="post-title">
+            Swift - 高阶函数map、flatMap、filter、reduce
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            Swift 提供了如下几个高阶函数：map、flatMap、filter、reduce。使用高阶函数进行函数式编程不仅可以简化我们的代码，而且当数据比较大的时候，高阶函数会比传统实现更快。
+一、map 函数
+map 方法获取一个闭包表达式作为其唯一参数。然后它会遍历整个数组，并对数组中每一个元素执行闭包中的操作，并返回该元素所映射的值。
+简单说就是，数......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by He Zongjiang on
+            2017-12-29
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#iOS开发" title="iOS开发">iOS开发</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2017/12/04/iOS-Cell小动画/">
+        <h2 class="post-title">
+            iOS Cell小动画
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            这里让后出现的Cell有一个小动画，稍微延迟一点出现，如下图：
+
+代码的实现非常简单，就只有一个动画：
+123456func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) &#123;    ce......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by He Zongjiang on
+            2017-12-04
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#iOS开发" title="iOS开发">iOS开发</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2017/09/22/macOS-终端-Terminal-命令行-教程/">
+        <h2 class="post-title">
+            macOS 终端(Terminal) 命令行 教程
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            一、为什么要使用命令行？
+
+许多功能在图形界面不提供，只有通过命令行来实现。
+Finder 会隐藏许多你不太会需要的文件，而 Command line 则可以访问所有文件。
+Command line 可以通过 SSH 远程访问你的 Mac 或者 Linux。
+普通用户可以通过 sudo 命令获得 root 用户权限。
+如果你开启手动输入用户名登陆模式，......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by He Zongjiang on
+            2017-09-22
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#iOS开发" title="iOS开发">iOS开发</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2017/09/07/iOS-9-之-CoreSpotlight/">
+        <h2 class="post-title">
+            iOS 9 之 CoreSpotlight
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            一、CoreSpotlight 简介
+iOS9 推出了 CoreSpotlight 框架，这个框架可以为 iOS 的搜索 App 内部的数据，能够使我们在 iPhone 上下拉出现得搜索框中，搜索我们使用的 App 里面的内容（当然App必须做了适配我们才能搜索到）。而在 iOS 9 之前这是一个私有的API，只有系统自己能搜索，并且无法搜索到我们 A......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by He Zongjiang on
+            2017-09-07
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#iOS开发" title="iOS开发">iOS开发</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+
+
+<!-- Pager -->
+
+<ul class="pager">
+    
+        <li class="previous">
+            <a href="/archives/6/">&larr; Newer Posts</a>
+        </li>
+    
+    
+        <li class="next">
+            <a href="/archives/8/">Older Posts &rarr;</a>
+        </li>
+    
+</ul>
+
+
+
+                <!-- 如果开启评论功能 -->
+                
+            </div>
+
+          <!-- Sidebar Container -->
+<div class="
+    col-lg-3 col-lg-offset-0
+    col-md-3 col-md-offset-0
+    col-sm-12
+    col-xs-12
+    sidebar-container
+">
+    
+        <!-- Featured Tags -->
+
+<section>
+    <!-- no hr -->
+    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+    <div class="tags">
+        
+            
+            <a href="/tags/#机器学习" title="机器学习" rel="13">机器学习</a>
+            
+        
+            
+            <a href="/tags/#天方夜谭" title="天方夜谭" rel="9">天方夜谭</a>
+            
+        
+            
+            <a href="/tags/#AppleWatch" title="AppleWatch" rel="8">AppleWatch</a>
+            
+        
+            
+            <a href="/tags/#服务端开发" title="服务端开发" rel="14">服务端开发</a>
+            
+        
+            
+            <a href="/tags/#Love" title="Love" rel="9">Love</a>
+            
+        
+            
+            <a href="/tags/#iOS开发" title="iOS开发" rel="12">iOS开发</a>
+            
+        
+            
+            <a href="/tags/#计算机基础" title="计算机基础" rel="4">计算机基础</a>
+            
+        
+            
+            <a href="/tags/#生活随笔" title="生活随笔" rel="6">生活随笔</a>
+            
+        
+    </div>
+</section>
+
+        <hr>
+    
+        <!-- Short About -->
+<section class="visible-md visible-lg">
+    <h5><a href="/about/">ABOUT ME</a></h5>
+    <div class="short-about">
+
+        
+            <img id = "avatar_pic" src="/img/ironman-draw.png" />
+        
+
+        
+            <p>I think therefore I am</p>
+        
+
+        <!-- SNS Link -->
+        <ul class="list-inline">
+            
+            
+            
+
+            
+
+            
+
+            
+                <li>
+                    <a target="_blank"  href="https://github.com/hezongjiang">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+            
+            
+            
+            
+        </ul>
+    </div>
+</section>
+        <hr>
+    
+        
+  <h5>RECENT POSTS</h3>
+  <div class="widget">
+    <ul>
+      
+        <li>
+          <a href="/2023/04/11/ChatGPT-简介/">ChatGPT 简介</a>
+        </li>
+      
+        <li>
+          <a href="/2020/07/27/黑羊——卡尔维诺/">黑羊——卡尔维诺</a>
+        </li>
+      
+        <li>
+          <a href="/2020/07/27/每天自动发送天气预报到女朋友邮箱/">每天自动发送天气预报到女朋友邮箱</a>
+        </li>
+      
+        <li>
+          <a href="/2020/06/27/白话“量子力学”/">白话“量子力学”</a>
+        </li>
+      
+        <li>
+          <a href="/2020/05/15/TensorFlow-2-x-MNIST-图像分类-3/">TensorFlow 2.x - MNIST 图像分类(3)</a>
+        </li>
+      
+    </ul>
+  </div>
+
+        <hr>
+    
+        <!-- Friends Blog -->
+
+<h5>FRIENDS</h5>
+<ul class="list-inline">
+
+    
+        <li><a href="https://www.jianshu.com/u/5fa5459c7b02" target="_blank">简书</a></li>
+    
+        <li><a href="https://github.com/hezongjiang" target="_blank">Github</a></li>
+    
+</ul>
+
+        <hr>
+    
+</div>
+
+        
+    </div>
+</div>
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/hezongjiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; He Zongjiang 2025 
+                    <br>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://hezongjiang.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://hezongjiang.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="The only thing we fear is fear itself.">
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          iOS Runtime 教程 - 小道消息&#39;s notes
+        
+    </title>
+
+    <link rel="canonical" href="https://hezongjiang.github.io/2019/03/18/iOS-Runtime-教程/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('timg.jpg')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#iOS开发" title="iOS开发">iOS开发</a>
+                            
+                        </div>
+                        <h1>iOS Runtime 教程</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by He Zongjiang on
+                            2019-03-18
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">小道消息&#39;s notes</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p>关于 Runtime ，网上已经有很多很好的文章，这里只是我在网上看了些，然后自己总(co)结(py)一下，目的只是加深自己的印象。</p>
+<h2><span id="一-什么是-runtime">一、什么是 Runtime</span></h2>
+<p>说 OC 是一门动态语言，其实就是因为在其背后默默工作着的就是 Runtime。</p>
+<p>在 C 语言中，将代码转换为可执行程序，一般要经历三个步骤，即编译、链接、运行。在链接的时候，对象的类型、方法的实现就已经确定好了。</p>
+<p>而在 Objective-C 中，却将一些在编译和链接过程中的工作，放到了运行阶段。也就是说，就算是一个编译好的 .ipa 包，在程序没运行的时候，也不知道调用一个方法会发生什么。这也为后来大行其道的「热修复」提供了可能。因此我们称 Objective-C 为一门动态语言。<br>
+这样的设计使 Objective-C 变得灵活，甚至可以让我们在程序运行的时候，去动态修改一个方法的实现。而实现这一切的基础就是 Runtime 。</p>
+<h2><span id="二-class-和-object">二、Class 和 Object</span></h2>
+<p>先来看下 <code>Objective-C</code> 中对象的定义：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">objc_object</span> *<span class="title">id</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">objc_object</span> &#123;</span></span><br><span class="line">    Class isa;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>在这里 <code>id</code> 被定义为一个指向 <code>objc_object</code> 的指针。说明 <code>objc_object</code> 就是我们平时常用的对象的定义，它只包含一个 <code>isa</code> 指针。<code>isa</code> 指针指向什么呢？按住 <code>command</code> 键看看 <code>Class</code>。</p>
+<p>进入 <code>objc.h</code> 中，可以看到 <code>Class</code> 被定义为指向 <code>objc_class</code> 的指针，定义如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">objc_class</span> *<span class="title">Class</span>;</span></span><br></pre></td></tr></table></figure>
+<p>其中 <code>objc_class</code> 是一个结构体，在 <code>runtime.h</code> 中的定义如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">objc_class</span> &#123;</span></span><br><span class="line">    Class isa;                                <span class="comment">// 实现方法调用的关键</span></span><br><span class="line">    Class super_class;                        <span class="comment">// 父类</span></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span> * name;                        <span class="comment">// 类名</span></span><br><span class="line">    <span class="keyword">long</span> version;                             <span class="comment">// 类的版本信息，默认为0</span></span><br><span class="line">    <span class="keyword">long</span> info;                                <span class="comment">// 类信息，供运行期使用的一些位标识</span></span><br><span class="line">    <span class="keyword">long</span> instance_size;                       <span class="comment">// 该类的实例变量大小</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">objc_ivar_list</span> * <span class="title">ivars</span>;</span>            <span class="comment">// 该类的成员变量链表</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">objc_method_list</span> ** <span class="title">methodLists</span>;</span>   <span class="comment">// 方法定义的链表</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">objc_cache</span> * <span class="title">cache</span>;</span>                <span class="comment">// 方法缓存</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">objc_protocol_list</span> * <span class="title">protocols</span>;</span>    <span class="comment">// 协议链表</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>可以看到，一个类保存了自身所有的成员变量（ <code>ivars</code> ）、所有的方法（ <code>methodLists</code> ）、所有实现的协议（ <code>objc_protocol_list</code> ）。</p>
+<p>根据上面的 <code>objc_object</code> 和 <code>objc_class</code> 的定义，可以看出，一个对象<strong>唯一</strong>保存的信息就是它的 <code>Class</code> 的地址。当我们调用一个对象的方法时，会先通过 <code>isa</code> 去找到对应的 <code>objc_class</code>，然后再在 <code>objc_class</code> 的 <code>methodLists</code> 中找到调用的方法，然后执行。</p>
+<p>再说说 <code>objc_class</code> 中的 <code>cache</code>，因为调用方法的过程是个查找 <code>methodLists</code> 的过程，如果每次调用都去查找，效率会非常低。所以对于调用过的方法，会以 map 的方式保存在 <code>cache</code> 中，下次再调用就会快很多。</p>
+<p>现在划重点，在 Objective-C 中，<strong>类 也被设计为一个 对象</strong>。</p>
+<p>其实观察 <code>objc_class</code> 和 <code>objc_object</code> 的定义，会发现两者其实本质相同，都包含 <code>isa</code> 指针，只是 <code>objc_class</code> 多了一些额外的字段。所以，<strong>类 也是一个 对象</strong>，只是类保存了一些额外信息。</p>
+<p>既然说类也是对象，那么类的类型是什么呢？这里就引出了另外一个概念 —— Meta Class（元类）。</p>
+<p>在 Objective-C 中，每一个类都有对应的元类，也就是类的 <code>isa</code> 指向的类。而在元类的 <code>methodLists</code> 中，保存了类的方法链表，即所谓的「类方法」，所以「类方法」其实就是调用了元类的方法。这一段有些拗口。</p>
+<p>实际上元类也有一个 <code>isa</code> 指针，元类也是一个对象。为了不让这种结构无限延伸下去，所有元类的 <code>isa</code> 指向基类（比如 NSObject ）的元类。而基类的元类的 <code>isa</code> 指向自己。这样就形成了一个闭环。</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8gdxvx589j30nj0i2t94.jpg" alt></p>
+<h2><span id="三-method">三、Method</span></h2>
+<p>下面介绍一下 Objective-C 中的方法调用。</p>
+<p>先来看一下 Method 在头文件中的定义：</p>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">typedef struct objc_method *<span class="function"><span class="keyword">Method</span>;</span></span><br><span class="line"></span><br><span class="line">struct objc_method <span class="comment">&#123;</span></span><br><span class="line"><span class="comment">    SEL method_name;</span></span><br><span class="line"><span class="comment">    char * method_types;</span></span><br><span class="line"><span class="comment">    IMP method_imp;</span></span><br><span class="line"><span class="comment">&#125;</span>;</span><br></pre></td></tr></table></figure>
+<p>Method 被定义为一个 <code>objc_method</code> 指针，在这个结构体中，包含一个 <code>SEL</code> 和一个 <code>IMP</code>，同样来看一下它们的定义：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// SEL</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">objc_selector</span> *<span class="title">SEL</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// IMP</span></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">id</span> <span class="params">(*IMP)</span><span class="params">(id, SEL, ...)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>先说一下 <code>SEL</code>，<strong>SEL 实际上就是一个保存方法名的字符串</strong>。</p>
+<p>由于一个 Method 只保存了方法的方法名，并最终要根据方法名来查找方法的实现，所以，<strong>OC 中不支持方法重载</strong>，因为方法重载时，两个方法拥有相同的方法名，不同的形参列表，而 <code>SEL</code> 只保存了方法名，所以方法重载会被认为是相同的方法。</p>
+<blockquote>
+<p>Swift 支持方法重载</p>
+</blockquote>
+<p>再来说 <code>IMP</code>。可以看到它是一个「函数指针」。简单来说，「函数指针」就是用来找到函数地址，然后执行函数。</p>
+<p>这里要注意， <code>IMP</code> 指向的函数的前两个参数是默认参数， <code>id</code> 和 <code>SEL</code> 。这里的 <code>SEL</code> 好理解，就是函数名。而 <code>id</code>，对于实例方法来说， <code>self</code> 保存了当前对象的地址；对于类方法来说，<code>self</code> 保存了当前对应类对象的地址。后面的省略号即是参数列表。</p>
+<p>到这里， Method 的结构就很明了了。 Method 建立了 <code>SEL</code> 和 <code>IMP</code> 的关联，当对一个对象发送消息时，会通过给出的 <code>SEL</code> 去找到  <code>IMP</code>，然后执行。</p>
+<p>在 Objective-C 中，所有的方法调用，都会转化成向对象发送消息。发送消息主要是使用 <code>objc_msgSend</code> 函数。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">id</span> objc_msgSend(<span class="keyword">id</span> <span class="keyword">self</span>, SEL op, ...);</span><br></pre></td></tr></table></figure>
+<p>可以看到参数列表和 <code>IMP</code> 指向的函数参数列表是相对应的。 Runtime 会将方法调用做下面的转换，所以一般也称 Objective-C 中的调用方法为「发送消息」。</p>
+<p>不过实际调用有点变态……</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 发送消息给无参数，无返回值的方法</span></span><br><span class="line">((<span class="keyword">void</span> (*)(<span class="keyword">id</span>, SEL)) objc_msgSend)(<span class="keyword">self</span>, <span class="built_in">NSSelectorFromString</span>(<span class="string">@"functionName"</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 发送消息给有参数，有返回值的方法</span></span><br><span class="line">((<span class="built_in">NSString</span> *(*)(<span class="keyword">id</span>, SEL, <span class="built_in">NSString</span> *)) objc_msgSend)(<span class="keyword">self</span>, <span class="built_in">NSSelectorFromString</span>(<span class="string">@"functionName"</span>), <span class="string">@"parameter"</span>);</span><br></pre></td></tr></table></figure>
+<p><code>objc_msgSend</code> 会默认传入 <code>id</code> 和 <code>SEL</code>，分别对应两个隐含参数， <code>self</code> 和 <code>_cmd</code>，其中 <code>_cmd</code> 指向方法本身。</p>
+<p><strong>小结：当向一个对象发送消息时，会去这个类的 <code>methodLists</code> 中查找相应的 <code>SEL</code> ，如果查不到，则通过 <code>super_class</code> 指针找到父类，再去父类的 <code>methodLists</code> 中查找，层层递进。最后仍然找不到，才走抛异常流程。</strong></p>
+<h2><span id="四-消息转发">四、消息转发</span></h2>
+<p>刚才提到如果找不到对应的消息，会抛出异常，这里让我想到一道经典面试题：<strong>从一个对象收到一个它无法响应的方法到崩溃之间发生了什么？</strong></p>
+<p><strong>答：当一个方法找不到的时候，会走拦截调用和消息转发流程。</strong></p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8gdy768mrj30go091dgt.jpg" alt="消息转发流程"></p>
+<p>图中已经很明确的展示了消息转发的流程，下面分析一下：</p>
+<p><strong>第一步：</strong></p>
+<p>如果调用了一个对象的方法，在执行方法之前，首先会调用该类的 <code>+resolveInstanceMethod:</code> 方法进行判断，如果返回 <code>YES</code>， 则表示能接受消息，<code>NO</code> 表示不能接受消息并进入第二步。</p>
+<p>例如，调用一个对象的 <code>testFunction</code> 方法，但实际上没有这个方法；我们在对应的类中添加 <code>+resolveInstanceMethod:</code> 方法，如下：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="built_in">BOOL</span>)resolveInstanceMethod:(SEL)sel&#123;</span><br><span class="line">    <span class="comment">//判断是否为外部调用的方法</span></span><br><span class="line">    <span class="keyword">if</span> ([<span class="built_in">NSStringFromSelector</span>(sel) isEqualToString:<span class="string">@"testFunction"</span>]) &#123;</span><br><span class="line"></span><br><span class="line">        [RuntimeTool addMethodWithClass:[<span class="keyword">self</span> <span class="keyword">class</span>] withMethodSel:sel withImpMethodSel:<span class="keyword">@selector</span>(addDynamicMethod)];</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> [<span class="keyword">super</span> resolveInstanceMethod:sel];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中<code>RuntimeTool</code>是使用运行时动态添加方法的工具类，这里只要知道在运行时，用<code>addDynamicMethod</code>重写了<code>testFunction</code>，简单的说，就是调用 <code>testFunction</code> 时，实际调用的是 <code>addDynamicMethod</code>。这样即使没有实现也不会抛异常，因为消息已经转发出去了。</p>
+<blockquote>
+<p>注意，如果转发出去的消息仍没有实现，还是会抛异常。</p>
+</blockquote>
+<p>同理，如果调用的是类方法，则在方法执行前会调用该类的 <code>+resolveClassMethod:</code>。</p>
+<p><strong>第二步：</strong></p>
+<p>如果第一步返回 <code>NO</code>，并且实现了 <code>-forwardingTargetForSelector:</code>，Runtime 这时会调用这个方法，在这个方法中，可以把这个消息转发给其他对象。</p>
+<p>例如，把消息转发给 <code>ForwardMessage</code>，只要在这个类中实现了 <code>testFunction</code> 方法，那么也会执行，不过执行消息的对象改变了。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- (id)<span class="string">forwardingTargetForSelector:</span>(SEL)aSelector&#123;</span><br><span class="line">  <span class="keyword">if</span> ([NSStringFromSelector(aSelector) <span class="string">isEqualToString:</span>@<span class="string">"testFunction"</span>]) &#123;</span><br><span class="line">        <span class="keyword">return</span> [[ForwardMessage alloc] init];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> [<span class="keyword">super</span> <span class="string">forwardingTargetForSelector:</span>aSelector];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>第三步：</strong></p>
+<p>如果第二部返回 <code>nil</code>，那么首先它会发送<code>-methodSignatureForSelector:</code>消息，获得函数的参数和返回值类型。如果<code>-methodSignatureForSelector:</code>返回<code>nil</code>，Runtime则会发出<code>-doesNotRecognizeSelector:</code>消息，程序这时也就挂掉了。如果返回了一个函数签名，Runtime就会创建一个<code>NSInvocation</code>对象并发送<code>-forwardInvocation:</code>消息给目标对象。</p>
+<h2><span id="五-category">五、Category</span></h2>
+<p>我们来看一下 Category 在头文件中的定义：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">objc_category</span> *<span class="title">Category</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">objc_category</span> &#123;</span></span><br><span class="line">    <span class="keyword">char</span> * category_name;</span><br><span class="line">    <span class="keyword">char</span> * class_name;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">objc_method_list</span> * <span class="title">instance_methods</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">objc_method_list</span> * <span class="title">class_methods</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">objc_protocol_list</span> * <span class="title">protocols</span>;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Category 是一个指向 <code>objc_category</code> 结构体的指针，这个结构体中包含对象方法列表、类方法列表、协议列表。所以， Category 支持添加对象方法、类方法、协议，但没有成员变量列表，所以<strong>不能保存成员变量</strong>。</p>
+<blockquote>
+<p>注意：在 Category 中可以添加属性，会生成 getter、setter 的声明，但不会生成对应的成员变量、 getter 、setter 的实现。因此，调用 Category 中调用属性时会挂掉。</p>
+</blockquote>
+<p>但是，可以通过「关联对象」的方式来添加可用的属性。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="built_in">NSString</span> *name;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">UIViewController</span> (<span class="title">Name</span>)</span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)setName:(<span class="built_in">NSString</span> *)n &#123;</span><br><span class="line">    objc_setAssociatedObject(<span class="keyword">self</span>, &amp;name, n, OBJC_ASSOCIATION_COPY_NONATOMIC);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">NSString</span> *)name &#123;</span><br><span class="line">    <span class="keyword">return</span> objc_getAssociatedObject(<span class="keyword">self</span>, &amp;name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<h2><span id="六-method-swizzling-方法交换">六、Method Swizzling 方法交换</span></h2>
+<p>一般来说，交换方法主要想修改系统的方法实现。</p>
+<p>比如说有一个项目，已经开发了2年，忽然项目负责人添加一个功能，点击每个 Button 时，都需要记录点击的是哪个——埋点，总不可能把项目里所有的 Button 都替换吧，这时方法交换就起到了很好的作用。</p>
+<figure class="highlight ceylon"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="keyword">void</span>) &#123;</span><br><span class="line">    <span class="comment">// 获得两个需要交换的方法</span></span><br><span class="line">    Method originalMethod = <span class="keyword">class</span><span class="number">_</span>getInstanceMethod(<span class="keyword">class</span>, <span class="meta">@selector</span>(originalSelector));</span><br><span class="line">    Method swizzledMethod = <span class="keyword">class</span><span class="number">_</span>getInstanceMethod(<span class="keyword">class</span>, <span class="meta">@selector</span>(swizzledSelector));</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 尝试添加需要交换的方法，若添加失败，则说明已经有该方法，直接接交换</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">class</span><span class="number">_</span>addMethod((<span class="keyword">class</span>), <span class="meta">@selector</span>(originalSelector), </span><br><span class="line">                         method<span class="number">_</span>getImplementation(swizzledMethod), method<span class="number">_</span>getTypeEncoding(swizzledMethod))) &#123;             </span><br><span class="line">        method<span class="number">_</span>exchangeImplementations(originalMethod, swizzledMethod);         </span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 如果添加成功，说明没有该方法，则把刚添加的方法替换为我们需要的方法</span></span><br><span class="line">        <span class="keyword">class</span><span class="number">_</span>replaceMethod((<span class="keyword">class</span>), <span class="meta">@selector</span>(swizzledSelector),                                 </span><br><span class="line">                            method<span class="number">_</span>getImplementation(originalMethod), method<span class="number">_</span>getTypeEncoding(originalMethod));            </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)swizzledMethod &#123;</span><br><span class="line">    NSLog(<span class="string">"调用自定义的方法"</span>);</span><br><span class="line">    <span class="comment">// 这里特别注意，必须调用交换的方法，因为上面已经把方法交换了，所以不会死循环，如果调用 originalMethod，反而会死循环</span></span><br><span class="line">    [self swizzledSelector]; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>load</code> 方法原则上只会调用一次，但也有可能会被手动调用，所以方法里最好加上 <code>dispatch_once</code>。</p>
+</blockquote>
+<h2><span id="七-获取属性">七、获取属性</span></h2>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)ropertyList &#123;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> count;</span><br><span class="line">    objc_property_t *propertyList = class_copyPropertyList([<span class="keyword">self</span> <span class="keyword">class</span>], &amp;count);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">unsigned</span> <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">char</span> *propertyName = property_getName(propertyList[i]);</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"property----&gt;%@"</span>, [<span class="built_in">NSString</span> stringWithUTF8String:propertyName]);</span><br><span class="line">    &#125;</span><br><span class="line">    free(propertyList);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>获取到属性后，还可以做到字典转模型，实际上，第三方字典转模型框架的核心就是上面一段代码。</p>
+<p>参考：<a href="https://www.jianshu.com/p/361c9136cf3a" target="_blank" rel="noopener">https://www.jianshu.com/p/361c9136cf3a</a></p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2019/03/23/iOS-防止应用崩溃/" data-toggle="tooltip" data-placement="top" title="iOS 防止应用崩溃">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2019/03/18/BIO、NIO、AIO/" data-toggle="tooltip" data-placement="top" title="BIO、NIO、AIO">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">一、什么是 Runtime</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">二、Class 和 Object</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">三、Method</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">四、消息转发</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">五、Category</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">六、Method Swizzling 方法交换</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">7.</span> <span class="toc-nav-text">七、获取属性</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#iOS开发" title="iOS开发">iOS开发</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://www.jianshu.com/u/5fa5459c7b02" target="_blank">简书</a></li>
+                    
+                        <li><a href="https://github.com/hezongjiang" target="_blank">Github</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "your-disqus-ID";
+    var disqus_identifier = "https://hezongjiang.github.io/2019/03/18/iOS-Runtime-教程/";
+    var disqus_url = "https://hezongjiang.github.io/2019/03/18/iOS-Runtime-教程/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/hezongjiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; He Zongjiang 2025 
+                    <br>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://hezongjiang.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://hezongjiang.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

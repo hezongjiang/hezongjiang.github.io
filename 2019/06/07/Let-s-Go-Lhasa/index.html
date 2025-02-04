@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="The only thing we fear is fear itself.">
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          Let&#39;s Go Lhasa - 小道消息&#39;s notes
+        
+    </title>
+
+    <link rel="canonical" href="https://hezongjiang.github.io/2019/06/07/Let-s-Go-Lhasa/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('Lhasa1.jpg')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#Love" title="Love">Love</a>
+                            
+                        </div>
+                        <h1>Let&#39;s Go Lhasa</h1>
+                        <h2 class="subheading">我们去旅游</h2>
+                        <span class="meta">
+                            Posted by He Zongjiang on
+                            2019-06-07
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">小道消息&#39;s notes</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h3><span id="拉萨">拉萨</span></h3>
+<p>不是所有人都会来到这里，但来过就会忘记。<br>
+走进拉萨，有数不尽的理由，每一条都足以让热衷梦想的人怦然心动。<br>
+走进拉萨，也根本无需理由，仅仅是这个名字本身，就足以让人魂牵梦绕。</p>
+<a id="more"></a>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8lzhkf8crj30m80tmx47.jpg" alt="image.png"></p>
+<p>拉萨，像一个梦，总是萦绕心头挥之不去，终于，在那一日，我们终于踏上了这神秘的雪域高原。在拉萨这座魅力无限的雪域圣城里，能看到古老的寺庙、接触神秘的宗教、邂逅虔诚的朝拜者、享受炽烈的阳光照射、过上最闲散的生活、同时，收获让我们一辈子难忘的经历。</p>
+<p>和你一起走进拉萨圣殿祈福，和你携手在八廓街、在大昭寺门前许下誓言，和你在拉萨做一回扎西和合卓玛，和你在海拔4800米的圣湖纳木措边看日落和璀璨夜空，和你在圣湖羊卓雍措边欣赏那一抹震撼人心的湛蓝，和你在拉萨的一起经历终将成为我们人生中最重要的宝贵财富之一。</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8lzinbmc0j30m80goh39.jpg" alt></p>
+<p><strong>2019年，我能想到最浪漫的事情，就是和你一起去西藏！</strong></p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8lzjneekzj30u011y791.jpg" alt></p>
+<p>拍一张布达拉宫的倩影<br>
+每位到拉萨旅游的人，都要拍上一张布达拉宫的照片。拍一张水中倒影的布达拉宫绝对是经典的存在。布达拉宫的倒影投放在湖中，美轮美奂，好一个人间仙境。</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8lzkqcb21j30m80tmkez.jpg" alt></p>
+<p>在布达拉宫前拍一张吧，证明你来过这座美丽的城市，这应该是所有去拉萨必做的一件事情吧。</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8lzrky8ybj30yg0pt1gn.jpg" alt></p>
+<p>参观神秘的布达拉宫<br>
+布达拉宫，西藏的标志，能走进这座宫殿看看，当然也是西藏行梦寐以求的事。</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8lzut199kj30u0140qcq.jpg" alt></p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8lzw14rm6j30yg0puk05.jpg" alt></p>
+<p>药王山，千万不要被它的名字欺骗了，其实它只是布达拉宫前的一个小公园。公园里的半腰平台是拍摄布达拉宫的绝佳位置之一。你会发现，这里还是五十块人民币的原型。</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8lzwxsydtj30ty0y6afs.jpg" alt></p>
+<p>在拉萨，晒个日光浴<br>
+阳光是拉萨一张最响亮的名片，拉萨年日照时长达到3000小时以上，是世界上最著名的日光城。到拉萨晒太阳已经成为一种时尚，沐浴在温暖的阳光下，你可以抛开所有的私心杂念，就这样静静地让心灵和太阳对话，把人性最本质的一面交给阳光，同时自己的心也变得阳光而透明起来。</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8lzxotw8hj30yg0pudnq.jpg" alt></p>
+<p>同藏民一起转经，随着人流转经，一圈一圈又一圈。这里有最质朴的信仰，最甜美的笑容和最平淡的物质需求。</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8lzygu964j30m80tm0yu.jpg" alt></p>
+<p>享受八廓街的闲散时光，以悠闲的步调，在拉萨街头逛一逛，随意跟着当地藏民走在八廓街的转经道上，许下一些美好的祝福和愿望。</p>
+<p>转转经筒，不为今生、不为来世，只为心中的善念。</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8lzzdopd4j30yg0sgq7m.jpg" alt></p>
+<p>大昭寺，是藏传佛教信徒朝圣的终点，大昭寺之神圣，并不逊于布达拉宫。你时常都可以看到朝拜者在大昭寺门口磕长头，可见大昭寺在拉萨人的心目中的地位之高，还有更多的人每天围绕着大昭寺转经，可见大昭寺这座拥有1300多年历史的藏传佛教寺院在藏人心中的地位。</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8m00750ezj30yg0putf2.jpg" alt></p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8m00zdv7ij30yg0pu485.jpg" alt></p>
+<p>去羊卓雍措感受那震撼人心的湛蓝<br>
+千山之巅，万水之源，西藏的美丽，是怎么都看不完的。去世界各地走马观花，却不如踏遍西藏每一座雪山神湖。</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8m01uynojj30yg0putct.jpg" alt="image.png"></p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8m02jez8nj30yg0pugs8.jpg" alt></p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8m03b1kjpj30u0140qbs.jpg" alt></p>
+<p>来到传中说三大圣湖之一的羊卓雍措，游走在湖边，它能让人的心情变得安静，心境也仿佛跟着这一片湖水变得简单。</p>
+<p>拉萨八廓街，你会看到紧跟着转经的人流以顺时针的方向围绕着八廓街，路上时不时的是磕长头的藏民、藏族老人、喇嘛，满是岁月印记的脸上布满的只有虔诚和庄重，坚定的在八廓街转经道上前行。</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8m041bfx6j30u0140jwg.jpg" alt="image.png"></p>
+<p>玛吉阿米餐吧<br>
+大昭寺背后的玛吉阿米现在依然是大昭寺街角的一道风景线，来拍一张照发朋友圈的时候很多人说这是网红店。</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8m04r7dpgj30yg0puq8z.jpg" alt></p>
+<p>餐厅带有浓郁的藏式风格，二楼有藏族歌手在吧台旁献演节目。</p>
+<p>还有很多很多，比如文成公主表演，不是两三句话就能说清楚的，还有这儿上二楼，跟平时上五楼一样累，还好没有严重的高反，可能未来十几年都不会再来拉萨了，但这份记忆却永不会消散。</p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2019/07/20/白话'一致哈希'/" data-toggle="tooltip" data-placement="top" title="白话'一致哈希'">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2019/04/23/SpringBoot-上传图片/" data-toggle="tooltip" data-placement="top" title="SpringBoot 上传图片">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">拉萨</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Love" title="Love">Love</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://www.jianshu.com/u/5fa5459c7b02" target="_blank">简书</a></li>
+                    
+                        <li><a href="https://github.com/hezongjiang" target="_blank">Github</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "your-disqus-ID";
+    var disqus_identifier = "https://hezongjiang.github.io/2019/06/07/Let-s-Go-Lhasa/";
+    var disqus_url = "https://hezongjiang.github.io/2019/06/07/Let-s-Go-Lhasa/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/hezongjiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; He Zongjiang 2025 
+                    <br>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://hezongjiang.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://hezongjiang.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="The only thing we fear is fear itself.">
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          白话“量子力学” - 小道消息&#39;s notes
+        
+    </title>
+
+    <link rel="canonical" href="https://hezongjiang.github.io/2020/06/27/白话“量子力学”/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('star.jpg')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#天方夜谭" title="天方夜谭">天方夜谭</a>
+                            
+                        </div>
+                        <h1>白话“量子力学”</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by He Zongjiang on
+                            2020-06-27
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">小道消息&#39;s notes</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p><em>内容参考万维钢《精英日课》第一季</em></p>
+<p>量子力学是一个特别反常识的学问，但并非完全不可理解。只要你稍微理解一点量子力学，就会拍案叫绝。如果你理解的足够多，就可能陷进去。如果你理解的再多一点，搞不好就想把青春献给物理学。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-88ab91b11f097f5d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h2><span id="一-常识中的不确定性">一、常识中的“不确定性”</span></h2>
+<p>现代人经常会谈论“不确定性”、“概率”这些东西，但是你是否想过，这个世界真的是不确定的吗?</p>
+<p>你往空中拋一个苹果，如果我精确知道苹果的初始速度、空气的阻力、引力的强度，我就可以精确计算苹果的轨道，告诉你它会在什么时候、在哪里落地。完全都是确定的。</p>
+<p>可是如果你拋的是一个硬币，问我硬币落地的时候哪一面朝上，我就只能说一个概率了。这并不是因为硬币和苹果有什么本质的不同，而是因为影响硬币落地的因素实在太多了——初始速度、角度、旋转度、地面的平整情况、空气中气流的变化等等。我对这些因素的了解和我的计算能力都是有限的，我就没有办法精确预测。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-fd022f2e43e54d02.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>但是你考察那些左右硬币运动的物理方程，它们都是确定性的。也就是说，如果有人能够精确了解所有的因素，  他在原则上就能精确预测硬币的运动轨迹硬币事件，本质上仍然是确定性的事件。</p>
+<p>在量子力学出现之前，物理学就是这样的局面。所有物理方程都是确定的，那么如果你精确知道宇宙中每个粒子的初始条件，你在原则上就完全可以预测整个宇宙后续的演化，一切都是确定的  这就是所谓“机械宇宙”</p>
+<p>今天我们说的天气、股市、地震这些所谓“不确定事件”在机械宇宙里也都有，我们说不确定只不过是因为我们的计算能力有限。机械宇宙里没有真正的不确定事件，一切都已经注定了。</p>
+<h2><span id="二-既在这里又在那里">二、既在这里，又在那里</span></h2>
+<p>下面这个实验叫“双缝实验”。把一束光从两个缝隙中传过去，两个缝隙的光束就会形成干涉，在后面的屏幕上形成干涉条纹。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-6e057a33a1ab1c24.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="双缝实验"></p>
+<p>这是因为光是有波动性的，就好像水波一样，如下图:</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-f9d2e8217b02858b.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>可是量子力学一出来，我们知道，光同时也是粒子——也就是“光子  。物理学家可以把光子，或者电子，或者别的什么粒子，一个一个地发射到那块有双缝的隔板上去。你猜会发生什么?</p>
+<p>**即使你每次只发射一个光子，后面屏幕上也会出现干涉条纹图案！**这非常奇怪，因为干涉条纹，是两个缝隙之中同时发出的光互相干涉的产物。现在你每次只打一个光子，它跟谁干涉呢?</p>
+<p><strong>答案是这个光子自己和自己干涉</strong>——也就是说，这一个光子，同时通过了两个缝隙！用电子或者别的粒子做这个实验，结果也是如此。</p>
+<p>这就是量子力学。一个粒子，可以既走了左边的缝，又走了右边的缝。“既在这里，又在那里！”</p>
+<p>再举个例子。物理学有个概念叫自旋，大概可以理解成一个粒子的自转。任意选定一个方向，比如说北方，那么对一个电子来说，它有两种自旋对着北方，如果这个旋转是顺时针的话，我们就说它自旋是正，如果是逆时针的话，我们就说他的自旋是负。</p>
+<p>你不用关心自旋的精确定义是什么，只要知道电子在任意方向都有正、负两种可能的自旋。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-89dbf15c008627a6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>好了。现在假设这里有一个电子，在我观测它之前，你问我一个问题：这个电子的自旋是正的还是负的?</p>
+<p>如果咱们说的是一个台球，我的答案就应该是它“或者是正的，或者是负的”，可是对电子来说，我的答案就必须是它“既是正的，又是负的”。</p>
+<p>这就和前面双缝实验中，“既走了左边的缝，又走了右边的缝”  是一样的道理。</p>
+<p>一个没有被观测的电子，其实是两种自旋状态的“叠加”，这就是“量子叠加态”。物理学家用“波函数”描写这个叠加态。</p>
+<p>这个“既是…又是…  ”的概念可能已经让你震惊了。这其实是个观念问题。日常生活中一个人不可能同时从左右两个门中穿过，还自己撞到了自己，但那只是我们的日常经验。微观世界的情况跟宏观世界非常不同，只要你能接受这个观念，就不至于睡不好觉。</p>
+<p>基本粒子不是台球。只要你不观测它，它就可以“即是这样，又是那样”。</p>
+<p>让物理学家至今都睡不好觉的，是“观测”。</p>
+<h2><span id="三-真正的不确定性">三、真正的“不确定性”</span></h2>
+<p>回到双缝实验。假设我就是想知道光子到底是从哪个缝中穿过去的，于是我就在其中一个缝的外面安装了探测器，只要光子一过，我就知道。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-d5784def176899ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="观测"></p>
+<p>**结果发现干涉条纹消失了！**屏幕上的图案跟你用台球打出来的一样：一观测，光子就从“既走了左边的缝，又走了右边的缝”变成了“或者走了左边的缝，或者走了右边的缝”！</p>
+<p>也就是说观测会破坏量子叠加态。用物理学家的话说，这叫“波函数塌缩”。</p>
+<p>同样道理，如果你“观测”一个电子在某个方向上的自旋，你得到的结果就“或者是正的，或者是负的”。</p>
+<p>而你具体会得到“正”还是“负”的哪个结果，这就是一个真正的“不确定性”事件!</p>
+<p>没有任何办法能事先预测你的观测结果。电子的波函数到底往正、负哪个结果塌缩，不受任何外界因素影响  你可以说那是电子的“自由意志”</p>
+<p>物理学家可以用电子的波函数精确预测你获得每个结果的概率大小是多少，但是面对一次单独的观测，从理论上讲就没有任何办法可以预测结果。</p>
+<p>正因为量子力学有这个性质，我们才真正生活在一个不确定的世界。机械宇宙观过时了，万事万物不是注定的，天神来了也无法预测未来。</p>
+<p>好了，现在温伯格的问题就是，描写波函数演化的方程是“薛定谔方程  ”，而薛定谔方程其实是一个确定性的方程，里面根本没有概率  那么观测结果的这个“本质的不确定性”  是从哪里来的呢?</p>
+<h2><span id="四-薛定谔的猫">四、薛定谔的猫</span></h2>
+<p>困惑归困惑，但还相安无事。物理学家说不清量子世界为什么如此，但至少会计算。很多情况下，只要能计算也就可以了，管它到底是怎么回事。</p>
+<p>然后薛定谔就提出一个思想实验。</p>
+<p>在一个封闭的大箱子里，放一只猫。箱子里有个放射性装置，里面的放射性物质在一小时之内，可能衰变，也可能不衰变。如果衰变，那它就会触发一个装置，装置打碎瓶子，瓶子里面有杀猫毒气。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-71784db6f2ae0745.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="薛定谔的猫"></p>
+<p>在你打开箱子看之前，那个放射性物质处在“衰变”和“没有衰变”的量子叠加态，既衰变了，也没有衰变。</p>
+<p>那么请问，在你打开箱子看之前，那只猫难道也处在量子叠加态吗?</p>
+<p>什么叫“猫既是死的，也是活的?”</p>
+<p>这个思 想实验把微观的量子不确定性和宏观世界直接联系在了一起。这你就没有办法回避对量子世界的理解，可是你怎么面对这个问题呢?所以霍金有句名言一一“当我听说薛定谔的猫，我就去拿我的枪。”</p>
+<p>有人说霍金这句话的意思是他想拿枪把猫打死，我觉得更可能是霍金想拿枪把提问的人打死，甚至把自己打死。薛定谔的猫，让物理学家感到无法面对这个世界。</p>
+<p>有人马上会问，如果把猫换成人，那会怎样？</p>
+<p>答案是那就没有量子叠加态了，因为人有意识，人会让波函数塌缩，所以人只能是“或者是死的，或者是活的”。这就更奇怪，难道人的意识能有物理作用吗?魏格纳是这么认为，但是大多数物理学家是不相信的。可是如果你不相信，那么猫和人到底区别在哪里?正如咱们上次那篇说温伯格的文章，现在没人能说清。</p>
+<p>“量子叠加态”，到底应该怎么理解，现在没有定论。</p>
+<p>薛定谔的猫是个没有解决的问题。</p>
+<p><em>内容参考万维钢《精英日课》第一季</em></p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2020/07/27/每天自动发送天气预报到女朋友邮箱/" data-toggle="tooltip" data-placement="top" title="每天自动发送天气预报到女朋友邮箱">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2020/05/15/TensorFlow-2-x-MNIST-图像分类-3/" data-toggle="tooltip" data-placement="top" title="TensorFlow 2.x - MNIST 图像分类(3)">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">一、常识中的“不确定性”</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">二、既在这里，又在那里</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">三、真正的“不确定性”</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">四、薛定谔的猫</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#天方夜谭" title="天方夜谭">天方夜谭</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://www.jianshu.com/u/5fa5459c7b02" target="_blank">简书</a></li>
+                    
+                        <li><a href="https://github.com/hezongjiang" target="_blank">Github</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "your-disqus-ID";
+    var disqus_identifier = "https://hezongjiang.github.io/2020/06/27/白话“量子力学”/";
+    var disqus_url = "https://hezongjiang.github.io/2020/06/27/白话“量子力学”/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/hezongjiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; He Zongjiang 2025 
+                    <br>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://hezongjiang.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://hezongjiang.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

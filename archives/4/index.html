@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="The only thing we fear is fear itself.">
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          小道消息&#39;s notes
+        
+    </title>
+
+    <link rel="canonical" href="https://hezongjiang.github.io/archives/4/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('/img/header_img/home-bg-o.jpg') 
+            /*config*/
+        
+    }
+    
+    #signature{
+        background-image: url('/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="site-heading">
+                        <h1>小道消息&#39;s notes</h1>
+                        <!--<hr class="small">-->
+                        <span class="subheading">Record my study notes and essay feelings.</span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">小道消息&#39;s notes</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Main Content -->
+<div class="container">
+    <div class="row">
+        
+
+<!-- USE SIDEBAR -->
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                post-container
+            ">
+            
+                <!-- Main Content -->
+
+
+<div class="post-preview">
+
+    <a href="/2019/01/30/情书-5/">
+        <h2 class="post-title">
+            情书(5)
+        </h2>
+        <h3 class="post-subtitle">
+            我与亚莉的故事
+        </h3>
+        <div class="post-content-preview">
+            亚莉亲启：
+明天你就要回家了，你看到这封信的时候应该是在高铁上吧，之前说好的过年陪你回家，这次又食言了，我很抱歉，这也不是我第一次食言了，有很多次，但是每一次我都记在心里，从未忘记。明年我有很多计划，首先我要陪你看海，地点我已经想好了，咱们去大理苍山洱海，真的很久没有陪你出去旅游了，如果我没记错，咱们最后一次旅游应该是去的梵净山了，那都是大三时候的事了......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by He Zongjiang on
+            2019-01-30
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Love" title="Love">Love</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/01/23/Linux-安装-Python-3-x/">
+        <h2 class="post-title">
+            Linux 安装 Python 3.x
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            一般来说，Linux 都自带了 Python 2.x
+12# python --versionPython 2.7.10
+如果本机安装了 Python 2.x，尽量不要管它，使用 Python3 运行Python 3.x 脚本就好，因为可能有程序依赖目前的 Python 2 环境，
+比如yum！不要动现有的 Python 2 环境！下面我们直接安装 P......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by He Zongjiang on
+            2019-01-23
+        </p>
+        <div class="tags">
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/01/22/SpringBoot-缓存技术浅谈/">
+        <h2 class="post-title">
+            SpringBoot 缓存技术浅谈
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            一、为什么要缓存
+随着时间的积累，应用的使用用户不断增加，数据规模也越来越大，往往数据库查询操作会成为影响用户使用体验的瓶颈，数据库的访问越少越好，此时使用缓存往往是解决这一问题非常好的手段之一。
+在开发中，如果相同的查询条件去频繁查询数据库, 会给数据库带来很大的压力。因此，我们需要对查询出来的数据进行缓存,这样客户端只需要从数据库查询一次数据，然后......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by He Zongjiang on
+            2019-01-22
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#服务端开发" title="服务端开发">服务端开发</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/01/13/iOS-HealthKit-与-CoreMotion-——-计步器/">
+        <h2 class="post-title">
+            iOS HealthKit 与 CoreMotion —— 计步器
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            一、HealthKit 简介
+HealthKit 是 Apple 在 iOS 8 推出的一款与健康有关的 API ，它提供了一种优雅的方式来获取和存储用户的健康数据。在 iOS 8 Apple 加入了一个健康APP，用来整合不同来源的数据。这些数据包括个人的身高、体重、血型等基本信息，步行+跑步距离、步数等健身信息等。
+在本篇 HealthKit 教程......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by He Zongjiang on
+            2019-01-13
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#iOS开发" title="iOS开发">iOS开发</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/01/10/情书-3/">
+        <h2 class="post-title">
+            情书(3)
+        </h2>
+        <h3 class="post-subtitle">
+            亚莉与我的故事
+        </h3>
+        <div class="post-content-preview">
+            我从没有像现在这样爱你。我感觉自己很幸运，自从进入大学以来，你就一直陪着我。
+今天从同学那里听说你是405寝室最可怜的一个男人，我想了好多，以前我是不是做的太过分？让别人有这种感觉，而你自己的感觉又是什么？或多或少都有点埋怨我了吧？宗江，我任性。我严格，我哪里不对你一定要告诉我。我是真的打算种你在一起一辈子的，可是一辈哪里就那么容易了呢？我们要过的坎要......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by He Zongjiang on
+            2019-01-10
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Love" title="Love">Love</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/01/10/Swift-OR-Objective-C/">
+        <h2 class="post-title">
+            Objective-C? OR Swift?
+        </h2>
+        <h3 class="post-subtitle">
+            从OC到Swift
+        </h3>
+        <div class="post-content-preview">
+            1、Swift简介
+WWDC 2014 上苹果再次惊世骇俗的推出了新的编程语言 Swift——雨燕, 这个消息会前没有半点风声的走漏。消息发布当时，会场一片惊呼，相信全球看直播的码农们当时也感觉脑袋被敲了一记闷棍吧。于是熬夜学习了Swift大法， 越看越想高呼“Swift大法好！”
+ 
+程序员，最讲究的就是实事求是和客观，这篇文章就开始对比两种语言。
+......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by He Zongjiang on
+            2019-01-10
+        </p>
+        <div class="tags">
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/01/04/情书-2/">
+        <h2 class="post-title">
+            情书(2)
+        </h2>
+        <h3 class="post-subtitle">
+            我与亚莉的故事
+        </h3>
+        <div class="post-content-preview">
+            好久没给她写信了，上周末也没去看她，忽然好想她，想写封信给地，两目不见，甚是想念；忽然想好好对她，珍惜她，有她的我是最幸福的，忽然想抱抱她，亲亲她，一不小心对她动了坏心思.
+这周我总在近天猫,想给她买手表给她买电脑。仔细相想，我还没给她买过什么珍贵的礼物，当我告诉她时，她却说不要。在一起这么多年了，我怎么会不知道她怎么想的呢？其实我都懂。
+结婚要多少钱......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by He Zongjiang on
+            2019-01-04
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Love" title="Love">Love</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/01/03/情书-1/">
+        <h2 class="post-title">
+            情书(1)
+        </h2>
+        <h3 class="post-subtitle">
+            亚莉与我的故事
+        </h3>
+        <div class="post-content-preview">
+            亲爱的宗江先生：
+距离咱们俩成为合法夫妻已经一年零半个月啦，时光荏苒，日月如梭，感觉日子过得好快，一转眼我们在一起也已经有七年多了，我们都从青涩蜕变到成熟了，只是偶尔还会彼此犯傻，保留了几份可爱在时光中。
+自从工作后，发现咱们俩还需要更强大一些，生活清苦，还好咱们俩都是对未来生活充满信心和憧憬的人。我有些任性，你比较理性且包容，我妈妈说我嫁给你是三生有......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by He Zongjiang on
+            2019-01-03
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Love" title="Love">Love</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/11/21/AppleWatch开发入门-8-——动画/">
+        <h2 class="post-title">
+            AppleWatch开发入门(8)——动画
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            本文章是一个系列，如果有兴趣可以看看以下文章：
+AppleWatch开发入门(1)——界面布局
+AppleWatch开发入门(2)——控制器生命周期、界面跳转
+AppleWatch开发入门(3)——Table视图的应用
+AppleWatch开发入门(4)——Picker视图的应用
+AppleWatch开发入门(5)——Menu的使用
+AppleWatc......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by He Zongjiang on
+            2018-11-21
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#AppleWatch" title="AppleWatch">AppleWatch</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/11/21/AppleWatch开发入门-7-——AlertController/">
+        <h2 class="post-title">
+            AppleWatch开发入门(7)——AlertController
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            本文章是一个系列，如果有兴趣可以看看以下文章：
+AppleWatch开发入门(1)——界面布局
+AppleWatch开发入门(2)——控制器生命周期、界面跳转
+AppleWatch开发入门(3)——Table视图的应用
+AppleWatch开发入门(4)——Picker视图的应用
+AppleWatch开发入门(5)——Menu的使用
+AppleWatc......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by He Zongjiang on
+            2018-11-21
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#AppleWatch" title="AppleWatch">AppleWatch</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+
+
+<!-- Pager -->
+
+<ul class="pager">
+    
+        <li class="previous">
+            <a href="/archives/3/">&larr; Newer Posts</a>
+        </li>
+    
+    
+        <li class="next">
+            <a href="/archives/5/">Older Posts &rarr;</a>
+        </li>
+    
+</ul>
+
+
+
+                <!-- 如果开启评论功能 -->
+                
+            </div>
+
+          <!-- Sidebar Container -->
+<div class="
+    col-lg-3 col-lg-offset-0
+    col-md-3 col-md-offset-0
+    col-sm-12
+    col-xs-12
+    sidebar-container
+">
+    
+        <!-- Featured Tags -->
+
+<section>
+    <!-- no hr -->
+    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+    <div class="tags">
+        
+            
+            <a href="/tags/#机器学习" title="机器学习" rel="13">机器学习</a>
+            
+        
+            
+            <a href="/tags/#天方夜谭" title="天方夜谭" rel="9">天方夜谭</a>
+            
+        
+            
+            <a href="/tags/#AppleWatch" title="AppleWatch" rel="8">AppleWatch</a>
+            
+        
+            
+            <a href="/tags/#服务端开发" title="服务端开发" rel="14">服务端开发</a>
+            
+        
+            
+            <a href="/tags/#Love" title="Love" rel="9">Love</a>
+            
+        
+            
+            <a href="/tags/#iOS开发" title="iOS开发" rel="12">iOS开发</a>
+            
+        
+            
+            <a href="/tags/#计算机基础" title="计算机基础" rel="4">计算机基础</a>
+            
+        
+            
+            <a href="/tags/#生活随笔" title="生活随笔" rel="6">生活随笔</a>
+            
+        
+    </div>
+</section>
+
+        <hr>
+    
+        <!-- Short About -->
+<section class="visible-md visible-lg">
+    <h5><a href="/about/">ABOUT ME</a></h5>
+    <div class="short-about">
+
+        
+            <img id = "avatar_pic" src="/img/ironman-draw.png" />
+        
+
+        
+            <p>I think therefore I am</p>
+        
+
+        <!-- SNS Link -->
+        <ul class="list-inline">
+            
+            
+            
+
+            
+
+            
+
+            
+                <li>
+                    <a target="_blank"  href="https://github.com/hezongjiang">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+            
+            
+            
+            
+        </ul>
+    </div>
+</section>
+        <hr>
+    
+        
+  <h5>RECENT POSTS</h3>
+  <div class="widget">
+    <ul>
+      
+        <li>
+          <a href="/2023/04/11/ChatGPT-简介/">ChatGPT 简介</a>
+        </li>
+      
+        <li>
+          <a href="/2020/07/27/黑羊——卡尔维诺/">黑羊——卡尔维诺</a>
+        </li>
+      
+        <li>
+          <a href="/2020/07/27/每天自动发送天气预报到女朋友邮箱/">每天自动发送天气预报到女朋友邮箱</a>
+        </li>
+      
+        <li>
+          <a href="/2020/06/27/白话“量子力学”/">白话“量子力学”</a>
+        </li>
+      
+        <li>
+          <a href="/2020/05/15/TensorFlow-2-x-MNIST-图像分类-3/">TensorFlow 2.x - MNIST 图像分类(3)</a>
+        </li>
+      
+    </ul>
+  </div>
+
+        <hr>
+    
+        <!-- Friends Blog -->
+
+<h5>FRIENDS</h5>
+<ul class="list-inline">
+
+    
+        <li><a href="https://www.jianshu.com/u/5fa5459c7b02" target="_blank">简书</a></li>
+    
+        <li><a href="https://github.com/hezongjiang" target="_blank">Github</a></li>
+    
+</ul>
+
+        <hr>
+    
+</div>
+
+        
+    </div>
+</div>
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/hezongjiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; He Zongjiang 2025 
+                    <br>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://hezongjiang.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://hezongjiang.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

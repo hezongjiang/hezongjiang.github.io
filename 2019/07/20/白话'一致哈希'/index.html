@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="The only thing we fear is fear itself.">
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          白话&#39;一致哈希&#39; - 小道消息&#39;s notes
+        
+    </title>
+
+    <link rel="canonical" href="https://hezongjiang.github.io/2019/07/20/白话&#39;一致哈希&#39;/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('timg.jpeg')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#服务端开发" title="服务端开发">服务端开发</a>
+                            
+                        </div>
+                        <h1>白话&#39;一致哈希&#39;</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by He Zongjiang on
+                            2019-07-20
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">小道消息&#39;s notes</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p>在了解一致性哈希算法之前，最好先了解一下缓存中的一个应用场景，了解了这个应用场景之后，再来理解一致性哈希算法，就容易多了，也更能体现出一致性哈希算法的优点，那么，我们先来描述一下这个经典的分布式缓存的应用场景。</p>
+<h2><span id="一-场景描述">一、场景描述</span></h2>
+<p>假设，我们有三台缓存服务器，用于缓存图片，分别为 0 号、1 号、2 号，现在，有 3 万张图片需要缓存，我们希望这些图片被均匀的缓存到这3台服务器上，以便它们能够分摊缓存的压力。也就是说，我们希望每台服务器能够缓存 1 万张左右的图片，那么，我们应该怎样做呢？</p>
+<p>如果我们没有任何规律的将 3 万张图片平均的缓存在 3 台服务器上，可以满足我们的要求吗？可以！但是如果这样做，当我们需要访问某个缓存项时，则需要遍历3台缓存服务器，从 3 万个缓存项中找到我们需要访问的缓存，遍历的过程效率太低，时间太长，当我们找到需要访问的缓存项时，时长可能是不能被接受的，也就失去了缓存的意义，缓存的目的就是提高速度，改善用户体验，减轻后端服务器压力，如果每次访问一个缓存项都需要遍历所有缓存服务器的所有缓存项，想想就觉得很累，那么，我们该怎么办呢？</p>
+<p>原始的做法是对缓存项的键进行哈希，将 Hash 后的结果对缓存服务器的数量进行取模操作，通过取模后的结果，决定缓存项将会缓存在哪一台服务器上。</p>
+<p>举个例子，假设我们使用图片名称作为访问图片的 Key，假设图片名称是不重复的，那么，我们可以使用 <code>hash(图片名称) % N</code>，计算出图片应该存放在哪台服务器上。</p>
+<p>如果我们有 3 台服务器，使用哈希后的结果对 3 求余，那么余数一定是 0、1、2，正好与我们之前的服务器编号相同，如果求余的结果为 0， 就把当前名称对应的图片缓存在 0 号服务器上，如果余数为 1，就缓存在 1 号服务器上，以此类推。</p>
+<p>当我们访问任意一个图片的时候，只要再次对图片名称进行上述运算，即可得出对应的图片应该存放在哪一台缓存服务器上。</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8gd27xh4gj306k0au74h.jpg" alt></p>
+<p>但是，使用上述 Hash 算法进行缓存时，会出现一些缺陷，试想一下，如果 3 台缓存服务器已经不能满足我们的缓存需求，那么我们应该怎么做呢？</p>
+<p>很简单，多增加两台缓存服务器不就行了，假设，我们增加了一台缓存服务器，那么缓存服务器的数量就由 3 台变成了 4 台，此时，如果仍然使用上述方法对<strong>同一张</strong>图片进行缓存，那么这张图片所在的服务器编号必定与原来 3 台服务器时所在的服务器编号不同，因为除数由 3 变为了 4，并且，之前缓存的图片也需要全部调整，这种情况带来的结果就是当服务器数量变动时，全部缓存图片的位置都要发生改变。</p>
+<p>我们来回顾一下使用上述算法会出现的问题。<br>
+问题1：当缓存服务器数量发生变化时，会引起缓存的雪崩，可能会引起整体系统压力过大而崩溃（大量缓存同一时间失效）。<br>
+问题2：当缓存服务器数量发生变化时，几乎所有缓存的位置都会发生改变，怎样才能尽量减少受影响的缓存呢？</p>
+<p>为了解决这些问题，一致性哈希算法诞生了。</p>
+<h2><span id="二-一致性哈希算法的基本概念">二、一致性哈希算法的基本概念</span></h2>
+<p>其实，一致性哈希算法也是使用取模的方法，只是，刚才描述的取模法是对服务器的数量进行取模，而一致性哈希算法是对 <code>2^32</code> 取模，什么意思呢？我们慢慢聊。</p>
+<p>首先，我们把 2<sup>32</sup> 想象成一个圆，就像钟表一样，钟表的圆可以理解成由 60 个点组成的圆，而此处我们把这个圆想象成由 2<sup>32</sup> 个点组成的圆，示意图如下：</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8gd2q3tzjj305005kglj.jpg" alt="Hash 环"></p>
+<p>圆环的正上方的点代表 0，0 点右侧的第一个点代表 1，以此类推，2、3、4、5、6……直到 2<sup>32</sup>-1，也就是说 0 点左侧的第一个点代表 2<sup>32</sup>-1，我们把这个由 2<sup>32</sup> 个点组成的圆环称为 Hash 环。</p>
+<p>那么，一致性哈希算法与上图中的圆环有什么关系呢？</p>
+<p>假设我们有 3 台缓存服务器，服务器 A、服务器 B、服务器 C，那么，这三台服务器肯定有自己的 IP 地址，我们使用它们各自的 IP 地址进行 Hash 计算，使用 Hash 后的结果对 2<sup>32</sup> 取模，即：<code>hash(A的IP地址) % 2^32</code>。</p>
+<p>通过上述公式算出的结果一定是一个 0 到 2<sup>32</sup>-1 之间的一个整数，我们就用算出的这个整数，代表服务器 A，并且上图中的 Hash 环上必定有一个点与这个整数对应，那么，服务器 A 就可以映射到这个环上。</p>
+<p>同理，服务器 B 与服务器 C 也可以通过相同的方法映射到上图中的 Hash 环中：<br>
+<code>hash(B的IP地址) % 2^32</code><br>
+<code>hash(C的IP地址) % 2^32</code><br>
+示意图如下，当然，这是理想的情况：</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8gd33rcwdj306w072q2z.jpg" alt></p>
+<p>到目前为止，我们已经把服务器与 Hash 环联系在了一起，那么使用同样的方法，我们也可以将需要缓存的图片映射到 Hash 环上。</p>
+<p>假设，我们仍然使用图片的名称作为找到图片的 Key，那么我们使用<br>
+<code>hash(图片名称Key) % 2^32</code> 公式可以将图片映射到上图中的hash环上。</p>
+<p>现在服务器与图片都被映射到了 Hash 环上，那么这个图片到底应该被缓存到哪一台服务器上呢？</p>
+<p>图片将会被缓存到服务器A上，为什么呢？因为从图片的位置开始，沿顺时针方向遇到的第一个服务器就是A服务器，所以，上图中的图片将会被缓存到服务器A上，如下图所示，图中橘黄色代表需缓存的图片：</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8gd3efwvoj306w06s3yl.jpg" alt></p>
+<p>一致性哈希算法就是通过这种方法，判断一个对象应该被缓存到哪台服务器上的，将缓存服务器与被缓存对象都映射到 Hash 环上以后，从被缓存对象的位置出发，沿顺时针方向遇到的第一个服务器，就是当前对象将要缓存于的服务器。</p>
+<p>由于被缓存对象与服务器 Hash 后的值是固定的，所以，在服务器不变的情况下，一张图片必定会被缓存到固定的服务器上，那么，当下次想要访问这张图片时，只要再次使用相同的算法进行计算，即可算出这个图片被缓存在哪个服务器上，直接去对应的服务器查找对应的图片即可。</p>
+<p>刚才的示例只使用了一张图片进行演示，假设有四张图片需要缓存，示意图如下：</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8gd3kvinuj307806ydg2.jpg" alt></p>
+<p>1 号、2 号图片将会被缓存到服务器 A 上，3 号图片将会被缓存到服务器 B 上，4 号图片将会被缓存到服务器 C 上。</p>
+<h2><span id="三-一致性哈希算法的优点">三、一致性哈希算法的优点</span></h2>
+<p>经过上述描述，应该已经明白了一致性哈希算法的原理了，但是话说回来，一致性哈希算法能够解决之前出现的问题吗，我们说过，如果简单的对服务器数量进行取模，那么当服务器数量发生变化时，所有数据全部需要调整。那么使用一致性哈希算法，能够避免这个问题吗？</p>
+<p>在服务器 B 未移除时，图片 3 应该被缓存到服务器 B 中，假设，服务器 B 出现了故障，我们现在需要将服务器 B 移除，那么，我们将上图中的服务器 B 从 Hash 环上移除。</p>
+<p>可是当服务器 B 移除以后，按照之前描述的一致性哈希算法的规则，图片 3 应该被缓存到服务器 C 中，因为从图片 3 的位置出发，沿顺时针方向遇到的第一个缓存服务器节点就是服务器 C，也就是说，如果服务器B出现故障被移除时，图片3的缓存位置会发生改变：</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8gd3sr9yuj307c06wdg4.jpg" alt></p>
+<p>但是，图片 4 仍然会被缓存到服务器 C 中，图片 1 与图片 2 仍然会被缓存到服务器 A 中，这与服务器 B 移除之前并没有任何区别，这就是一致性哈希算法的优点。</p>
+<p>如果使用之前的 Hash 算法，服务器数量发生改变时，所有服务器的所有缓存在同一时间失效了。而使用一致性哈希算法时，并不是所有缓存都会失效，<strong>而是只有部分缓存会失效</strong>。在这个例子中就只会影响服务器 B 至服务器 A 之间的数据，尽可能的提供有损的服务。</p>
+<p>这就是一致性哈希算法所体现出的优点。</p>
+<h2><span id="四-hash环的偏斜">四、Hash环的偏斜</span></h2>
+<p>在介绍一致性哈希的概念时，我们理想化的将 3 台服务器均匀的映射到了 Hash 环上。但实际我们想象的与实际情况往往不一样。在实际的映射中，服务器可能会被映射成如下模样：</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8gd41nujnj307206gjrf.jpg" alt></p>
+<p>如果服务器被映射成上图中的模样，那么被缓存的对象很有可能大部分集中缓存在某一台服务器上，如下图所示：</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8gd4an08qj308807ygly.jpg" alt></p>
+<p>图中，1号、2号、3号、4号、6号图片均被缓存在了服务器 A 上，只有 5 号图片被缓存在了服务器 B 上，服务器 C 上甚至没有缓存任何图片，如果出现上图中的情况，A、B、C 三台服务器并没有被合理的平均的充分利用，缓存分布的极度不均匀。并且，如果此时服务器 A 出现故障，那么失效缓存的数量也将达到最大值，在极端情况下，仍然有可能引起系统的崩溃，上图中的情况则被称之为 Hash 环的偏斜，那么，我们应该怎样防止 Hash 环的偏斜呢？</p>
+<p>一致性 Hash 算法中使用&quot;虚拟节点&quot;解决了这个问题。</p>
+<h2><span id="六-虚拟节点">六、虚拟节点</span></h2>
+<p>由于我们只有 3 台服务器，当我们把服务器映射到 Hash 环上的时候，很有可能出现 Hash 环偏斜的情况，当 Hash 环偏斜以后，缓存往往会极度不均衡的分布在各服务器上。如果想要均衡的将缓存分布到3台服务器上，最好能让这 3 台服务器尽量多的、均匀的出现在 Hash 环上，但是，真实的服务器资源只有 3 台，我们怎样凭空的让它们多起来呢，没错，就是凭空的让服务器节点多起来。</p>
+<p>既然没有多余的真正的物理服务器节点，我们就只能将现有的物理节点通过虚拟的方法复制出来，这些由实际节点虚拟复制而来的节点被称为“虚拟节点”。加入虚拟节点以后的hash环如下：</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8gd4hug2ej307007274f.jpg" alt></p>
+<p>“虚拟节点”是实际节点在 Hash 环上的复制品,一个实际节点可以对应多个虚拟节点。</p>
+<p>从上图可以看出，A、B、C 三台服务器分别虚拟出了一个虚拟节点，当然，如果你需要，也可以虚拟出更多的虚拟节点。引入虚拟节点的概念后，缓存的分布就均衡多了，上图中，1号、3号图片被缓存在服务器A中，5号、4号图片被缓存在服务器B中，6号、2号图片被缓存在服务器C中，如果你还不放心，可以虚拟出更多的虚拟节点，以便减小hash环偏斜所带来的影响，虚拟节点越多，hash环上的节点就越多，缓存被均匀分布的概率就越大。</p>
+<p>以上内容参考：<a href="http://www.zsythink.net/archives/1182" target="_blank" rel="noopener">http://www.zsythink.net/archives/1182</a></p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2019/09/30/由浅入深-MySQL-索引原理/" data-toggle="tooltip" data-placement="top" title="由浅入深 MySQL 索引原理">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2019/06/07/Let-s-Go-Lhasa/" data-toggle="tooltip" data-placement="top" title="Let's Go Lhasa">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">一、场景描述</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">二、一致性哈希算法的基本概念</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">三、一致性哈希算法的优点</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">四、Hash环的偏斜</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">六、虚拟节点</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#服务端开发" title="服务端开发">服务端开发</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://www.jianshu.com/u/5fa5459c7b02" target="_blank">简书</a></li>
+                    
+                        <li><a href="https://github.com/hezongjiang" target="_blank">Github</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "your-disqus-ID";
+    var disqus_identifier = "https://hezongjiang.github.io/2019/07/20/白话&#39;一致哈希&#39;/";
+    var disqus_url = "https://hezongjiang.github.io/2019/07/20/白话&#39;一致哈希&#39;/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/hezongjiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; He Zongjiang 2025 
+                    <br>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://hezongjiang.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://hezongjiang.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="The only thing we fear is fear itself.">
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          Redis 基础详解 - 小道消息&#39;s notes
+        
+    </title>
+
+    <link rel="canonical" href="https://hezongjiang.github.io/2019/11/01/Redis-基础详解/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('timg.jpeg')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#服务端开发" title="服务端开发">服务端开发</a>
+                            
+                        </div>
+                        <h1>Redis 基础详解</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by He Zongjiang on
+                            2019-11-01
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">小道消息&#39;s notes</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h2><span id="一-redis-是什么">一、Redis 是什么</span></h2>
+<p>Redis 是一个使用 C 语言写成的，开源的、key-value 结构的、非关系型数据库。它支持存储的 value 类型相对更多，包括 String(字符串)、List(列表)、Set(集合)、Sorted Set(有序集合) 和 Hash(哈希)，而且这些操作都是原子性的。在此基础上，Redis 支持各种不同方式的排序。为了保证效率，数据都是缓存在内存中。Redis 可以周期性的把更新的数据写入磁盘或者把修改操作写入追加的记录文件，并且在此基础上实现了master-slave(主从)同步。</p>
+<p><strong>使用 Redis 有哪些好处？</strong></p>
+<ol>
+<li>
+<p>速度快，因为数据存在内存中；</p>
+</li>
+<li>
+<p>支持丰富数据类型，支持 string，list，set，sorted set，hash等；</p>
+</li>
+<li>
+<p>支持事务，操作都是原子性，所谓的原子性就是对数据的更改要么全部执行，要么全部不执行；</p>
+</li>
+<li>
+<p>丰富的特性：可用于缓存，消息，按key设置过期时间，过期后将会自动删除；</p>
+</li>
+</ol>
+<h2><span id="二-单线程">二、单线程？</span></h2>
+<p>你可能听说过 Redis 是单线程的，那会不会很慢呢？</p>
+<p><strong>为什么 Redis 是单线程的？</strong></p>
+<p>Redis 的数据存储在内存中，如果数据全都在内存里，单线程的去操作就是效率最高的。</p>
+<p>为什么呢？因为多线程的本质就是 CPU 模拟出来多个线程的情况，这种模拟出来的情况就有一个代价，就是上下文的切换，对于一个内存的系统来说，它没有上下文的切换就是效率最高的。因为上下文切换所花费的时间远大于直接从内存中读取数据所花费的时间。</p>
+<p>Redis 用单个 CPU 绑定一块内存的数据，然后针对这块内存的数据进行多次读写的时候，都是在一个CPU上完成的，所以它是单线程处理这个事。在内存的情况下，这个方案就是最佳方案。</p>
+<p>这里我们一直在强调的单线程，只是在处理我们的网络请求的时候只有一个线程来处理，一个正式的 Redis Server 运行的时候肯定是不止一个线程的，例如 Redis 进行持久化的时候会以子进程或者子线程的方式执行。</p>
+<h2><span id="三-redis-数据类型">三、Redis 数据类型</span></h2>
+<p><strong>1、String</strong><br>
+String 数据结构是简单的 key-value 类型，value 其实不仅可以是 String，也可以是数字。需要注意是一个键值最大存储 512MB。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="builtin-name">set</span> myName <span class="string">"redis"</span></span><br><span class="line">OK</span><br><span class="line">&gt; <span class="builtin-name">get</span> myName</span><br><span class="line">redis</span><br><span class="line">&gt; <span class="builtin-name">set</span> myName <span class="string">"memcache"</span></span><br><span class="line">OK</span><br><span class="line">&gt; <span class="builtin-name">get</span> myName</span><br><span class="line">memcache</span><br><span class="line">&gt; <span class="builtin-name">set</span> count 1</span><br><span class="line">OK</span><br><span class="line">&gt; <span class="builtin-name">get</span> count</span><br><span class="line">1</span><br><span class="line">&gt; incr count</span><br><span class="line">2</span><br></pre></td></tr></table></figure>
+<p><strong>2、Hash（哈希）</strong><br>
+Hash 是一个 string 类型的 field 和 value 的映射表，hash 特别适合用于存储对象。 比如我们可以 Hash 数据结构来存储用户信息，商品信息等等。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> hmset lilei name <span class="string">"LiLei"</span> age 26 title <span class="string">"Senior"</span></span></span><br><span class="line">OK</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> hget lilei age</span></span><br><span class="line">26</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> hget lilei title</span></span><br><span class="line">Senior</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> hset lilei title <span class="string">"Primary"</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> hget lilei title</span></span><br><span class="line">Primary</span><br></pre></td></tr></table></figure>
+<p><strong>3、List（列表）</strong><br>
+是 Redis 的简单的字符串列表。list 的实现为一个双向链表，即可以支持反向查找和遍历，更方便操作，不过带来了部分额外的内存开销。</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt; lpush mylist aaa</span><br><span class="line">(<span class="type">integer</span>) <span class="number">1</span></span><br><span class="line">&gt; lpush mylist bbb</span><br><span class="line">(<span class="type">integer</span>) <span class="number">2</span></span><br><span class="line">&gt; rpush mylist ccc</span><br><span class="line">(<span class="type">integer</span>) <span class="number">3</span></span><br><span class="line">&gt; llen mylist</span><br><span class="line">(<span class="type">integer</span>) <span class="number">3</span></span><br><span class="line">&gt; lrange mylist <span class="number">0</span> <span class="number">2</span></span><br><span class="line"><span class="number">1</span>) <span class="string">"bbb"</span></span><br><span class="line"><span class="number">1</span>) <span class="string">"aaa"</span></span><br><span class="line"><span class="number">1</span>) <span class="string">"ccc"</span></span><br></pre></td></tr></table></figure>
+<p><strong>4、Set</strong><br>
+Set 对外提供的功能与 list 类似是一个列表的功能，特殊之处在于 set 不允许重复元素，可以自动排重的，并且 set 提供了判断某个成员是否在一个 set 集合内的重要接口，这个也是 list 所不能提供的。</p>
+<p>在微博应用中，可以将一个用户所有的关注人存在一个集合中，将其所有粉丝存在一个集合。Redis 可以非常方便的实现如共同关注、共同喜好、二度好友等功能。</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt; sadd myset <span class="number">111</span></span><br><span class="line">(<span class="type">integer</span>) <span class="number">1</span></span><br><span class="line">&gt; sadd myset <span class="number">222</span></span><br><span class="line">(<span class="type">integer</span>) <span class="number">1</span></span><br><span class="line">&gt; sadd myset <span class="number">333</span></span><br><span class="line">(<span class="type">integer</span>) <span class="number">1</span></span><br><span class="line">&gt; sadd myset <span class="number">222</span></span><br><span class="line">(<span class="type">integer</span>) <span class="number">0</span></span><br><span class="line">&gt; smembers myset</span><br><span class="line"><span class="number">1</span>) <span class="string">"111"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"222"</span></span><br><span class="line"><span class="number">3</span>) <span class="string">"333"</span></span><br></pre></td></tr></table></figure>
+<p><strong>5、Sorted Set</strong><br>
+与 set 相比，Sorted set 增加了一个权重参数 score，使得集合中的元素能够按 score 进行有序排列。</p>
+<p>举例： 在直播系统中，实时排行信息包含直播间在线用户列表，各种礼物排行榜，弹幕消息（可以理解为按消息维度的消息排行榜）等信息，适合使用 Sorted set 结构进行存储。</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&gt; zadd myzset <span class="number">3</span> a</span><br><span class="line">(<span class="type">integer</span>) <span class="number">1</span></span><br><span class="line">&gt; zadd myzset <span class="number">1</span> b</span><br><span class="line">(<span class="type">integer</span>) <span class="number">1</span></span><br><span class="line">&gt; zadd myzset <span class="number">2</span> c</span><br><span class="line">(<span class="type">integer</span>) <span class="number">1</span></span><br><span class="line">&gt; zadd myzset <span class="number">2</span> c</span><br><span class="line">(<span class="type">integer</span>) <span class="number">0</span></span><br><span class="line">&gt; zadd myzset <span class="number">1</span> d</span><br><span class="line">(<span class="type">integer</span>) <span class="number">1</span></span><br><span class="line">&gt; zrangebyscore myzset <span class="number">0</span> <span class="number">3</span></span><br><span class="line"><span class="number">1</span>) <span class="string">"b"</span></span><br><span class="line"><span class="number">2</span>) <span class="string">"d"</span></span><br><span class="line"><span class="number">3</span>) <span class="string">"c"</span></span><br><span class="line"><span class="number">4</span>) <span class="string">"a"</span></span><br></pre></td></tr></table></figure>
+<h2><span id="四-redis-应用">四、Redis 应用</span></h2>
+<p><strong>例1： Redis 中有 1 亿个 key，其中有 10 万个 key 是已知的某个固定前缀，如何将找出这些 key。</strong></p>
+<p>当问题是：如何找出某一前缀的 key。这里需要注意数据规模是多大，再结合实际场景去解决。</p>
+<p>如果数据量小，可以使用 <code>keys</code> 命令来查询。</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&gt; keys <span class="type">key</span>*</span><br><span class="line"> <span class="number">1</span>) <span class="string">"key9"</span></span><br><span class="line"> <span class="number">2</span>) <span class="string">"key3"</span></span><br><span class="line"> <span class="number">3</span>) <span class="string">"key1"</span></span><br><span class="line"> <span class="number">4</span>) <span class="string">"key2"</span></span><br><span class="line"> <span class="number">5</span>) <span class="string">"key5"</span></span><br><span class="line"> <span class="number">6</span>) <span class="string">"key8"</span></span><br><span class="line"> <span class="number">7</span>) <span class="string">"key7"</span></span><br><span class="line"> <span class="number">8</span>) <span class="string">"key6"</span></span><br><span class="line"> <span class="number">9</span>) <span class="string">"key"</span></span><br><span class="line"><span class="number">10</span>) <span class="string">"key4"</span></span><br></pre></td></tr></table></figure>
+<p>但是，如果数据量大，而 Redis 正在线上运行，使用 <code>keys</code> 命令很可能会阻塞 Redis，使其不能提供服务。<br>
+这时可以使用 <code>SCAN cursor [MATCH pattern] [COUNT count]</code> 命令。需要注意的是条命令返回的数量是不可控的，只能大概符合 count。</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&gt; scan <span class="number">0</span> match <span class="type">key</span>* count <span class="number">5</span></span><br><span class="line"><span class="number">1</span>) <span class="string">"12"</span></span><br><span class="line"><span class="number">2</span>) <span class="number">1</span>) <span class="string">"key9"</span></span><br><span class="line">   <span class="number">2</span>) <span class="string">"key7"</span></span><br><span class="line">   <span class="number">3</span>) <span class="string">"key4"</span></span><br><span class="line">&gt; scan <span class="number">12</span> match <span class="type">key</span>* count <span class="number">5</span></span><br><span class="line"><span class="number">1</span>) <span class="string">"14"</span></span><br><span class="line"><span class="number">2</span>) <span class="number">1</span>) <span class="string">"key8"</span></span><br><span class="line">   <span class="number">2</span>) <span class="string">"key6"</span></span><br><span class="line">   <span class="number">3</span>) <span class="string">"key5"</span></span><br><span class="line">&gt; scan <span class="number">14</span> match <span class="type">key</span>* count <span class="number">5</span></span><br><span class="line"><span class="number">1</span>) <span class="string">"0"</span></span><br><span class="line"><span class="number">2</span>) <span class="number">1</span>) <span class="string">"key3"</span></span><br><span class="line">   <span class="number">2</span>) <span class="string">"key1"</span></span><br><span class="line">   <span class="number">3</span>) <span class="string">"key2"</span></span><br><span class="line">   <span class="number">4</span>) <span class="string">"key"</span></span><br></pre></td></tr></table></figure>
+<p>cursor 从 0 开始，这里第一个返回值为 cursor 用于下一次迭代，当 cursor 再次为 0 时，说明迭代完成。</p>
+<p><strong>例2：如何通过 Redis 实现分布式锁</strong></p>
+<p>首先想到的方法是使用 <code>SETNX key value</code>，如果 key 不存在，则创建并赋值，返回 1；若 key 已存在，则创建失败，返回 0。</p>
+<p>当某一个线程通过 <code>SETNX key value</code> 设置成功后占用该资源，其他线程执行该命令就会设置失败，说明已经有线程占用该资源，通过这种方式来实现分布式锁。</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; setnx mylock <span class="number">11</span></span><br><span class="line">(<span class="type">integer</span>) <span class="number">1</span></span><br><span class="line">&gt; setnx mylock <span class="number">22</span></span><br><span class="line">(<span class="type">integer</span>) <span class="number">0</span></span><br><span class="line">&gt; get mylock</span><br><span class="line"><span class="string">"11"</span></span><br></pre></td></tr></table></figure>
+<p>同时，为了防止死锁，还需要设置 key 的过期时间 <code>EXPIRE key second</code>，设置 key 的过期时间，经过 second 秒后 key 会被删除。</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; expire mylock <span class="number">11</span></span><br><span class="line">(<span class="type">integer</span>) <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>虽然 Redis 中每个命令都满足原子性，但两个命令组合起来不满足了，例如若设置锁后，程序挂了，来不及设置过期时间，那么这个锁就无法释放了。</p>
+<p>所以我们需要把上面两个命令结合起来的命令 <code>SET key value [EX seconds] [PX milliseconds] [NX|XX]</code>，其中 <code>NX</code> 是 key 不存在时设置成功，<code>XX</code> 是 key 存在时设置成功。例如：</p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; set mylock<span class="number"> 123 </span>ex<span class="number"> 10 </span>nx</span><br><span class="line"><span class="symbol">OK</span></span><br></pre></td></tr></table></figure>
+<p>这里还需要注意，不要让大量的 key 在同一时间过期，因为删除大量的 key 很耗时，会出现卡顿现象。所以我们可以在设置 key 的过期时间时，加上一个随机值来避免。</p>
+<p><strong>例3：使用 Redis 实现消息队列</strong></p>
+<p>使用 List 作为队列，<code>RPUSH</code> 生产消息，<code>LPOP</code> 消费消息。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">rpush testlist aaa</span><br><span class="line">(integer) 1</span><br><span class="line">&gt; rpush testlist bbb</span><br><span class="line">(integer) 2</span><br><span class="line">&gt; rpush testlist ccc</span><br><span class="line">(integer) 3</span><br><span class="line">&gt; lpop testlist</span><br><span class="line"><span class="string">"aaa"</span></span><br><span class="line">&gt; lpop testlist</span><br><span class="line"><span class="string">"bbb"</span></span><br><span class="line">&gt; lpop testlist</span><br><span class="line"><span class="string">"ccc"</span></span><br></pre></td></tr></table></figure>
+<p>但是这样有个缺点，就是只能一对一的消息通信，所以还可以使用 pub/sub 主题订阅者模式，发送者(pub)使用 <code>PUBLISH channel message</code> 发送消息，订阅者(sub)使用 <code>SUBSCRIBE channel</code> 接受消息，并且订阅者可以接收任意数量的 channel。</p>
+<p>但是消息的发布是无状态的，无法保证可达性。</p>
+<h2><span id="五-redis-数据持久化存储">五、Redis 数据持久化存储</span></h2>
+<p>上面说了 Redis 是基于内存的数据库，一旦进程退出，数据就会丢失，所以我们需要它也可以把数据写到磁盘上，当 Redis 重启后，可以从磁盘中恢复数据。</p>
+<p>Redis 提供了两种解决方案将内存中的数据保存到磁盘上。一种是 RDB 持久化，原理是将 Reids 在内存中的全部数据库记录定时 dump 到磁盘上的 RDB 持久化；另外一种是 AOF 持久化，原理是将 Reids 的操作日志以追加的方式写入文件。</p>
+<p><strong>1、RDB(Redis DataBase)</strong></p>
+<p>RDB 是 Redis 用来进行持久化的一种方式，是把当前内存中的数据集快照写入磁盘，也就是 Snapshot 快照所有数据。恢复时是将快照文件直接读到内存里。</p>
+<p>RDB 存储的劣势：</p>
+<ol>
+<li>
+<p>RDB 方式数据没办法做到实时持久化，该方式是每间隔一段时间做一次备份。因为 bgsave 每次运行都要执行 fork 操作创建子进程，属于重量级操作，频繁执行成本过高。所以如果 Redis 意外挂掉，就会丢失最后一次快照后的所有修改；</p>
+</li>
+<li>
+<p>RDB 是内存数据的全量同步，数据量大会由于 I/O 而严重影响性能；</p>
+</li>
+<li>
+<p>RDB 文件使用特定二进制格式保存，Redis 版本演进过程中有多个格式的 RDB 版本，旧版本无法兼容新版的格式。</p>
+</li>
+</ol>
+<p><strong>2、AOF(Append Only File)</strong></p>
+<p>AOF 持久化：记录除了查询以外，所有变更数据库状态的指令，以 append 的形式追加保存到 AOF 文件中。AOF 文件通常会比 RDF 文件体积更大。</p>
+<p><strong>3、RDB-AOF 混合模式</strong><br>
+混合模式是先使用 bgsave 以 RDB 形式将内存中的全部数据写入磁盘，之后当有新的数据时，再使用 AOF 的形式追加到文件中。</p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2019/11/04/TCP、UDP、HTTP、HTTPS-一文足矣/" data-toggle="tooltip" data-placement="top" title="TCP、UDP、HTTP、HTTPS 一文足矣">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2019/10/30/MyBatis-中-与-的区别/" data-toggle="tooltip" data-placement="top" title="MyBatis 中 # 与 $ 的区别">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">一、Redis 是什么</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">二、单线程？</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">三、Redis 数据类型</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">四、Redis 应用</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">五、Redis 数据持久化存储</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#服务端开发" title="服务端开发">服务端开发</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://www.jianshu.com/u/5fa5459c7b02" target="_blank">简书</a></li>
+                    
+                        <li><a href="https://github.com/hezongjiang" target="_blank">Github</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "your-disqus-ID";
+    var disqus_identifier = "https://hezongjiang.github.io/2019/11/01/Redis-基础详解/";
+    var disqus_url = "https://hezongjiang.github.io/2019/11/01/Redis-基础详解/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/hezongjiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; He Zongjiang 2025 
+                    <br>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://hezongjiang.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://hezongjiang.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

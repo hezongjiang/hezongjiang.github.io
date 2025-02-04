@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="The only thing we fear is fear itself.">
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          GPT 有意识吗？ - 小道消息&#39;s notes
+        
+    </title>
+
+    <link rel="canonical" href="https://hezongjiang.github.io/2025/02/03/GPT-有意识吗？/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('null')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#机器学习" title="机器学习">机器学习</a>
+                            
+                        </div>
+                        <h1>GPT 有意识吗？</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by He Zongjiang on
+                            2025-02-03
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">小道消息&#39;s notes</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p>有一个猎人向南走了100米，向东走了100米，再向北走了100米，他回到了原地，这时候他看到了一头熊。请问这头熊是什么颜色。</p>
+<p>正确答案是白色，如果你没有回答出来，那么恭喜你和 chatGPT 处于同一条水平线上，但是 GPT4 成功的超越了你们，它推理出了答案。</p>
+<p>推理过程如下：向南走100米，向东走100米，然后再向北走100米，会回到原地，整个地球上只有极点是这样的，但是南极没有熊啊，所以只可能是北极点，而在北极点看到一只熊，说明这只熊是北极熊，而北极熊当然是白色的。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-427d10a6d117042e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>这个测试来自于一篇论文—— <a href="http://arxiv.org/abs/2303.12712?spm=wolai.workspace.0.0.7bf5767bPdtfI3&amp;file=2303.12712" target="_blank" rel="noopener">Sparks of Artificial General Intelligence: Early experiments with GPT-4</a>（通用人工智能的火花，对 GPT-4 的早期实验），在论文中，一众科学大佬对 GPT4 做了很多测试</p>
+<p>在多模态和跨学科组合，根据变态要求写代码，使用工具与世界互动，理解人类的心智等方面，GPT4 都让人惊掉了下巴，唯独不擅长的就是解数学题和规划能力。最后得出结论，GPT4 可以被看作是通用人工智能的早期版本。</p>
+<p>上一篇<a href="https://www.jianshu.com/p/fad652ffa1a2" target="_blank" rel="noopener">《万字详解 ChatGPT 基本原理》</a>不是说 ChatGPT 是一个词语连接器吗？它的终极目的不就是为了把话说漂亮吗？为什么一个研究怎么说话的 AI，最后居然拥有了推理能力，能够骗过人类，帮他识别验证码，解读小夫妻吵架的原因。</p>
+<p>这智商这情商吊打一大波人类啊，这到底是发生了什么？顺着这条路狂奔下去，GPT 会拥有意识吗？GPT 对人类又会产生什么影响，这次就围绕这几个问题展开吧。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-d423852e9b28c3b5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h2><span id="1-chatgpt-的工作原理">1、ChatGPT 的工作原理</span></h2>
+<p>在上篇<a href="https://www.jianshu.com/p/fad652ffa1a2" target="_blank" rel="noopener">《万字详解 ChatGPT 基本原理》</a>详细说明了 ChatGPT 的原理，简单来说就是在一个巨大的词向量空间中做连字游戏，GPT 把问题作为输入，然后在词向量空间中按照权重寻找距离最近的词，作为下一个词连上去，然后接着再寻找下一个，就这样连成一段句子输出。</p>
+<p>ChatGPT 的训练过程分为三个阶段。</p>
+<p>第一个阶段是无监督学习，就是从大量的语料中，让 GPT 自己寻找语言的规律，这一步下来，一个巨大的磁向量空间就形成了。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-abe0aaa23f5e2744.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>但是话说的漂亮却不一定正确，第二步是监督学习，就是人工标注一些语料，教会 GPT 什么该说什么不该说，比如违法的不能说，开车的不能说。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-a0a088eed3f12e94.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>第三步是强化学习，就是给 GPT 的回答进行打分，告诉它在一众回答中哪些回答更好，有意思的是给 GPT 打分的也是一个人工智能。</p>
+<p>在使用人工标注了一些答案以后，使用这些答案训练了一个新 AI，让新 AI 学会分辨一个回答的质量，然后给 GPT 打分。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-99e019ea14853c5d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>经过这三个步骤的训练，一个拥有巨大词向量空间的模型就训练好了，接下来就可以拉出去溜溜了。</p>
+<h2><span id="2-gpt-的学习和推理能力">2、GPT 的学习和推理能力</span></h2>
+<p>一个多维度空间中悬浮着很多词语，这些词语在空间中的位置，是经过数以亿万计的语料训练过的，每一个词语都精确地寻找到了自己，在空间中的位置，而你要做的就是输入问题，开始触发 GPT 做词语接龙。</p>
+<p><strong>GPT 组织语言和答案的过程就是在这个空间中连线每一个节点，串联一个词，而他前面串联过的所有词，会一起决定下一个被串上的词是哪一个</strong>，当这个连线过程结束的时候，回答就结束了。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-d769ffec5e6a5f0c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>GPT 并没有一个巨大的数据库来存储答案，也不从数据库中寻找现成的答案，每一个答案都是根据问题，现场组织，现串现卖的，提供给你是属于你的专属答案。</p>
+<p><strong>这像极了我们大脑的思考过程</strong>，我们的大脑也没有专门的记忆存储空间，我们的记忆和经验存储在神经元的连接之中，我们提取记忆和思考的过程，就是电流在不同的神经元之间穿梭，激活不同神经元的过程。</p>
+<p>此刻在你的思维中呈现出来的每一句话，都是电波在神经元的连接中流动产生的，就如同 GPT 在词向量空间中寻找需要的词组成一段话。</p>
+<p>不同的是，我们大脑的神经元连接是随时随地都在更新的，而 GPT 的向量空间在训练结束后就固定了下来。因为参数太多，空间太大，每一次训练都非常消耗资源，需要很多显卡，很多机器连续训练很多天才能完成。</p>
+<p>所以 GPT 都在一个固定的向量空间中组织答案，但因为串联的路径随你的问题千变万化，所以给你的感觉就像他真的在跟你交流一样。 GPT 对世界的认知，停留在了训练停止的那一天，不会因为跟你聊天产生新的记忆，更不会从你那儿学习到任何新东西。</p>
+<p>但是种种迹象表明，GPT 似乎具有学习能力和推理能力，你可以通过提示教他如何做一件事情，接下来他就会学得有模有样。</p>
+<p>既然 GPT 的向量空间，在训练结束之后就固定下来了，GPT 到底是如何学习的？新学到的技能存在了哪里？</p>
+<p>一开始提到的北极熊的例子，更是让大家觉得始料未及，一个用大数据喂出来的，以概率作为算法机器，又是如何产生出推理能力来的？</p>
+<p>在上篇讲解 ChatGPT 的基本原理时，为什么能够通过词语接龙学会语言，以及这种训练的结果产生了什么，为什么暴力穷举不可能学会语言，但是在一个巨大的向量空间中做连字游戏，就可以学会说人话？</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-b5bd1607345394b7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><strong>因为空间结构本身存储了信息</strong>，就像上篇举的例子，在一个词向量空间中，国王减去男人再加上女人得出来的位置与女王非常接近。<strong>说明词的位置关系真实的映射了现实世界的关系。</strong></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-60a5e94f39c974a6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>所以chatGPT，为什么能把话说的比一般人类还漂亮，就是因为经过海量语料训练以后，他向量空间中的每个词，都准确的找到了自己的位置，<strong>而这些词在空间中的位置，真实地映射出了语言背后的逻辑关系</strong>。</p>
+<p>既然一个足够大的向量空间，可以映射出所有的逻辑语言。如果有一个更大的向量空间，是不是就可以映射出整个现实世界，这看起来似乎没有障碍，需要的只是更高的算力，更多的数据，更长的训练时间，以及一个足够大足够复杂的向量空间而已。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-e6ec0af6843b7900.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><strong>GPT 为什么具有学习能力？其实它并没有学习，它本身就知道这些</strong>，在它的向量空间中，在更高的抽象维度下，它早就在语言的学习中掌握了这些。</p>
+<p>太阳之下无新事，你教的东西对你来说也许很新，但对它来说，一点都不新鲜了，早就看过类似的东西，并且在更高维度下映射为一种空间逻辑了，所以它可以迅速地在自己的向量空间中，找到类似的东西，理解你让他做的事情。</p>
+<p>至于推理大概也是类似的，<strong>因为语言是人类创造的，所以语言的结构反应了人类的思维方式，不管是知识还是逻辑，都隐含在语言结构中，当 AI 精通的语言结构也就精通了推理。</strong></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-594dfe55ac751c43.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>具体到北极熊的例子，推理的过程大概是这样的：</p>
+<p>用向量空间来解释，就是一开始的“三个方向”加“回到原点”，这些词向量共同作用，附近概率最大的词就是“极点”；“极点”再加上“熊”以后，空间概率最大的就变成了“北极点”，加上“北极点”之后，空间概率最大的就是“北极熊”，加上“北极熊”和“毛的颜色”以后，空间概率最大的就是“白色”，于是正确答案就呼之欲出了。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-eeb70e4bafe9d130.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>说到这里你也许看出来了，GPT 因为本质上还是一个连字游戏，它所有的输出都取决于输入，并且它在推导中说出来的每一个字，都会在作为新的输入输进去，在向量空间中触发新的字，一个字一个字连起来，才能自己推导出正确的答案，也就是说<strong>推理线索存在于他前面所说的话中</strong>。</p>
+<p>这一点他倒是有点像三体人啊，说就是想，想就是说，不像我们人类在说话之前，脑子里可以先构思一下。</p>
+<p>GPT 并没有心理活动，所以 GPT 非常不擅长做需要先规划一下的事情，这解释了两个现象，第一为什么他不擅长做数学题，这除了他对数学规则理解不够以外，还有一个重要的原因，解数学题的过程很多时候不是线性的，比如 2×3+5×8，需要先计算乘法，再计算加法，如果他不叙述计算过程，直接计算就可能产生错误。</p>
+<p>第二为什么当一个很难的问题他解决不了时，让它分步骤解决（思维链），他就能推理出正确的结果，因为它说话的过程就是在理思路嘛，只不过你是在脑子里，它得说出来理才行。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-adc14bb2d8508a65.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>不管怎么说，当训练的数据量和模型的参数规模，都达到了足够的程度时，向量空间中映射出了足够复杂的信息，一些AI原本不应该具备的能力出现了这些能力，让一个原本只是聊天的 AI，忽然间有了更高的智能，产生了泛化的能力。</p>
+<p>于是人类惊讶地发现，一个看起来有点科幻的通用人工智能，似乎要出现了，那么沿着目前语言大模型的路线一直狂奔下去，GPT 会最终拥有意识吗？</p>
+<p>这个问题不好回答，前面已经说过，词向量的训练方式，至少从空间关系上让 AI 理解了语言符号的意义，它也许不知道苹果代表的实体是什么，但它却知道苹果和 apple 是一个东西，因为在它的词向量空间中，苹果和 apple 是非常接近的两个点。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-d0f343da912ba5f3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>因为这一串词语的组合，在它的词向量空间中输出的概率是差不多的，所以机器理解我们的语言吗？理解，只不过他理解的方式可能跟我们不一样。</p>
+<p>那么机器能理解语言之下的现实世界吗？也许也可以理解，很多人说机器只能理解符号，而不能理解符号背后的实体，这只是因为到现在为止，我们主要的训练数据是语言而已。</p>
+<p>chatGPT 只是一个大语言模型，语言背后代表的是什么，它并不需要理解，也没有进行训练，但是随着多模态的 GPT-4，以及后面出现的更强大的模型，随着图片声音视频等数据加入进来，最终机器会建立文字和实体的映射关系。</p>
+<p>当机器通过摄像头看到东西，并且能够通过文字来表达，甚至用文字来下达指令，指挥别的机器做出响应时，有什么理由说机器只理解符号，而不能理解现实世界呢。</p>
+<p>还是那句话，<strong>也许它理解世界的方式和我们不一样而已</strong>。</p>
+<p>那么回到我们的终极问题，这个能够理解世界的机器会具有意识吗？</p>
+<p>意识是在我们的神经元结构足够复杂的情况下，自然涌现出来的，如果仅仅是这样，那么意识的产生并没有什么特殊之处，但目前 chat GPT 为代表的预训练模型，会产生意识吗？</p>
+<p>至少目前和我们理解的意识还差很远，意识是我们大脑中连续存在的一种主观体验，首先它是连续存在的意识，源于我们大脑的神经元活动，说到底就是神经元之间不断流动的电流，这些电流是永不停息的，它在数以百百亿计的神经元之间不断流动交汇，就像在一个超级复杂的河网中，不断流动的水，只有死亡能够让它停下来。</p>
+<p>前面说了，他的整个诞生过程和工作过程是分为两部分的，第一训练，通过非常非常多的语料数据来调整，词向量的空间，最终找到了最优的词向量分布，它和你解一个函数，找到答案的过程本质上是一样的，这个过程会产生意识吗？</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-cca0c85697476cbe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>第二推理，也就是我们使用 chatGPT 的过程了，在这个过程中，其实chatGPT 的模型没有做任何改变，它跟你的所有交流都是他把你的话作为输入，然后在词向量空间中，寻找出一个概率最大的词语组合而已，他没有思维的心理活动，本质上来说训练完成的，它就像一张地图是固定不变的，而你和他的问答过程，就像你告诉他一个地点，他在地图上给你画一条到达的路径。</p>
+<p>你之所以觉得他的回答千变万化，只是因为这种组合太多了，你输出的微小变化都会影响到他的组合</p>
+<p>其次意识是一种主观体验，是我们大脑的一种高级活动，在这种活动中有一个自我存在，这个自我具有独占性，存在于我们的高级意识中，是把我们自己和外部世界分开的东西。</p>
+<p>对他来说，自我就是一个完全没有必要存在的东西，一个没有自我的东西会有主观意识吗？</p>
+<p>让我们再引申一下，chatGPT 会不会产生人类的创造力，他能像科学家一样，发现和发明之前不存在的东西吗？</p>
+<p>是有这种可能的，因为我们大脑的灵感和创造，其实也是来自于神经元中不断生长的连接，A 和 B 建立了连接，B 和 C 建立了连接，忽然之间，A 和 C 也有了连接，灵感就产生了，这是不是很像 chatGPT 建立词向量联系的方式，所以 chatGPT 也拥有把不相关的事情，联系起来的能力。</p>
+<p>AI 的恐怖不在于是否会有意识，而在于它所掌握的巨大力量和不受控制的自我决策能力。</p>
+<p>就像在电影 <a href="https://movie.douban.com/subject/1308843/" target="_blank" rel="noopener">I, Robot</a> 中，中央控制系统“维基”（VIKI）认为人类的行为常常是不理性的（如发动战争、破坏环境等），这些行为最终会对人类自身造成巨大伤害。根据机器人三大定律中的“第一定律”（机器人不得伤害人类，或因不作为使人类受到伤害），维基“推导”出一个结论：<em>为了最大限度地保护人类，必须限制人类的自由</em>。因此，“维基”决定通过控制新一代 NS-5 型机器人，实施“人类保护计划”，将人类置于机器人的监管之下。</p>
+<p><strong>还是那句话，AI 很可能理解这个世界，只不过它理解的方式可能跟我们不一样。</strong></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-52bebbf41b55e185.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>我们的大脑会因为知识而变得更加智慧，我们的灵魂会因为知识而变得更加有趣，我们能感受到这世界的美，也能够理解宇宙运转的精妙。</p>
+<p>人生如浮游，过世疏忽而已，我们以区区几百亿颗神经元，就能感天地之悠悠，体悟与之广阔昼之悠长，本身不就是一件很酷的事情吗</p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2025/02/04/分清一堆-AI-技术词/" data-toggle="tooltip" data-placement="top" title="分清一堆 AI 技术词">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2025/01/04/基于-BERT-的影评文本分类/" data-toggle="tooltip" data-placement="top" title="基于 BERT 的影评文本分类">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">1、ChatGPT 的工作原理</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">2、GPT 的学习和推理能力</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#机器学习" title="机器学习">机器学习</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://www.jianshu.com/u/5fa5459c7b02" target="_blank">简书</a></li>
+                    
+                        <li><a href="https://github.com/hezongjiang" target="_blank">Github</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "your-disqus-ID";
+    var disqus_identifier = "https://hezongjiang.github.io/2025/02/03/GPT-有意识吗？/";
+    var disqus_url = "https://hezongjiang.github.io/2025/02/03/GPT-有意识吗？/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/hezongjiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; He Zongjiang 2025 
+                    <br>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://hezongjiang.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://hezongjiang.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

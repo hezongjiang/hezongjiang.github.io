@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="The only thing we fear is fear itself.">
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          基于 BERT 的影评文本分类 - 小道消息&#39;s notes
+        
+    </title>
+
+    <link rel="canonical" href="https://hezongjiang.github.io/2025/01/04/基于-BERT-的影评文本分类/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('null')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#机器学习" title="机器学习">机器学习</a>
+                            
+                        </div>
+                        <h1>基于 BERT 的影评文本分类</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by He Zongjiang on
+                            2025-01-04
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">小道消息&#39;s notes</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p>BERT 和其他 Transformer 编码器体系结构在 NLP（自然语言处理）的各种任务上取得了巨大成功。他们适合在深度学习模型中使用的自然语言的矢量空间表示。</p>
+<p>如果还不清楚 Transformer 模型，可以先看看 <a href="https://www.jianshu.com/p/fad652ffa1a2" target="_blank" rel="noopener">万字详解 ChatGPT 基本原理</a>，了解 Transformer  模型基本原理。</p>
+<p>本次将根据电影评论的文本训练情感分析模型，以将电影评论分为正面或负面。</p>
+<h3><span id="1-依赖包">1、依赖包</span></h3>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip <span class="keyword">install</span> <span class="string">"tensorflow-text==2.13.0"</span></span><br><span class="line">pip <span class="keyword">install</span> <span class="string">"tf-models-official==2.13.0"</span></span><br></pre></td></tr></table></figure>
+<p>需要注意安装的版本需要一致。可以使用 <code>pip show &lt;package&gt;</code> 查看已安装包的详细信息。</p>
+<p>安装完成后，在代码中导入相关依赖。</p>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> shutil</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> tensorflow_hub <span class="keyword">as</span> hub</span><br><span class="line"><span class="keyword">import</span> tensorflow_text <span class="keyword">as</span> <span class="keyword">text</span></span><br><span class="line">from official.nlp <span class="keyword">import</span> optimization  # to create AdamW optimizer</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br></pre></td></tr></table></figure>
+<h3><span id="2-imdb-影评数据集">2、IMDB 影评数据集</span></h3>
+<p>下载数据集</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">url = <span class="string">'https://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz'</span></span><br><span class="line"></span><br><span class="line">dataset = tf.keras.utils.get_file(<span class="string">'aclImdb_v1.tar.gz'</span>, url,</span><br><span class="line">                                  untar=True, cache_dir=<span class="string">'.'</span>,</span><br><span class="line">                                  cache_subdir=<span class="string">''</span>)</span><br><span class="line"></span><br><span class="line">dataset_dir = <span class="built_in">os</span>.<span class="built_in">path</span>.join(<span class="built_in">os</span>.<span class="built_in">path</span>.dirname(dataset), <span class="string">'aclImdb'</span>)</span><br><span class="line"></span><br><span class="line">train_dir = <span class="built_in">os</span>.<span class="built_in">path</span>.join(dataset_dir, <span class="string">'train'</span>)</span><br><span class="line"></span><br><span class="line"># <span class="built_in">remove</span> unused folders to make it easier to <span class="built_in">load</span> the data</span><br><span class="line">remove_dir = <span class="built_in">os</span>.<span class="built_in">path</span>.join(train_dir, <span class="string">'unsup'</span>)</span><br><span class="line">shutil.rmtree(remove_dir)</span><br></pre></td></tr></table></figure>
+<p>IMDB 数据集已经分为训练集和测试集，但缺乏验证集。使用<code>validation_split</code> 将数据分割为 80:20 比例数据的验证集。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">AUTOTUNE = tf.data.AUTOTUNE</span><br><span class="line">batch_size = 32</span><br><span class="line">seed = 42</span><br><span class="line"></span><br><span class="line">raw_train_ds = tf.keras.utils.text_dataset_from_directory(</span><br><span class="line">    <span class="string">'aclImdb/train'</span>,</span><br><span class="line">    <span class="attribute">batch_size</span>=batch_size,</span><br><span class="line">    <span class="attribute">validation_split</span>=0.2,</span><br><span class="line">    <span class="attribute">subset</span>=<span class="string">'training'</span>,</span><br><span class="line">    <span class="attribute">seed</span>=seed)</span><br><span class="line"></span><br><span class="line">class_names = raw_train_ds.class_names</span><br><span class="line">train_ds = raw_train_ds.cache().prefetch(<span class="attribute">buffer_size</span>=AUTOTUNE)</span><br><span class="line"></span><br><span class="line">val_ds = tf.keras.utils.text_dataset_from_directory(</span><br><span class="line">    <span class="string">'aclImdb/train'</span>,</span><br><span class="line">    <span class="attribute">batch_size</span>=batch_size,</span><br><span class="line">    <span class="attribute">validation_split</span>=0.2,</span><br><span class="line">    <span class="attribute">subset</span>=<span class="string">'validation'</span>,</span><br><span class="line">    <span class="attribute">seed</span>=seed)</span><br><span class="line"></span><br><span class="line">val_ds = val_ds.cache().prefetch(<span class="attribute">buffer_size</span>=AUTOTUNE)</span><br><span class="line"></span><br><span class="line">test_ds = tf.keras.utils.text_dataset_from_directory(</span><br><span class="line">    <span class="string">'aclImdb/test'</span>,</span><br><span class="line">    <span class="attribute">batch_size</span>=batch_size)</span><br><span class="line"></span><br><span class="line">test_ds = test_ds.cache().prefetch(<span class="attribute">buffer_size</span>=AUTOTUNE)</span><br></pre></td></tr></table></figure>
+<p>让我们看一些评论，这里打印前几条评论。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> text_batch, label_batch <span class="keyword">in</span> train_ds.take(1):</span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> range(3):</span><br><span class="line">    <span class="builtin-name">print</span>(f<span class="string">'Review: &#123;text_batch.numpy()[i]&#125;'</span>)</span><br><span class="line">    label = label_batch.numpy()[i]</span><br><span class="line">    <span class="builtin-name">print</span>(f<span class="string">'Label : &#123;label&#125; (&#123;class_names[label]&#125;)'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Review: b'"Pandemonium" is a horror movie spoof that comes off more stupid than funny. Believe me when I tell you, I love comedies. Especially comedy spoofs. "Airplane", "The Naked Gun" trilogy, "Blazing Saddles", "High Anxiety", and "Spaceballs" are some of my favorite comedies that spoof a particular genre. "Pandemonium" is not up there with those films. Most of the scenes in this movie had me sitting there in stunned silence because the movie wasn\'t all that funny. There are a few laughs in the film, but when you watch a comedy, you expect to laugh a lot more than a few times and that\'s all this film has going for it. Geez, "Scream" had more laughs than this film and that was more of a horror film. How bizarre is that?&lt;br /&gt;&lt;br /&gt;*1/2 (out of four)'</span></span><br><span class="line"><span class="comment"># Label : 0 (neg)</span></span><br><span class="line"><span class="comment"># Review: b"David Mamet is a very interesting and a very un-equal director. His first movie 'House of Games' was the one I liked best, and it set a series of films with characters whose perspective of life changes as they get into complicated situations, and so does the perspective of the viewer.&lt;br /&gt;&lt;br /&gt;So is 'Homicide' which from the title tries to set the mind of the viewer to the usual crime drama. The principal characters are two cops, one Jewish and one Irish who deal with a racially charged area. The murder of an old Jewish shop owner who proves to be an ancient veteran of the Israeli Independence war triggers the Jewish identity in the mind and heart of the Jewish detective.&lt;br /&gt;&lt;br /&gt;This is were the flaws of the film are the more obvious. The process of awakening is theatrical and hard to believe, the group of Jewish militants is operatic, and the way the detective eventually walks to the final violent confrontation is pathetic. The end of the film itself is Mamet-like smart, but disappoints from a human emotional perspective.&lt;br /&gt;&lt;br /&gt;Joe Mantegna and William Macy give strong performances, but the flaws of the story are too evident to be easily compensated."</span></span><br><span class="line"><span class="comment"># Label : 0 (neg)</span></span><br><span class="line"><span class="comment"># Review: b'Great documentary about the lives of NY firefighters during the worst terrorist attack of all time.. That reason alone is why this should be a must see collectors item.. What shocked me was not only the attacks, but the"High Fat Diet" and physical appearance of some of these firefighters. I think a lot of Doctors would agree with me that,in the physical shape they were in, some of these firefighters would NOT of made it to the 79th floor carrying over 60 lbs of gear. Having said that i now have a greater respect for firefighters and i realize becoming a firefighter is a life altering job. The French have a history of making great documentary\'s and that is what this is, a Great Documentary.....'</span></span><br><span class="line"><span class="comment"># Label : 1 (pos)</span></span><br></pre></td></tr></table></figure>
+<h3><span id="3-使用-tensorflow-hub的加载模型">3、使用 TensorFlow Hub的加载模型</span></h3>
+<p>可以从 TensorFlow Hub 中选择使用哪种 BERT 模型。有多种 BERT 模型可用。</p>
+<ul>
+<li><a href="https://tfhub.dev/tensorflow/bert_en_uncased_L-12_H-768_A-12/3" target="_blank" rel="noopener">BERT-Base</a>：由 BERT 原始作者训练并发布。</li>
+<li><a href="https://tfhub.dev/google/collections/bert/1" target="_blank" rel="noopener">Small BERTs</a>：具有相同的体系结构，但包含的参数较少，可以提高训练速度。</li>
+<li><a href="https://tfhub.dev/google/collections/albert/1" target="_blank" rel="noopener">ALBERT</a>：通过在层之间共享参数来降低模型大小。</li>
+<li><a href="https://tfhub.dev/google/collections/experts/bert/1" target="_blank" rel="noopener">BERT Experts</a>：八个具有Bert-Base体系结构的模型，但在不同的预训练域之间提供了选择，以更加与目标任务保持一致。</li>
+</ul>
+<p>这里我们使用 Small BERT，因为训练速度更快，如果需要更高的准确率，可以使用 BERT Experts。</p>
+<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line">bert_model_name = 'small_bert/bert_en_uncased_L<span class="string">-4</span>_H<span class="string">-512</span>_A<span class="string">-8</span>' </span><br><span class="line"></span><br><span class="line">map_name_to_handle = &#123;</span><br><span class="line">    'bert_en_uncased_L<span class="string">-12</span>_H<span class="string">-768</span>_A<span class="string">-12</span>': 'https://tfhub.dev/tensorflow/bert_en_uncased_L<span class="string">-12</span>_H<span class="string">-768</span>_A<span class="string">-12</span>/3',</span><br><span class="line">    'bert_en_cased_L<span class="string">-12</span>_H<span class="string">-768</span>_A<span class="string">-12</span>': 'https://tfhub.dev/tensorflow/bert_en_cased_L<span class="string">-12</span>_H<span class="string">-768</span>_A<span class="string">-12</span>/3',</span><br><span class="line">    'bert_multi_cased_L<span class="string">-12</span>_H<span class="string">-768</span>_A<span class="string">-12</span>': 'https://tfhub.dev/tensorflow/bert_multi_cased_L<span class="string">-12</span>_H<span class="string">-768</span>_A<span class="string">-12</span>/3',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-2</span>_H<span class="string">-128</span>_A<span class="string">-2</span>': 'https://tfhub.dev/tensorflow/small_bert/bert_en_uncased_L<span class="string">-2</span>_H<span class="string">-128</span>_A<span class="string">-2</span>/1',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-2</span>_H<span class="string">-256</span>_A<span class="string">-4</span>': 'https://tfhub.dev/tensorflow/small_bert/bert_en_uncased_L<span class="string">-2</span>_H<span class="string">-256</span>_A<span class="string">-4</span>/1',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-2</span>_H<span class="string">-512</span>_A<span class="string">-8</span>': 'https://tfhub.dev/tensorflow/small_bert/bert_en_uncased_L<span class="string">-2</span>_H<span class="string">-512</span>_A<span class="string">-8</span>/1',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-2</span>_H<span class="string">-768</span>_A<span class="string">-12</span>': 'https://tfhub.dev/tensorflow/small_bert/bert_en_uncased_L<span class="string">-2</span>_H<span class="string">-768</span>_A<span class="string">-12</span>/1',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-4</span>_H<span class="string">-128</span>_A<span class="string">-2</span>': 'https://tfhub.dev/tensorflow/small_bert/bert_en_uncased_L<span class="string">-4</span>_H<span class="string">-128</span>_A<span class="string">-2</span>/1',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-4</span>_H<span class="string">-256</span>_A<span class="string">-4</span>': 'https://tfhub.dev/tensorflow/small_bert/bert_en_uncased_L<span class="string">-4</span>_H<span class="string">-256</span>_A<span class="string">-4</span>/1',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-4</span>_H<span class="string">-512</span>_A<span class="string">-8</span>': 'https://tfhub.dev/tensorflow/small_bert/bert_en_uncased_L<span class="string">-4</span>_H<span class="string">-512</span>_A<span class="string">-8</span>/1',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-4</span>_H<span class="string">-768</span>_A<span class="string">-12</span>': 'https://tfhub.dev/tensorflow/small_bert/bert_en_uncased_L<span class="string">-4</span>_H<span class="string">-768</span>_A<span class="string">-12</span>/1',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-6</span>_H<span class="string">-128</span>_A<span class="string">-2</span>': 'https://tfhub.dev/tensorflow/small_bert/bert_en_uncased_L<span class="string">-6</span>_H<span class="string">-128</span>_A<span class="string">-2</span>/1',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-6</span>_H<span class="string">-256</span>_A<span class="string">-4</span>': 'https://tfhub.dev/tensorflow/small_bert/bert_en_uncased_L<span class="string">-6</span>_H<span class="string">-256</span>_A<span class="string">-4</span>/1',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-6</span>_H<span class="string">-512</span>_A<span class="string">-8</span>': 'https://tfhub.dev/tensorflow/small_bert/bert_en_uncased_L<span class="string">-6</span>_H<span class="string">-512</span>_A<span class="string">-8</span>/1',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-6</span>_H<span class="string">-768</span>_A<span class="string">-12</span>': 'https://tfhub.dev/tensorflow/small_bert/bert_en_uncased_L<span class="string">-6</span>_H<span class="string">-768</span>_A<span class="string">-12</span>/1',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-8</span>_H<span class="string">-128</span>_A<span class="string">-2</span>': 'https://tfhub.dev/tensorflow/small_bert/bert_en_uncased_L<span class="string">-8</span>_H<span class="string">-128</span>_A<span class="string">-2</span>/1',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-8</span>_H<span class="string">-256</span>_A<span class="string">-4</span>': 'https://tfhub.dev/tensorflow/small_bert/bert_en_uncased_L<span class="string">-8</span>_H<span class="string">-256</span>_A<span class="string">-4</span>/1',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-8</span>_H<span class="string">-512</span>_A<span class="string">-8</span>': 'https://tfhub.dev/tensorflow/small_bert/bert_en_uncased_L<span class="string">-8</span>_H<span class="string">-512</span>_A<span class="string">-8</span>/1',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-8</span>_H<span class="string">-768</span>_A<span class="string">-12</span>': 'https://tfhub.dev/tensorflow/small_bert/bert_en_uncased_L<span class="string">-8</span>_H<span class="string">-768</span>_A<span class="string">-12</span>/1',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-10</span>_H<span class="string">-128</span>_A<span class="string">-2</span>': 'https://tfhub.dev/tensorflow/small_bert/bert_en_uncased_L<span class="string">-10</span>_H<span class="string">-128</span>_A<span class="string">-2</span>/1',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-10</span>_H<span class="string">-256</span>_A<span class="string">-4</span>': 'https://tfhub.dev/tensorflow/small_bert/bert_en_uncased_L<span class="string">-10</span>_H<span class="string">-256</span>_A<span class="string">-4</span>/1',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-10</span>_H<span class="string">-512</span>_A<span class="string">-8</span>': 'https://tfhub.dev/tensorflow/small_bert/bert_en_uncased_L<span class="string">-10</span>_H<span class="string">-512</span>_A<span class="string">-8</span>/1',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-10</span>_H<span class="string">-768</span>_A<span class="string">-12</span>': 'https://tfhub.dev/tensorflow/small_bert/bert_en_uncased_L<span class="string">-10</span>_H<span class="string">-768</span>_A<span class="string">-12</span>/1',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-12</span>_H<span class="string">-128</span>_A<span class="string">-2</span>': 'https://tfhub.dev/tensorflow/small_bert/bert_en_uncased_L<span class="string">-12</span>_H<span class="string">-128</span>_A<span class="string">-2</span>/1',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-12</span>_H<span class="string">-256</span>_A<span class="string">-4</span>': 'https://tfhub.dev/tensorflow/small_bert/bert_en_uncased_L<span class="string">-12</span>_H<span class="string">-256</span>_A<span class="string">-4</span>/1',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-12</span>_H<span class="string">-512</span>_A<span class="string">-8</span>': 'https://tfhub.dev/tensorflow/small_bert/bert_en_uncased_L<span class="string">-12</span>_H<span class="string">-512</span>_A<span class="string">-8</span>/1',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-12</span>_H<span class="string">-768</span>_A<span class="string">-12</span>': 'https://tfhub.dev/tensorflow/small_bert/bert_en_uncased_L<span class="string">-12</span>_H<span class="string">-768</span>_A<span class="string">-12</span>/1',</span><br><span class="line">    'albert_en_base': 'https://tfhub.dev/tensorflow/albert_en_base/2',</span><br><span class="line">    'electra_small': 'https://tfhub.dev/google/electra_small/2',</span><br><span class="line">    'electra_base': 'https://tfhub.dev/google/electra_base/2',</span><br><span class="line">    'experts_pubmed': 'https://tfhub.dev/google/experts/bert/pubmed/2',</span><br><span class="line">    'experts_wiki_books': 'https://tfhub.dev/google/experts/bert/wiki_books/2',</span><br><span class="line">    'talking-heads_base': 'https://tfhub.dev/tensorflow/talkheads_ggelu_bert_en_base/1',</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">map_model_to_preprocess = &#123;</span><br><span class="line">    'bert_en_uncased_L<span class="string">-12</span>_H<span class="string">-768</span>_A<span class="string">-12</span>': 'https://tfhub.dev/tensorflow/bert_en_uncased_preprocess/3',</span><br><span class="line">    'bert_en_cased_L<span class="string">-12</span>_H<span class="string">-768</span>_A<span class="string">-12</span>': 'https://tfhub.dev/tensorflow/bert_en_cased_preprocess/3',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-2</span>_H<span class="string">-128</span>_A<span class="string">-2</span>': 'https://tfhub.dev/tensorflow/bert_en_uncased_preprocess/3',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-2</span>_H<span class="string">-256</span>_A<span class="string">-4</span>': 'https://tfhub.dev/tensorflow/bert_en_uncased_preprocess/3',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-2</span>_H<span class="string">-512</span>_A<span class="string">-8</span>': 'https://tfhub.dev/tensorflow/bert_en_uncased_preprocess/3',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-2</span>_H<span class="string">-768</span>_A<span class="string">-12</span>': 'https://tfhub.dev/tensorflow/bert_en_uncased_preprocess/3',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-4</span>_H<span class="string">-128</span>_A<span class="string">-2</span>': 'https://tfhub.dev/tensorflow/bert_en_uncased_preprocess/3',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-4</span>_H<span class="string">-256</span>_A<span class="string">-4</span>': 'https://tfhub.dev/tensorflow/bert_en_uncased_preprocess/3',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-4</span>_H<span class="string">-512</span>_A<span class="string">-8</span>': 'https://tfhub.dev/tensorflow/bert_en_uncased_preprocess/3',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-4</span>_H<span class="string">-768</span>_A<span class="string">-12</span>': 'https://tfhub.dev/tensorflow/bert_en_uncased_preprocess/3',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-6</span>_H<span class="string">-128</span>_A<span class="string">-2</span>': 'https://tfhub.dev/tensorflow/bert_en_uncased_preprocess/3',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-6</span>_H<span class="string">-256</span>_A<span class="string">-4</span>': 'https://tfhub.dev/tensorflow/bert_en_uncased_preprocess/3',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-6</span>_H<span class="string">-512</span>_A<span class="string">-8</span>': 'https://tfhub.dev/tensorflow/bert_en_uncased_preprocess/3',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-6</span>_H<span class="string">-768</span>_A<span class="string">-12</span>': 'https://tfhub.dev/tensorflow/bert_en_uncased_preprocess/3',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-8</span>_H<span class="string">-128</span>_A<span class="string">-2</span>': 'https://tfhub.dev/tensorflow/bert_en_uncased_preprocess/3',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-8</span>_H<span class="string">-256</span>_A<span class="string">-4</span>': 'https://tfhub.dev/tensorflow/bert_en_uncased_preprocess/3',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-8</span>_H<span class="string">-512</span>_A<span class="string">-8</span>': 'https://tfhub.dev/tensorflow/bert_en_uncased_preprocess/3',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-8</span>_H<span class="string">-768</span>_A<span class="string">-12</span>': 'https://tfhub.dev/tensorflow/bert_en_uncased_preprocess/3',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-10</span>_H<span class="string">-128</span>_A<span class="string">-2</span>': 'https://tfhub.dev/tensorflow/bert_en_uncased_preprocess/3',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-10</span>_H<span class="string">-256</span>_A<span class="string">-4</span>': 'https://tfhub.dev/tensorflow/bert_en_uncased_preprocess/3',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-10</span>_H<span class="string">-512</span>_A<span class="string">-8</span>': 'https://tfhub.dev/tensorflow/bert_en_uncased_preprocess/3',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-10</span>_H<span class="string">-768</span>_A<span class="string">-12</span>': 'https://tfhub.dev/tensorflow/bert_en_uncased_preprocess/3',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-12</span>_H<span class="string">-128</span>_A<span class="string">-2</span>': 'https://tfhub.dev/tensorflow/bert_en_uncased_preprocess/3',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-12</span>_H<span class="string">-256</span>_A<span class="string">-4</span>': 'https://tfhub.dev/tensorflow/bert_en_uncased_preprocess/3',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-12</span>_H<span class="string">-512</span>_A<span class="string">-8</span>': 'https://tfhub.dev/tensorflow/bert_en_uncased_preprocess/3',</span><br><span class="line">    'small_bert/bert_en_uncased_L<span class="string">-12</span>_H<span class="string">-768</span>_A<span class="string">-12</span>': 'https://tfhub.dev/tensorflow/bert_en_uncased_preprocess/3',</span><br><span class="line">    'bert_multi_cased_L<span class="string">-12</span>_H<span class="string">-768</span>_A<span class="string">-12</span>': 'https://tfhub.dev/tensorflow/bert_multi_cased_preprocess/3',</span><br><span class="line">    'albert_en_base': 'https://tfhub.dev/tensorflow/albert_en_preprocess/3',</span><br><span class="line">    'electra_small': 'https://tfhub.dev/tensorflow/bert_en_uncased_preprocess/3',</span><br><span class="line">    'electra_base': 'https://tfhub.dev/tensorflow/bert_en_uncased_preprocess/3',</span><br><span class="line">    'experts_pubmed': 'https://tfhub.dev/tensorflow/bert_en_uncased_preprocess/3',</span><br><span class="line">    'experts_wiki_books': 'https://tfhub.dev/tensorflow/bert_en_uncased_preprocess/3',</span><br><span class="line">    'talking-heads_base': 'https://tfhub.dev/tensorflow/bert_en_uncased_preprocess/3',</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">tfhub_handle_encoder = map_name_to_handle[bert_model_name]</span><br><span class="line">tfhub_handle_preprocess = map_model_to_preprocess[bert_model_name]</span><br><span class="line"></span><br><span class="line">print(f'BERT model selected           : &#123;tfhub_handle_encoder&#125;')</span><br><span class="line">print(f'Preprocess model auto-selected: &#123;tfhub_handle_preprocess&#125;')</span><br></pre></td></tr></table></figure>
+<h3><span id="4-模型预处理">4、模型预处理</span></h3>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">bert_preprocess_model</span> = hub.KerasLayer(tfhub_handle_preprocess)</span><br><span class="line"><span class="attr">text_test</span> = [<span class="string">'this is such an amazing movie!'</span>]</span><br><span class="line"><span class="attr">text_preprocessed</span> = bert_preprocess_model(text_test)</span><br></pre></td></tr></table></figure>
+<p>创建了一个 Keras 层，用于将文本数据预处理为适合 BERT 模型的格式。打印模型信息。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">f'Keys       : <span class="subst">&#123;list(text_preprocessed.keys())&#125;</span>'</span>)</span><br><span class="line">print(<span class="string">f'Shape      : <span class="subst">&#123;text_preprocessed[<span class="string">"input_word_ids"</span>].shape&#125;</span>'</span>)</span><br><span class="line">print(<span class="string">f'Word Ids   : <span class="subst">&#123;text_preprocessed[<span class="string">"input_word_ids"</span>][<span class="number">0</span>, :<span class="number">12</span>]&#125;</span>'</span>)</span><br><span class="line">print(<span class="string">f'Input Mask : <span class="subst">&#123;text_preprocessed[<span class="string">"input_mask"</span>][<span class="number">0</span>, :<span class="number">12</span>]&#125;</span>'</span>)</span><br><span class="line">print(<span class="string">f'Type Ids   : <span class="subst">&#123;text_preprocessed[<span class="string">"input_type_ids"</span>][<span class="number">0</span>, :<span class="number">12</span>]&#125;</span>'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Keys       : ['input_word_ids', 'input_type_ids', 'input_mask']</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Shape      : (1, 128) </span></span><br><span class="line"><span class="comment"># 1：表示有一个样本。128：表示每个样本的长度（填充后的长度）。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Word Ids   : [ 101 2023 2003 2107 2019 6429 3185  999  102    0    0    0]  </span></span><br><span class="line"><span class="comment"># 第一个样本的前 12 个单词 ID。</span></span><br><span class="line"><span class="comment"># 101：BERT 的起始标记。</span></span><br><span class="line"><span class="comment"># 2023：单词 this 的 ID。</span></span><br><span class="line"><span class="comment"># 2003：单词 is 的 ID。</span></span><br><span class="line"><span class="comment"># ……</span></span><br><span class="line"><span class="comment"># 102：BERT 的结束标记 。</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># Input Mask : [1 1 1 1 1 1 1 1 1 0 0 0] </span></span><br><span class="line"><span class="comment"># 第一个样本的前 12 个掩码值。1：表示实际的单词，0：表示填充的位置</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Type Ids   : [0 0 0 0 0 0 0 0 0 0 0 0]</span></span><br></pre></td></tr></table></figure>
+<h3><span id="5-使用bert模型">5、使用BERT模型</span></h3>
+<p>创建了一个 Keras 层，用于将预处理后的数据传递给 BERT 模型进行编码。</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">bert_model</span> = hub.KerasLayer(tfhub_handle_encoder)</span><br><span class="line"><span class="attr">bert_results</span> = bert_model(text_preprocessed)</span><br></pre></td></tr></table></figure>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">print(f'Loaded BERT: &#123;tfhub_handle_encoder&#125;')</span><br><span class="line">print(f'Pooled Outputs Shape:&#123;bert_results["pooled_output"].shape&#125;')</span><br><span class="line">print(f'Pooled Outputs Values:&#123;bert_results["pooled_output"][<span class="number">0</span>, :<span class="number">12</span>]&#125;')</span><br><span class="line">print(f'Sequence Outputs Shape:&#123;bert_results["sequence_output"].shape&#125;')</span><br><span class="line">print(f'Sequence Outputs Values:&#123;bert_results["sequence_output"][<span class="number">0</span>, :<span class="number">12</span>]&#125;')</span><br><span class="line"></span><br><span class="line"># Loaded BERT: https://tfhub.dev/tensorflow/small_bert/bert_en_uncased_L-<span class="number">4</span>_H-<span class="number">512</span>_A-<span class="number">8</span>/<span class="number">1</span></span><br><span class="line"># 这表示加载的 BERT 模型是 small_bert/bert_en_uncased_L-<span class="number">4</span>_H-<span class="number">512</span>_A-<span class="number">8</span>，这是一个较小的 BERT 模型，具有 <span class="number">4</span> 层、<span class="number">512</span> 个隐藏单元和 <span class="number">8</span> 个注意力头。</span><br><span class="line"></span><br><span class="line"># Pooled Outputs Shape:(<span class="number">1</span>, <span class="number">512</span>)</span><br><span class="line"># pooled_output 是 BERT 模型对整个序列的聚合表示，通常用于分类任务。<span class="number">1</span>：表示有一个样本。<span class="number">512</span>：表示每个样本的聚合表示的维度（隐藏单元数）。</span><br><span class="line"></span><br><span class="line"># Pooled Outputs Values:[ <span class="number">0.762629</span>    <span class="number">0.99280983</span> -<span class="number">0.18611868</span>  <span class="number">0.36673862</span>  <span class="number">0.15233733</span>  <span class="number">0.6550447</span> <span class="number">0.9681154</span>  -<span class="number">0.9486271</span>   <span class="number">0.00216128</span> -<span class="number">0.9877732</span>   <span class="number">0.06842692</span> -<span class="number">0.97630584</span>]</span><br><span class="line"># BERT 模型对整个序列的聚合表示的前 <span class="number">12</span> 个维度的值。</span><br><span class="line"></span><br><span class="line"># Sequence Outputs Shape:(<span class="number">1</span>, <span class="number">128</span>, <span class="number">512</span>)</span><br><span class="line"># sequence_output 是 BERT 模型对每个位置的隐藏状态的表示，通常用于序列标注任务。<span class="number">1</span>：表示有一个样本。<span class="number">128</span>：表示每个样本的长度（填充后的长度）。<span class="number">512</span>：表示每个位置的隐藏状态的维度（隐藏单元数）。</span><br><span class="line"></span><br><span class="line"># Sequence Outputs Values:[</span><br><span class="line"># [-<span class="number">0.28946346</span>  <span class="number">0.3432128</span>   <span class="number">0.33231518</span> ...  <span class="number">0.21300825</span>  <span class="number">0.7102068</span> -<span class="number">0.05771117</span>]</span><br><span class="line"># [-<span class="number">0.28742072</span>  <span class="number">0.31981036</span> -<span class="number">0.23018576</span> ...  <span class="number">0.58455</span>    -<span class="number">0.21329743</span>  <span class="number">0.72692114</span>]</span><br><span class="line"># [-<span class="number">0.66157067</span>  <span class="number">0.68876773</span> -<span class="number">0.8743301</span>  ...  <span class="number">0.1087725</span>  -<span class="number">0.26173177</span>  <span class="number">0.47855407</span>]</span><br><span class="line"># ...</span><br><span class="line"># [-<span class="number">0.2256118</span>  -<span class="number">0.2892561</span>  -<span class="number">0.0706445</span>  ...  <span class="number">0.47566038</span>  <span class="number">0.83277136</span>  <span class="number">0.40025333</span>]</span><br><span class="line"># [-<span class="number">0.2982428</span>  -<span class="number">0.27473134</span> -<span class="number">0.05450517</span> ...  <span class="number">0.48849747</span>  <span class="number">1.0955354</span>   <span class="number">0.18163396</span>]</span><br><span class="line"># [-<span class="number">0.44378242</span>  <span class="number">0.00930811</span>  <span class="number">0.07223688</span> ...  <span class="number">0.1729009</span>   <span class="number">1.1833243</span>   <span class="number">0.07898017</span>]]</span><br><span class="line"># BERT 模型对每个位置的隐藏状态的表示的前 <span class="number">12</span> 个位置的值。每个位置的表示是一个 <span class="number">512</span> 维的向量</span><br></pre></td></tr></table></figure>
+<h3><span id="6-定义模型">6、定义模型</span></h3>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">def build_classifier_model():</span><br><span class="line">  text_input = tf.keras.layers.Input(shape=(), <span class="attribute">dtype</span>=tf.string, <span class="attribute">name</span>=<span class="string">'text'</span>)</span><br><span class="line">  preprocessing_layer = hub.KerasLayer(tfhub_handle_preprocess, <span class="attribute">name</span>=<span class="string">'preprocessing'</span>)</span><br><span class="line">  encoder_inputs = preprocessing_layer(text_input)</span><br><span class="line">  encoder = hub.KerasLayer(tfhub_handle_encoder, <span class="attribute">trainable</span>=<span class="literal">True</span>, <span class="attribute">name</span>=<span class="string">'BERT_encoder'</span>)</span><br><span class="line">  outputs = encoder(encoder_inputs)</span><br><span class="line">  net = outputs[<span class="string">'pooled_output'</span>]</span><br><span class="line">  net = tf.keras.layers.Dropout(0.1)(net)</span><br><span class="line">  net = tf.keras.layers.Dense(1, <span class="attribute">activation</span>=None, <span class="attribute">name</span>=<span class="string">'classifier'</span>)(net)</span><br><span class="line">  return tf.keras.Model(text_input, net)</span><br><span class="line"></span><br><span class="line">classifier_model = build_classifier_model()</span><br><span class="line">bert_raw_result = classifier_model(tf.constant(text_test))</span><br></pre></td></tr></table></figure>
+<p>这里总共定义了 5 层：</p>
+<ol>
+<li>输入层：输入字符串形式的文本数据。</li>
+<li>预处理层：加载预处理模型，将文本数据预处理为 BERT 模型所需的格式。</li>
+<li>BERT 编码层：加载 BERT 模型，并把上一步预处理后的数据传递给 BERT 模型。</li>
+<li>Dropout 层：防止过拟合。Dropout 比例为 0.1。</li>
+<li>全连接层（Dense 层）：输出一个未激活的分数（logits），用于分类任务。</li>
+</ol>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-a80a637368ef105f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h3><span id="7-训练模型">7、训练模型</span></h3>
+<h5><span id="71-损失函数">7.1、损失函数</span></h5>
+<p>由于这是一个二分类问题，并且模型的输出是一个概率，因此损失函数使用 <code>BinaryCrossentRopy</code>。</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">loss</span> = tf.keras.losses.BinaryCrossentropy(from_logits=<span class="literal">True</span>)</span><br><span class="line"><span class="attr">metrics</span> = tf.metrics.BinaryAccuracy()</span><br></pre></td></tr></table></figure>
+<h5><span id="72-优化器">7.2、优化器</span></h5>
+<p>创建优化器。这里使用了 <code>optimization.create_optimizer</code> 函数，用于创建一个优化器实例。优化器类型为 ‘adamw’，即 AdamW 优化器，它是 Adam 优化器的一个变体，适用于权重衰减。</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将训练 5 轮</span></span><br><span class="line"><span class="attr">epochs</span> = <span class="number">5</span></span><br><span class="line"><span class="attr">steps_per_epoch</span> = tf.data.experimental.cardinality(train_ds).numpy()</span><br><span class="line"><span class="attr">num_train_steps</span> = steps_per_epoch * epochs</span><br><span class="line"><span class="attr">num_warmup_steps</span> = int(<span class="number">0.1</span>*num_train_steps)</span><br><span class="line"><span class="comment"># 学习率</span></span><br><span class="line"><span class="attr">init_lr</span> = <span class="number">3</span>e-<span class="number">5</span></span><br><span class="line"><span class="attr">optimizer</span> = optimization.create_optimizer(<span class="attr">init_lr=init_lr,</span></span><br><span class="line">                                          <span class="attr">num_train_steps=num_train_steps,</span></span><br><span class="line">                                          <span class="attr">num_warmup_steps=num_warmup_steps,</span></span><br><span class="line">                                          <span class="attr">optimizer_type='adamw')</span></span><br></pre></td></tr></table></figure>
+<h5><span id="73-编译并训练模型">7.3、编译并训练模型</span></h5>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">classifier_model.compile(<span class="attribute">optimizer</span>=optimizer,</span><br><span class="line">                         <span class="attribute">loss</span>=loss,</span><br><span class="line">                         <span class="attribute">metrics</span>=metrics)</span><br><span class="line"></span><br><span class="line">history = classifier_model.fit(<span class="attribute">x</span>=train_ds,</span><br><span class="line">                               <span class="attribute">validation_data</span>=val_ds,</span><br><span class="line">                               <span class="attribute">epochs</span>=epochs)</span><br></pre></td></tr></table></figure>
+<p>训练过程打印。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Training model with <span class="string">https:</span><span class="comment">//tfhub.dev/tensorflow/small_bert/bert_en_uncased_L-4_H-512_A-8/1</span></span><br><span class="line">Epoch <span class="number">1</span>/<span class="number">5</span></span><br><span class="line"><span class="number">625</span><span class="regexp">/625 [==============================] - 695s 1s/</span>step - <span class="string">loss:</span> <span class="number">0.4986</span> - <span class="string">binary_accuracy:</span> <span class="number">0.7390</span> - <span class="string">val_loss:</span> <span class="number">0.3835</span> - <span class="string">val_binary_accuracy:</span> <span class="number">0.8370</span></span><br><span class="line">Epoch <span class="number">2</span>/<span class="number">5</span></span><br><span class="line"><span class="number">625</span><span class="regexp">/625 [==============================] - 677s 1s/</span>step - <span class="string">loss:</span> <span class="number">0.3318</span> - <span class="string">binary_accuracy:</span> <span class="number">0.8508</span> - <span class="string">val_loss:</span> <span class="number">0.3758</span> - <span class="string">val_binary_accuracy:</span> <span class="number">0.8456</span></span><br><span class="line">Epoch <span class="number">3</span>/<span class="number">5</span></span><br><span class="line"><span class="number">625</span><span class="regexp">/625 [==============================] - 674s 1s/</span>step - <span class="string">loss:</span> <span class="number">0.2568</span> - <span class="string">binary_accuracy:</span> <span class="number">0.8929</span> - <span class="string">val_loss:</span> <span class="number">0.3913</span> - <span class="string">val_binary_accuracy:</span> <span class="number">0.8440</span></span><br><span class="line">Epoch <span class="number">4</span>/<span class="number">5</span></span><br><span class="line"><span class="number">625</span><span class="regexp">/625 [==============================] - 676s 1s/</span>step - <span class="string">loss:</span> <span class="number">0.1964</span> - <span class="string">binary_accuracy:</span> <span class="number">0.9209</span> - <span class="string">val_loss:</span> <span class="number">0.4450</span> - <span class="string">val_binary_accuracy:</span> <span class="number">0.8528</span></span><br><span class="line">Epoch <span class="number">5</span>/<span class="number">5</span></span><br><span class="line"><span class="number">625</span><span class="regexp">/625 [==============================] - 676s 1s/</span>step - <span class="string">loss:</span> <span class="number">0.1593</span> - <span class="string">binary_accuracy:</span> <span class="number">0.9392</span> - <span class="string">val_loss:</span> <span class="number">0.4698</span> - <span class="string">val_binary_accuracy:</span> <span class="number">0.8504</span></span><br></pre></td></tr></table></figure>
+<p>训练结果分析：</p>
+<ul>
+<li>「训练集」的损失值（loss）在每个 epoch 中持续下降，从 0.4986 降低到 0.1593，表明模型在训练集上的拟合效果逐渐变好。</li>
+<li>「训练集」的二分类准确率（binary_accuracy）在每个 epoch 中持续提高，从 73.90% 提高到 93.92%，表明模型在训练集上的分类性能逐渐变好。</li>
+<li>「验证集」的损失值（val_loss）在前两个 epoch 中略有下降，但在第 3 个 epoch 后开始上升，表明模型在验证集上的拟合效果在后期有所下降，可能存在过拟合现象。</li>
+<li>「验证集」的二分类准确率（val_binary_accuracy）保持在 85.04%，表明模型在验证集上的分类性能较为稳定。</li>
+</ul>
+<h5><span id="74-评估模型">7.4、评估模型</span></h5>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">loss, accuracy = classifier_model.evaluate(test_ds)</span><br><span class="line"></span><br><span class="line">print(<span class="string">f'Loss: <span class="subst">&#123;loss&#125;</span>'</span>)</span><br><span class="line">print(<span class="string">f'Accuracy: <span class="subst">&#123;accuracy&#125;</span>'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 782/782 [==============================] - 222s 284ms/step - loss: 0.4493 - binary_accuracy: 0.8542</span></span><br><span class="line"><span class="comment"># Loss: 0.4492934048175812</span></span><br><span class="line"><span class="comment"># Accuracy: 0.8541600108146667</span></span><br></pre></td></tr></table></figure>
+<h5><span id="75-绘制准确率和损失值">7.5、绘制准确率和损失值</span></h5>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">history_dict = history.history</span><br><span class="line"><span class="builtin-name">print</span>(history_dict.keys())</span><br><span class="line"></span><br><span class="line">acc = history_dict[<span class="string">'binary_accuracy'</span>]</span><br><span class="line">val_acc = history_dict[<span class="string">'val_binary_accuracy'</span>]</span><br><span class="line">loss = history_dict[<span class="string">'loss'</span>]</span><br><span class="line">val_loss = history_dict[<span class="string">'val_loss'</span>]</span><br><span class="line"></span><br><span class="line">epochs = range(1, len(acc) + 1)</span><br><span class="line">fig = plt.figure(figsize=(10, 6))</span><br><span class="line">fig.tight_layout()</span><br><span class="line"></span><br><span class="line">plt.subplot(2, 1, 1)</span><br><span class="line"><span class="comment"># r is for "solid red line"</span></span><br><span class="line">plt.plot(epochs, loss, <span class="string">'r'</span>, <span class="attribute">label</span>=<span class="string">'Training loss'</span>)</span><br><span class="line"><span class="comment"># b is for "solid blue line"</span></span><br><span class="line">plt.plot(epochs, val_loss, <span class="string">'b'</span>, <span class="attribute">label</span>=<span class="string">'Validation loss'</span>)</span><br><span class="line">plt.title(<span class="string">'Training and validation loss'</span>)</span><br><span class="line"><span class="comment"># plt.xlabel('Epochs')</span></span><br><span class="line">plt.ylabel(<span class="string">'Loss'</span>)</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line">plt.subplot(2, 1, 2)</span><br><span class="line">plt.plot(epochs, acc, <span class="string">'r'</span>, <span class="attribute">label</span>=<span class="string">'Training acc'</span>)</span><br><span class="line">plt.plot(epochs, val_acc, <span class="string">'b'</span>, <span class="attribute">label</span>=<span class="string">'Validation acc'</span>)</span><br><span class="line">plt.title(<span class="string">'Training and validation accuracy'</span>)</span><br><span class="line">plt.xlabel(<span class="string">'Epochs'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'Accuracy'</span>)</span><br><span class="line">plt.legend(<span class="attribute">loc</span>=<span class="string">'lower right'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="https://upload-images.jianshu.io/upload_images/2708793-50353618be4df90a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h3><span id="8-保存模型">8、保存模型</span></h3>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dataset_name = <span class="string">'imdb'</span></span><br><span class="line">saved_model_path = <span class="string">'./&#123;&#125;_bert'</span>.format(dataset_name.replace(<span class="string">'/'</span>, <span class="string">'_'</span>))</span><br><span class="line"></span><br><span class="line">classifier_model.save(saved_model_path, <span class="attribute">include_optimizer</span>=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+<p>重新加载保存的模型，并进行验证。</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">reloaded_model = <span class="keyword">tf</span>.saved_model.load(saved_model_path)</span><br><span class="line"></span><br><span class="line">def print_my_examples(inputs, results):</span><br><span class="line">  result_for_printing = \</span><br><span class="line">    [<span class="keyword">f</span><span class="string">'input: &#123;inputs[i]:&lt;30&#125; : score: &#123;results[i][0]:.6f&#125;'</span></span><br><span class="line">                         <span class="keyword">for</span> i in <span class="built_in">range</span>(<span class="built_in">len</span>(inputs))]</span><br><span class="line">  <span class="keyword">print</span>(*result_for_printing, sep=<span class="string">'\n'</span>)</span><br><span class="line">  <span class="keyword">print</span>()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">examples = [</span><br><span class="line">    <span class="string">'this is such an amazing movie!'</span>,  # this <span class="keyword">is</span> the same sentence tried <span class="keyword">earlier</span></span><br><span class="line">    <span class="string">'The movie was great!'</span>,</span><br><span class="line">    <span class="string">'The movie was meh.'</span>,</span><br><span class="line">    <span class="string">'The movie was okish.'</span>,</span><br><span class="line">    <span class="string">'The movie was terrible...'</span></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">reloaded_results = <span class="keyword">tf</span>.sigmoid(reloaded_model(<span class="keyword">tf</span>.constant(examples)))</span><br><span class="line">original_results = <span class="keyword">tf</span>.sigmoid(classifier_model(<span class="keyword">tf</span>.constant(examples)))</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span>(<span class="string">'Results from the saved model:'</span>)</span><br><span class="line">print_my_examples(examples, reloaded_results)</span><br><span class="line"><span class="keyword">print</span>(<span class="string">'Results from the model in memory:'</span>)</span><br><span class="line">print_my_examples(examples, original_results)</span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Results from the saved model:</span></span><br><span class="line"><span class="attr">input:</span> <span class="string">this</span> <span class="string">is</span> <span class="string">such</span> <span class="string">an</span> <span class="string">amazing</span> <span class="string">movie!</span> <span class="string">:</span> <span class="attr">score:</span> <span class="number">0.999361</span></span><br><span class="line"><span class="attr">input:</span> <span class="string">The</span> <span class="string">movie</span> <span class="string">was</span> <span class="string">great!</span>           <span class="string">:</span> <span class="attr">score:</span> <span class="number">0.989547</span></span><br><span class="line"><span class="attr">input: The movie was meh.             : score:</span> <span class="number">0.856317</span></span><br><span class="line"><span class="attr">input: The movie was okish.           : score:</span> <span class="number">0.022705</span></span><br><span class="line"><span class="attr">input: The movie was terrible...      : score:</span> <span class="number">0.001032</span></span><br><span class="line"></span><br><span class="line"><span class="attr">Results from the model in memory:</span></span><br><span class="line"><span class="attr">input:</span> <span class="string">this</span> <span class="string">is</span> <span class="string">such</span> <span class="string">an</span> <span class="string">amazing</span> <span class="string">movie!</span> <span class="string">:</span> <span class="attr">score:</span> <span class="number">0.999361</span></span><br><span class="line"><span class="attr">input:</span> <span class="string">The</span> <span class="string">movie</span> <span class="string">was</span> <span class="string">great!</span>           <span class="string">:</span> <span class="attr">score:</span> <span class="number">0.989547</span></span><br><span class="line"><span class="attr">input: The movie was meh.             : score:</span> <span class="number">0.856317</span></span><br><span class="line"><span class="attr">input: The movie was okish.           : score:</span> <span class="number">0.022705</span></span><br><span class="line"><span class="attr">input: The movie was terrible...      : score:</span> <span class="number">0.001032</span></span><br></pre></td></tr></table></figure>
+<p>使用内存中的模型，与保存的模型，进行验证，结果相同，都对影评进行了正确分类。</p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2025/02/03/GPT-有意识吗？/" data-toggle="tooltip" data-placement="top" title="GPT 有意识吗？">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2023/04/11/ChatGPT-简介/" data-toggle="tooltip" data-placement="top" title="万字详解 ChatGPT 原理">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">1、依赖包</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">2、IMDB 影评数据集</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">3、使用 TensorFlow Hub的加载模型</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">4、模型预处理</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">5、使用BERT模型</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">6、定义模型</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">7.</span> <span class="toc-nav-text">7、训练模型</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">7.0.1.</span> <span class="toc-nav-text">7.1、损失函数</span></a></li><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">7.0.2.</span> <span class="toc-nav-text">7.2、优化器</span></a></li><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">7.0.3.</span> <span class="toc-nav-text">7.3、编译并训练模型</span></a></li><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">7.0.4.</span> <span class="toc-nav-text">7.4、评估模型</span></a></li><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">7.0.5.</span> <span class="toc-nav-text">7.5、绘制准确率和损失值</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">8.</span> <span class="toc-nav-text">8、保存模型</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#机器学习" title="机器学习">机器学习</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://www.jianshu.com/u/5fa5459c7b02" target="_blank">简书</a></li>
+                    
+                        <li><a href="https://github.com/hezongjiang" target="_blank">Github</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "your-disqus-ID";
+    var disqus_identifier = "https://hezongjiang.github.io/2025/01/04/基于-BERT-的影评文本分类/";
+    var disqus_url = "https://hezongjiang.github.io/2025/01/04/基于-BERT-的影评文本分类/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/hezongjiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; He Zongjiang 2025 
+                    <br>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://hezongjiang.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://hezongjiang.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

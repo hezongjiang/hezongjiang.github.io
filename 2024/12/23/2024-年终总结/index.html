@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="The only thing we fear is fear itself.">
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          2024 年终总结 - 小道消息&#39;s notes
+        
+    </title>
+
+    <link rel="canonical" href="https://hezongjiang.github.io/2024/12/23/2024-年终总结/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('null')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#个人总结" title="个人总结">个人总结</a>
+                            
+                        </div>
+                        <h1>2024 年终总结</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by He Zongjiang on
+                            2024-12-23
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">小道消息&#39;s notes</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p>周会时，老大提到下个月办年会，才忽然觉察到又是年底了，回想去年的年会，仿佛是上个月刚发生的事情，但这一转眼，去年搭车的同事都已经离职很久了，今年要换人蹭车了。</p>
+<p>回顾一下自己的今年，又是多愁善感的一年。从 30 岁开始，自己开始变焦虑了，开启了上有老下有小的日子，浑身都是弱点，生活变得小心翼翼，不能再像以前那样放肆了，讽刺的是自己今年还写了篇文章<a href="https://www.jianshu.com/p/d982c66ec673" target="_blank" rel="noopener">《再不疯狂我们就老了》</a>，一方面提醒自己要去做一些想做而没做的事情，另一方面又小心谨慎的生活，回头却发现已逐渐步入中年，也失去了疯狂的资格，可能普通人的一生就是这样普通吧。</p>
+<p>扯太远了，还是老老实实回顾一下自己普通的一年吧。</p>
+<h2><span id="1-钢琴">1、钢琴</span></h2>
+<p>现在自己最大的兴趣爱好应该就是弹琴了，虽然自己仍然处于菜鸟阶段，简单的曲子都弹的磕磕绊绊，但不妨碍自我陶醉，唯一的遗憾就是跟去年相比，并没有进步。今年没有学会一首新曲，只是把以前的曲子复习了几遍。并不是自己偷懒了，而是弹新曲需要大段的时间，但现阶段，时间太宝贵了。甚至有次做梦，梦到自己在教室里弹琴，是架“真正的”钢琴，但水平有限，弹不好，真可惜。钢琴方面跟自己在去年的总结里想的一样，希望明年情况会不会好转。</p>
+<h2><span id="2-烫头">2、烫头</span></h2>
+<p>今年做了一件“疯狂”的事情，那就是烫头，人生第一次烫头，烫了个卷发，挺好看的，以至于头发老长了都舍不得剪，明年还想做一件“疯狂”的事情，那就是染发，染个黄头发试试，整点花活。</p>
+<h2><span id="3-孩子">3、孩子</span></h2>
+<p>翻翻手机相册，自从崽子们出生后，相册里全是他们的照片了，今年的重头戏也全在照看孩子了，特别是有对龙凤胎，每次出去遛娃，别人都投来羡慕的眼光，但其中的辛苦只有自己能体会，特别是是晚上，在他们的轮番轰炸，整个人脑袋都是“嗡嗡”响，恨不得用胶带把他们嘴巴粘住，但又无可奈何。<br>
+另一方，自己每天回家第一件事就是看看他们，每次买零食都考虑他们，每个周末都想着带他们去哪玩，每次上班时看到爸妈在群里发他们的视频，自己嘴角不自觉的上扬，心都要被他们融化了，真是又爱又恨。特别是前几天阳阳胳膊脱臼，晚上带去医院，心里的那份焦急，只有身为父母才能体会到，当时在医院里抱着阳阳，忽然想到了自己的父母，也是深夜带我去医院，现在轮到我们为自己的孩子奔波了，为人父母才真正体会到那份沉甸甸的责任和爱。<br>
+爸爸跟我说，当年我出生后，我爷爷奶奶开心的不得了，而他自己却觉得没什么。如今他自己当了爷爷，也终于体会到当年我爷爷的那种心情，也许只有到了那个阶段，才能体会那种心情。</p>
+<h2><span id="4-大佛寺">4、大佛寺</span></h2>
+<p>大佛寺应该是今年我和老婆唯一的一次外出了。再次来到大佛寺，大佛寺还是那样钟鸣鼎食，我和老婆的心情也愉悦了很多。这次是来还愿的，但时间紧任务重，还完愿，匆匆看了一圈便返回了，全部加起来也就半天。<br>
+崽们出生后，除了上班，基本就没离开过他们，我和老婆的二人世界也不复存在了，可能未来的很多年，都没法像之前一样“逍遥快活”了，以至于和老婆出去半天都是件奢侈的事情。希望我们以后还能有自己的生活，不过那应该是很多年以后的事情了，也许到那一天时，皱纹也已经慢慢攀上了我和老婆的面庞，也许到那时我手上的皮肤也像爷爷一样可以揪起来了，也许到那时我又希望他们能在我们身边了。人呐，总是向往自己没有的，却忽视自己拥有的。</p>
+<h2><span id="5-工作">5、工作</span></h2>
+<p>今年的工作只能说是起起伏伏吧。上半年工作还算顺利，在当下大环境不好的情况下，还有升职加薪，绩效也得了 A。下半年转到了商品组，一下子又打回原形。之所以转到商品组，主要原因是自己在营销组待了近 4 年，也想看看其他组的技术风格、团队氛围、管理模式，多见见不一样的事情，又恰逢团队调整，于是就转到了商品组。但过来后才发现，商品组已经很成熟了，一个萝卜一个坑，好位置已经被选完了，只剩下一些边角料，自己刚到新团队，也不会给核心业务，所以只能自己主动多参与到团队事物中，多出声，多露脸。</p>
+<h2><span id="6-副业">6、副业</span></h2>
+<p>与之前相比最大的不同应该是在副业上迈出了第一步，开始做副业了，开了个网店卖东西，美其名曰“跨境电商”。第一次做，很多信息自己都不知道，但能迈出这一步就是好的，也许未来副业在我的工作时间比例会越来越大，自己也需要更多的思考副业的事情。<br>
+当自己开始做副业后，很多思维方式都变了，看到小区门口的小店不卖早餐，自己想着盘下做早餐店，但因自己要上班而放弃，想喝杯奶茶时，先看看自己今天卖了几单，但看看自己那可怜的个位数出单量而放弃。自己在的公司就是做跨境电商，也会经常把自己带入进去。总之做了副业之后，给自己带来的最大影响就是消费降级，因为自己当了老板，知道了每一块钱都来之不易。</p>
+<h2><span id="7-读书">7、读书</span></h2>
+<p>回顾一下自己今年的读书情况。<br>
+电子书方面，今年给自己印象最深的是《芯片战争》这本书，这是一位美国副教授 2022 年出版的一本书，当时正值中美摩擦，重点就是芯片。通过这本书，自己了解了当前科技的顶尖技术，没错，芯片技术真的能代表人类科技的尖峰，而自己本科专业是电子信息，但却从没了解过这项顶尖技术，直到看到这本书。一般遇到好书，自己都会多看几遍，这本也不例外。<br>
+另一本电子书是《园丁与木匠》，这是多年前的一本育儿书，当时觉得不错，看完后收藏了，今年自己有小孩了，于是又翻出来，和老婆一起听。<br>
+纸质书方面，今年看的是《孙子兵法与三十六计》，最初看到这本书是在大姑家，要是以前自己大概率不会去看这种书，觉得都是噱头，但去年《狂飙》的爆火意外带火了孙子兵法，所以自己也拿起来看看，结果拿起就放不下了，书好看是事实，另一方面也可能是自己年纪大了，书中很多内容都能与自己经历结合起来了，所以自己会觉得好看了。<br>
+总体来说，读书方面比去年少，因为买的“得到”课程到期了，也没再买，明年再续上。</p>
+<h2><span id="8-全家福">8、全家福</span></h2>
+<p>说到全家福，我的第一印象是我很小的时候在湘潭拍的一张，照片上只有我和爸妈仨人，而我完全不记得拍这张全家福的时候，只是多年后在相册里看到。<br>
+崽们出生后，我们家变成大户人家了，大户人家怎么能没有全家福？国庆后，和爸妈一起带着两只小兔崽子拍了第一套全家福。<br>
+这次全家福意义非凡，我作为主角登上了家庭的舞台，开始成为了家里的顶梁柱。爸妈已经老了，孩子们还小，我也能感觉到肩上的责任变重了。也许下一次拍全家福，就是两只小兔崽子作为主角登上了家庭舞台的时候了。</p>
+<h2><span id="9-县委大院">9、县委大院</span></h2>
+<p>这部电视剧是我在年底听的解说，没想到在年底还能无意中遇到这么精彩的电视剧，像一颗彩蛋。主要还是解说精彩，从两个角度——县长的角度和一个基层公务员的角度——展现了一个县里发生的事情，特别是对我这种工作很多年，却还像职场小白的人来说，简直就是冬天里的一把火。真的是年纪大了，无论是读书还是看剧，品味都变了，这种职场剧，特别是 ZF 职场剧，以前的自己绝对嗤之以鼻，而今天看来，真香。简直是屠龙少年变成恶龙的故事。</p>
+<h2><span id="今年的不足">今年的不足</span></h2>
+<p>今年又是 AI 大爆发的一年，特别是年底，整个 12 月，好像整个 AI 领域突然发起了一场年终业绩冲刺，很多王炸级的产品集中上线。这些产品放在平时，几乎每个都能占据几天的热搜。但自己在 AI 方面的了解却非常滞后。<br>
+还记得几年前在“得到”听到「二十一世纪真正有影响里的公司现在还没创立」，我当时觉得怎么可能，要知道那时苹果的市值刚刚突破 1 万亿美元，这还不算有影响力的公司？但随着 ChatGPT 的横空出世，以及现在几乎每天都在更新迭代的 AI 技术，我逐渐相信这句话了，世界变化太快了，“吓尿指数”越来越小，大语言模型还不熟悉，大世界模型又杀了出来。而这么快的更新速度，自己都不知道该去哪里学习了。<br>
+现在自己对 AI 的理解和使用都还停留在很浅的层面，在公众号买了课程也没时间看，明年的计划需要增加这部分了。</p>
+<h2><span id="未来">未来</span></h2>
+<p>1、学习<br>
+过去的一年里，自己的技术类文章大大减少，未来应该把重点放在学习上，无论是在本职技术上，亦或是新学的知识上，特别是 AI 技术的学习，都应该扩充，因此未来的一年里，学习应该放在首位。</p>
+<p>2、运动<br>
+这一年的运动基本达标，几乎每周都会打次羽毛球。不过去年定的目标是带老婆打羽毛球，但已经很久没和老婆打球了，这点要加强。今年年底和老婆带孩子去了很多次大草原，以后去大草原打球。</p>
+<p>3、看电影<br>
+去年的计划里也写了看电影，但都像完成任务一样，带老婆看了两场电影，主要原因还是崽们离不开人，今年就再定个任务，带老婆看三场电影，比去年多一场。</p>
+<p>4、读书<br>
+听说《津巴多普通心理学》是一本比小说还好看的心理学书籍，去图书馆借了几次都没借到，买一本看看，明年看完。另外“得到”的课程也需要再买了，对自我提升很有帮助，特别是能在老婆面前 show off 一把，每次老婆都用充满好奇的眼光打量我哪来这么多知识，其实很多都是“得到”里听来的。</p>
+<p>5、工作<br>
+虽然自己的工作不愠不火，没什么起色，但仍然要充满信心，积极主动参与到团队日常工作中，今年也是破天荒的写了一篇自我反思<a href="https://www.jianshu.com/p/94d47003c2b1" target="_blank" rel="noopener">《一位大龄程序员的反思》</a>，这也是写了这么多年总结以来，第一次把工作写进来年的计划里，，一定要重视起来，突破自己。</p>
+<p>6、副业<br>
+今年的电商算是第一份副业，一方面需要继续深挖，另一方副业的空间也是广阔的，也需要多看看其他机会，例如在小红书卖照片修复也算，还计划着明年卖课程。先定下基调，走一步看一遍。</p>
+<p>努力吧，不再年轻的少年。道阻且长，行则将至，行而不辍，未来可期。</p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2025/01/04/基于-BERT-的影评文本分类/" data-toggle="tooltip" data-placement="top" title="基于 BERT 的影评文本分类">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2023/12/29/2023-年终总结/" data-toggle="tooltip" data-placement="top" title="2023 年终总结">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">1、钢琴</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">2、烫头</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">3、孩子</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">4、大佛寺</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">5、工作</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">6、副业</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">7.</span> <span class="toc-nav-text">7、读书</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">8.</span> <span class="toc-nav-text">8、全家福</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">9.</span> <span class="toc-nav-text">9、县委大院</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">10.</span> <span class="toc-nav-text">今年的不足</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">11.</span> <span class="toc-nav-text">未来</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#个人总结" title="个人总结">个人总结</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://www.jianshu.com/u/5fa5459c7b02" target="_blank">简书</a></li>
+                    
+                        <li><a href="https://github.com/hezongjiang" target="_blank">Github</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "your-disqus-ID";
+    var disqus_identifier = "https://hezongjiang.github.io/2024/12/23/2024-年终总结/";
+    var disqus_url = "https://hezongjiang.github.io/2024/12/23/2024-年终总结/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/hezongjiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; He Zongjiang 2025 
+                    <br>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://hezongjiang.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://hezongjiang.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="The only thing we fear is fear itself.">
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          2021 年终总结 - 小道消息&#39;s notes
+        
+    </title>
+
+    <link rel="canonical" href="https://hezongjiang.github.io/2021/12/25/2021-年终总结/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('null')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#个人总结" title="个人总结">个人总结</a>
+                            
+                        </div>
+                        <h1>2021 年终总结</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by He Zongjiang on
+                            2021-12-25
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">小道消息&#39;s notes</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p>2021 年马上又过去了，之前都是在年后写总结，这次提前到年前了。</p>
+<p>在写 2021 年终总结前，看了看自己 <a href="https://www.jianshu.com/p/5d1bbaa95c3f" target="_blank" rel="noopener">去年的年终总结</a>，感慨万千。已经写了 3 年的总结，这是第 4 年。</p>
+<p>今年比去年好，去年定的计划基本都完成了。</p>
+<h2><span id="pmp">PMP</span></h2>
+<p>今年收获的第一份礼物是 PMP 考过了。</p>
+<p>考试并不难，难的是题量大。当时处在工作低迷期，白天应对不知该如何应对的工作，晚上拖着疲惫的身体，回到出租房内，开始做题。没有桌子，没有凳子，就把快递盒垒起来，当桌子，再在地上垫一张纸，当作凳子，开始自己的刷题之旅。</p>
+<p>题目很多，写着写着就走神了，于是在心里默念 3900。这是考试费用，这个数字比咖啡都提神。</p>
+<p>在收到考试通过的邮件时，那是近半年来最开心的时刻了，也冲淡了工作的压力，感觉一切都值得。</p>
+<h2><span id="羽毛球">羽毛球</span></h2>
+<p>去年，工作压力大，身心疲惫，幸好公司周二晚是运动日，可选篮球或羽毛球，之前一直是去打篮球，可自己菜鸟的水平，去了也是拖后腿，工作不顺利，篮球拖后腿，搞得心情更郁闷，但是今年发现新大陆了。</p>
+<p>由于打篮球伤了手，于是转战羽毛球，嗯？好像羽毛球更适合我。</p>
+<p>虽然刚去的时候依然是拖后腿，但上手容易啊，重点是在羽毛球中找到了自信，认识了更多的同事，自己摇摇欲坠的身体，也开始逐渐转好，一切都在往好的方向发展。</p>
+<h2><span id="工作与新同事">工作与新同事</span></h2>
+<p>今年 3 月份的时候入职了一名新同事，坐我旁边，因此关系还不错。认识他，让我刷新了对工作的认识。</p>
+<p>说实话，如果只谈技术水平，我两差不多，半斤八两。</p>
+<p>但是，他的工作能力实在太强了，推动项目进展、发现代码问题、与人沟通协作，都比我强太多。不止比我强，也比我周围的同事强太多。短短半年，就从新入职同事，变成了老大的得力助手。</p>
+<p>最难的不是解决问题，而是发现问题。在他身上，我知道自己的问题在哪了，知道自己该怎么做了，虽然我学的很慢，但至少有了方向，知道了目标。</p>
+<h2><span id="孕">孕</span></h2>
+<p>有一个好消息和一个坏消息，你要听哪个？如果可以选择，多希望没有坏消息。</p>
+<p>年中，妻子怀孕了。</p>
+<p>由于去年工作压力大，身体摇摇欲坠，导致妻子怀孕难，好不容易怀上，可不知什么原因，流产了。</p>
+<p>妻子很伤心，那天她还在上班，中午是同事送到医院，而我是晚上才到。虽然早有预感，可真正来临的时候，她还是在我怀里哭了，我们的第一个孩子就这样没了。</p>
+<h2><span id="搬家">搬家</span></h2>
+<p>年初交房，年底终于搬家了，我也住进了自己的家，虽然还欠着银行 190+ 万，但是……但是……没有但是，就是我的房。</p>
+<p>搬了新家，离公司远了点，于是就在公司待到晚十点，晚十点打车回去能报销，第二天还能十一点再上班。这就有了自己的时间，八点起床，十点出门。这俩小时是属于自己的，打算买些书来看。电子书看不习惯，还是纸质书有感觉。</p>
+<p>前两天鲁迅的文章又火了，不对，是一直很火，打算买点鲁迅的书。</p>
+<h2><span id="酒">酒</span></h2>
+<p>年初，陈老师组织了一次聚餐。</p>
+<p>刚巧公司发福利，其中有一瓶果酒，晚上聚餐时，我把这瓶果酒也带去了，没想到陈老师对这瓶酒有如此深刻的印象，以至于时隔大半年，在我搬家的聚会上，陈老师又提到了这瓶酒，让陈老师看到我工作后的“成长”。</p>
+<p>其实，只是运气，我也不知道为啥那天会鬼使神差的带一瓶酒过去。</p>
+<p>这个故事告诉我，以后聚餐需要带一瓶酒过去。</p>
+<h2><span id="考公">考公</span></h2>
+<p>去年工作压力很大，天天加班，付出很多，收获却很少，在这种压力下，身体也出现不适。</p>
+<p>偶然在公众号上看见程序员考公，当时就心动了，于是在去年的年终总结里顺便提了一句，没想到今年自己真的去考公了，虽然只是试水，但公考给了自己多一条路。</p>
+<p>以前从来没想过考公，认为年轻就应该拼搏，但一转眼，再过几天，自己就虚岁三十了，也已不再年轻，特别是去年自己的身体特别不好，于是萌生了考公的想法。</p>
+<p>原来自己瞧不上的工作，现在却成为了追求的工作。</p>
+<h2><span id="三十">三十</span></h2>
+<p>是的，自己已虚岁三十，到了而立之年。幸好，自己也是真的立下来了，在广州买了房，有了家，也已逐渐明白而立二字的含义。</p>
+<p>母亲今年来广州，在送母亲回去的地铁上，在这个陌生的城市，她显得战战兢兢。也让我明白了，现在到了自己开始保护父母的阶段了。</p>
+<p>下个月，父亲应该就要退休了。在家里，父亲还是那么“大男子主义”。现在，应该由我接过接力棒，轮到我“大男子主义”了。</p>
+<p>小时候，有事情找爸妈，感觉没啥是爸妈解决不了的，现在应该到父母有事情找我了。可每次打电话回家，爸妈却总在问我们有没有什么困难，钱够不够。</p>
+<p>可能他们还没意识到我已三十了，我已不再是孩子了，到了我照顾他们的年龄了。但在他们眼里，我永远是孩子。父亲曾说过，无论我多大，也永远是他的孩子。越长大，也越明白父母对自己的爱。</p>
+<h2><span id="回顾">回顾</span></h2>
+<p>回顾一下去年的总结，去年对自己的几点期望：身体、软考、英语、粤语、工作、学习、考公……自己目标太多，现在总结一下。</p>
+<ol>
+<li>
+<p>自己的身体在逐渐好转，每周坚持打羽毛球🏸️。顺便提一下，自己在公司的乒乓球🏓️比赛中，幸运的拿了男双第二名，乒乓球哦🏓️，真的是幸运。</p>
+</li>
+<li>
+<p>软考高级在历经 5 次报名，3 次考试后，终于通过了，几年的付出，在有史最难的一次考试中，得到了回报。</p>
+</li>
+<li>
+<p>今年找到了《magic tree house》英文故事，开始听故事，找了很多英语学习方法，发现 B 站是个学习宝库，在上面还找了很多科普视频，得到还在听，丰富自己的知识面。</p>
+</li>
+</ol>
+<h2><span id="未来">未来</span></h2>
+<p>说实话，去年的目标，今年大多都实现了，但没有下一个计划了，现在粗略定一下 2022 年的计划。</p>
+<p>首先是考公。毕竟已三十了，程序员不知是否能长久，所以才考 PMP、软考这些管理类的考试，希望之后能往管理层发展，但现在自己还只是最底层的程序员。而自己也不想太累，希望更多陪伴，更少的压力（感觉自己快躺平了😂），所以再试试考公。</p>
+<p>说实话，在备战公考的过程中，自己也学习到了很多知识，如果不涉及真的想不到，真是世事洞明皆学问。</p>
+<p>看书。看实体书，每天尽量抽出时间来，很多好书，学习一定不能忘。</p>
+<p>英语。无论什么时候，学英语都不晚。</p>
+<p>身体。身体是革命的本钱，无论什么时候这个不能忘，每周至少一次羽毛球，保障身体健康。</p>
+<p>陪伴父母。如果从大一到外地读大学开始算，如今已离家整整十年了。现在也越能体会父母了，每周打个电话回家，其实也没啥事，聊些家长里短的事情。</p>
+<p>和父亲视频的时候，母亲在旁边一副跃跃欲试的表情，等父亲把手机给她，她拿过手机却说也没啥事。其实父母在视频里看见我就很开心了。</p>
+<p>明年父母都退休了，让他们来广州住住，也可也找时间和他们一起去北京看看，记得很多年前父亲就想去北京。</p>
+<p>最后就是工作了，多看，多想，多总结，积极主动，朝着 Flag 前进。</p>
+<p><strong><em>2020 是低迷的一年，2021 是成长的一年，2022 是美好的一年。</em></strong></p>
+<p>圣诞节于深圳科</p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2023/01/01/2022-年终总结/" data-toggle="tooltip" data-placement="top" title="2022 年终总结">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2021/01/06/2020-年终总结/" data-toggle="tooltip" data-placement="top" title="2020 年终总结">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">PMP</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">羽毛球</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">工作与新同事</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">孕</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">搬家</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">酒</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">7.</span> <span class="toc-nav-text">考公</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">8.</span> <span class="toc-nav-text">三十</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">9.</span> <span class="toc-nav-text">回顾</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">10.</span> <span class="toc-nav-text">未来</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#个人总结" title="个人总结">个人总结</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://www.jianshu.com/u/5fa5459c7b02" target="_blank">简书</a></li>
+                    
+                        <li><a href="https://github.com/hezongjiang" target="_blank">Github</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "your-disqus-ID";
+    var disqus_identifier = "https://hezongjiang.github.io/2021/12/25/2021-年终总结/";
+    var disqus_url = "https://hezongjiang.github.io/2021/12/25/2021-年终总结/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/hezongjiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; He Zongjiang 2025 
+                    <br>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://hezongjiang.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://hezongjiang.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

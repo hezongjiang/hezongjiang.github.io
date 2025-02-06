@@ -146,14 +146,14 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -213,6 +213,167 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2019/09/30/你的系统如何支持高并发/">
+        <h2 class="post-title">
+            你的系统如何支持高并发
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            一、从一道面试题开始
+面试一家公司，上来就问：项目中是怎么解决高并发的？
+看来高并发这个问题在面试中是逃离不了了，现在写一点自己浅薄的理解。我觉得要回答这个问题可以从这几个方面入手：
+第一、硬件层面，服务器用更大的内存，更好的硬盘。考虑到 Money，这肯定不是面试官想听的答案，不过可以提上一嘴。
+第二、软件层面，这也是重点，先简单介绍一下，后面再详细......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by He Zongjiang on
+            2019-09-30
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#服务端开发" title="服务端开发">服务端开发</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/09/30/由浅入深-MySQL-索引原理/">
+        <h2 class="post-title">
+            由浅入深 MySQL 索引原理
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            〇、索引的作用
+索引的作用：快速找出特定的行。
+如果不使用索引，为了从数据库中查找特定的数据，那么就必须从第一条记录开始，遍历整张表，直到找出相关的行。数据量越大，查询数据所花费的时间就越多。
+如果表中查询的列有一个索引，MySQL 能通过索引，够快速到达一个位置去搜索数据文件，而不必查看所有数据，那么将会节省很大一部分时间。就行翻字典一样，我们需要查......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by He Zongjiang on
+            2019-09-30
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#服务端开发" title="服务端开发">服务端开发</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/07/20/白话'一致哈希'/">
+        <h2 class="post-title">
+            白话'一致哈希'
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            在了解一致性哈希算法之前，最好先了解一下缓存中的一个应用场景，了解了这个应用场景之后，再来理解一致性哈希算法，就容易多了，也更能体现出一致性哈希算法的优点，那么，我们先来描述一下这个经典的分布式缓存的应用场景。
+一、场景描述
+假设，我们有三台缓存服务器，用于缓存图片，分别为 0 号、1 号、2 号，现在，有 3 万张图片需要缓存，我们希望这些图片被均匀......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by He Zongjiang on
+            2019-07-20
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#服务端开发" title="服务端开发">服务端开发</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/06/07/Let-s-Go-Lhasa/">
+        <h2 class="post-title">
+            Let's Go Lhasa
+        </h2>
+        <h3 class="post-subtitle">
+            我们去旅游
+        </h3>
+        <div class="post-content-preview">
+            拉萨
+不是所有人都会来到这里，但来过就会忘记。
+走进拉萨，有数不尽的理由，每一条都足以让热衷梦想的人怦然心动。
+走进拉萨，也根本无需理由，仅仅是这个名字本身，就足以让人魂牵梦绕。
+
+
+拉萨，像一个梦，总是萦绕心头挥之不去，终于，在那一日，我们终于踏上了这神秘的雪域高原。在拉萨这座魅力无限的雪域圣城里，能看到古老的寺庙、接触神秘的宗教、邂逅虔诚的朝拜者、......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by He Zongjiang on
+            2019-06-07
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Love" title="Love">Love</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/04/23/SpringBoot-上传图片/">
+        <h2 class="post-title">
+            SpringBoot 上传图片
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            思路
+一般情况下都是将用户上传的图片放到服务器的某个文件夹中，然后将图片在服务器中的路径存入数据库。本Demo也是这样做的。
+由于用户自己保存的图片文件名可能跟其他用户同名造成冲突，因此本Demo选择了使用时间戳来生成随机的文件名解决冲突。
+本Demo不涉及任何有关数据库的操作。
+创建idea默认的springboot项目，版本是2.X
+第一步：
+新建......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by He Zongjiang on
+            2019-04-23
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#服务端开发" title="服务端开发">服务端开发</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -365,153 +526,6 @@ iOS 响应者链(Responder Chain)是支撑 App 界面交互的重要基础，点
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2019/01/30/情书-5/">
-        <h2 class="post-title">
-            情书(5)
-        </h2>
-        <h3 class="post-subtitle">
-            我与亚莉的故事
-        </h3>
-        <div class="post-content-preview">
-            亚莉亲启：
-明天你就要回家了，你看到这封信的时候应该是在高铁上吧，之前说好的过年陪你回家，这次又食言了，我很抱歉，这也不是我第一次食言了，有很多次，但是每一次我都记在心里，从未忘记。明年我有很多计划，首先我要陪你看海，地点我已经想好了，咱们去大理苍山洱海，真的很久没有陪你出去旅游了，如果我没记错，咱们最后一次旅游应该是去的梵净山了，那都是大三时候的事了......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by He Zongjiang on
-            2019-01-30
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Love" title="Love">Love</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2019/01/23/Linux-安装-Python-3-x/">
-        <h2 class="post-title">
-            Linux 安装 Python 3.x
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            一般来说，Linux 都自带了 Python 2.x
-12# python --versionPython 2.7.10
-如果本机安装了 Python 2.x，尽量不要管它，使用 Python3 运行Python 3.x 脚本就好，因为可能有程序依赖目前的 Python 2 环境，
-比如yum！不要动现有的 Python 2 环境！下面我们直接安装 P......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by He Zongjiang on
-            2019-01-23
-        </p>
-        <div class="tags">
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2019/01/22/SpringBoot-缓存技术浅谈/">
-        <h2 class="post-title">
-            SpringBoot 缓存技术浅谈
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            一、为什么要缓存
-随着时间的积累，应用的使用用户不断增加，数据规模也越来越大，往往数据库查询操作会成为影响用户使用体验的瓶颈，数据库的访问越少越好，此时使用缓存往往是解决这一问题非常好的手段之一。
-在开发中，如果相同的查询条件去频繁查询数据库, 会给数据库带来很大的压力。因此，我们需要对查询出来的数据进行缓存,这样客户端只需要从数据库查询一次数据，然后......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by He Zongjiang on
-            2019-01-22
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#服务端开发" title="服务端开发">服务端开发</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2019/01/13/iOS-HealthKit-与-CoreMotion-——-计步器/">
-        <h2 class="post-title">
-            iOS HealthKit 与 CoreMotion —— 计步器
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            一、HealthKit 简介
-HealthKit 是 Apple 在 iOS 8 推出的一款与健康有关的 API ，它提供了一种优雅的方式来获取和存储用户的健康数据。在 iOS 8 Apple 加入了一个健康APP，用来整合不同来源的数据。这些数据包括个人的身高、体重、血型等基本信息，步行+跑步距离、步数等健身信息等。
-在本篇 HealthKit 教程......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by He Zongjiang on
-            2019-01-13
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#iOS开发" title="iOS开发">iOS开发</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2019/01/10/情书-3/">
-        <h2 class="post-title">
-            情书(3)
-        </h2>
-        <h3 class="post-subtitle">
-            亚莉与我的故事
-        </h3>
-        <div class="post-content-preview">
-            我从没有像现在这样爱你。我感觉自己很幸运，自从进入大学以来，你就一直陪着我。
-今天从同学那里听说你是405寝室最可怜的一个男人，我想了好多，以前我是不是做的太过分？让别人有这种感觉，而你自己的感觉又是什么？或多或少都有点埋怨我了吧？宗江，我任性。我严格，我哪里不对你一定要告诉我。我是真的打算种你在一起一辈子的，可是一辈哪里就那么容易了呢？我们要过的坎要......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by He Zongjiang on
-            2019-01-10
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Love" title="Love">Love</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -552,11 +566,15 @@ HealthKit 是 Apple 在 iOS 8 推出的一款与健康有关的 API ，它提供
     <div class="tags">
         
             
-            <a href="/tags/#AppleWatch" title="AppleWatch" rel="8">AppleWatch</a>
+            <a href="/tags/#个人总结" title="个人总结" rel="6">个人总结</a>
             
         
             
             <a href="/tags/#机器学习" title="机器学习" rel="19">机器学习</a>
+            
+        
+            
+            <a href="/tags/#AppleWatch" title="AppleWatch" rel="8">AppleWatch</a>
             
         
             
@@ -580,7 +598,7 @@ HealthKit 是 Apple 在 iOS 8 推出的一款与健康有关的 API ，它提供
             
         
             
-            <a href="/tags/#生活随笔" title="生活随笔" rel="6">生活随笔</a>
+            <a href="/tags/#生活随笔" title="生活随笔" rel="5">生活随笔</a>
             
         
     </div>
